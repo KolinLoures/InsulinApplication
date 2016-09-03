@@ -1,0 +1,17 @@
+<resources>
+    <!--Fonts-->
+    <string name="Roboto_Light" translatable="false">sans-serif-light</string>
+    <string name="Roboto_Medium" translatable="false">sans-serif-medium</string>
+
+    <string name="app_name">TestApplication2</string>
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="calculator">Калькулятор</string>
+    <string name="products">Продукты</string>
+    <string name="about_system">О системе…</string>
+    <string name="step_up_case">ШАГ</string>
+    <string name="card_products_for_every_day_additional_text">Списки продуктов повседневной жизни</string>
+    <string name="restaurants">Рестораны</string>
+    <string name="card_restaurant_additional_text">Меню наиболее популярных ресторанов</string>
+
+</resources>
