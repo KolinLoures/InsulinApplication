@@ -1,4 +1,4 @@
-package com.example.kolin.testapplication.products;
+package com.example.kolin.testapplication.presentation.calculator;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -9,15 +9,15 @@ import android.view.ViewGroup;
 
 import com.example.kolin.testapplication.R;
 
+public class CalculatorFragment extends Fragment {
 
-public class ProductsFragment extends Fragment {
 
-    public ProductsFragment() {
+    public CalculatorFragment() {
     }
 
 
-    public static ProductsFragment newInstance() {
-        ProductsFragment fragment = new ProductsFragment();
+    public static CalculatorFragment newInstance() {
+        CalculatorFragment fragment = new CalculatorFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
@@ -31,13 +31,13 @@ public class ProductsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_products, container, false);
+        return inflater.inflate(R.layout.fragment_calculator, container, false);
     }
-
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
+
     }
 
     @Override

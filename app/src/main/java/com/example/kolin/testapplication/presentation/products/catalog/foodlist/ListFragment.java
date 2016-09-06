@@ -1,6 +1,7 @@
-package com.example.kolin.testapplication.calculator;
+package com.example.kolin.testapplication.presentation.products.catalog.foodlist;
 
 import android.content.Context;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -9,15 +10,17 @@ import android.view.ViewGroup;
 
 import com.example.kolin.testapplication.R;
 
-public class CalculatorFragment extends Fragment {
+public class ListFragment extends Fragment {
 
 
-    public CalculatorFragment() {
+
+
+    public ListFragment() {
+        // Required empty public constructor
     }
 
-
-    public static CalculatorFragment newInstance() {
-        CalculatorFragment fragment = new CalculatorFragment();
+    public static ListFragment newInstance(String param1, String param2) {
+        ListFragment fragment = new ListFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
@@ -31,7 +34,13 @@ public class CalculatorFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_calculator, container, false);
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_list, container, false);
+    }
+
+    // TODO: Rename method, update argument and hook method into UI event
+    public void onButtonPressed(Uri uri) {
+
     }
 
     @Override

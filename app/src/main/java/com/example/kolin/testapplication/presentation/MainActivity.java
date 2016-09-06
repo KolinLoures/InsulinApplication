@@ -1,5 +1,6 @@
-package com.example.kolin.testapplication;
+package com.example.kolin.testapplication.presentation;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -13,10 +14,12 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-import com.example.kolin.testapplication.calculator.CalculatorFragment;
-import com.example.kolin.testapplication.products.ProductsFragment;
+import com.example.kolin.testapplication.R;
+import com.example.kolin.testapplication.presentation.calculator.CalculatorFragment;
+import com.example.kolin.testapplication.presentation.products.ProductsFragment;
+import com.example.kolin.testapplication.presentation.products.catalog.CatalogActivity;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements ProductsFragment.OnClickCardViews {
 
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
@@ -24,10 +27,13 @@ public class MainActivity extends AppCompatActivity {
     private FragmentManager fragmentManager;
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
 
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_view);
         navigationView = (NavigationView) findViewById(R.id.navigation_view);
@@ -94,6 +100,20 @@ public class MainActivity extends AppCompatActivity {
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setHomeAsUpIndicator(R.drawable.ic_menu_black_24dp);
         }
+    }
+
+    @Override
+    public void onClickCardViewRestaurant() {
+        Intent intent = new Intent(getApplicationContext(), CatalogActivity.class);
+        intent.putExtra("NameCategory", 0);
+        startActivity(intent);
+    }
+
+    @Override
+    public void onClickCardViewFood() {
+        Intent intent = new Intent(getApplicationContext(), CatalogActivity.class);
+        intent.putExtra("NameCategory", 1);
+        startActivity(intent);
     }
 }
 
