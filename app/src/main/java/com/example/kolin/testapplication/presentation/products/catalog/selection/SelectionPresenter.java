@@ -46,24 +46,4 @@ public class SelectionPresenter extends AbstractPresenter<SelectionContract.View
             SelectionPresenter.this.loadRestaurants(list);
         }
     }
-
-    @Override
-    public void attachView(SelectionContract.View view) {
-        super.attachView(view);
-    }
-
-    @Override
-    public void detachView() {
-        super.detachView();
-    }
-
-    @Override
-    protected boolean isViewAttach() {
-        return super.isViewAttach();
-    }
-
-    @Override
-    protected SelectionContract.View getWeakReference() {
-        return super.getWeakReference();
-    }
 }
