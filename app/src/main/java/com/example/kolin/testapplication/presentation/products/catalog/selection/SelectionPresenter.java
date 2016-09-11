@@ -39,7 +39,7 @@ public class SelectionPresenter extends AbstractPresenter<SelectionContractView>
 
     public void load() {
         showLoadingProgressBar();
-        getCategoriesUC.setCategoryName(currentCategory);
+        getCategoriesUC.setParameterCategoryName(currentCategory);
         getCategoriesUC.execute(new SelectionSubscriber());
     }
 

@@ -22,15 +22,10 @@ public class GetCategoriesUC extends UseCase {
 
     @Override
     protected Observable buildUseCaseObservable() {
-        return repository.getRestaurants(getCategoryName());
+        return repository.getRestaurants(this.categoryName);
     }
 
-    public void setCategoryName(@Categories.Category String categoryName){
+    public void setParameterCategoryName(@Categories.Category String categoryName){
         this.categoryName = categoryName;
-    }
-
-    public @Categories.Category
-    String getCategoryName() {
-        return categoryName;
     }
 }
