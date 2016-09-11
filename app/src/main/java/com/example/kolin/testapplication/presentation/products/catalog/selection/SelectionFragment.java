@@ -9,26 +9,32 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
 import com.example.kolin.testapplication.R;
-import com.example.kolin.testapplication.domain.Restaurant;
+import com.example.kolin.testapplication.domain.ItemCategory;
+import com.example.kolin.testapplication.domain.categories.Categories;
 
 import java.util.List;
 
-public class SelectionFragment extends Fragment implements SelectionContract.View {
+public class SelectionFragment extends Fragment implements SelectionContractView {
 
 
     private SelectionPresenter presenter;
-    private RecyclerView recyclerView;
     private SelectionAdapter selectionAdapter;
+
+    //Views
+    private RecyclerView recyclerView;
+    private ProgressBar progressBar;
 
     public SelectionFragment() {
         // Required empty public constructor
     }
 
-    public static SelectionFragment newInstance(String param1, String param2) {
+    public static SelectionFragment newInstance(int param1) {
         SelectionFragment fragment = new SelectionFragment();
         Bundle args = new Bundle();
+        args.putInt("idCategory", param1);
         fragment.setArguments(args);
         return fragment;
     }
@@ -36,11 +42,11 @@ public class SelectionFragment extends Fragment implements SelectionContract.Vie
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Bundle bundle = getArguments();
         presenter = new SelectionPresenter();
+        presenter.setCurrentCategory(Categories.getCategoryById(bundle.getInt("idCategory")));
         presenter.attachView(this);
-        presenter.load();
         selectionAdapter = new SelectionAdapter(getContext());
-
     }
 
     @Override
@@ -49,7 +55,9 @@ public class SelectionFragment extends Fragment implements SelectionContract.Vie
         // Inflate the layout for this fragment
         View root = inflater.inflate(R.layout.fragment_selection, container, false);
 
+        progressBar = (ProgressBar) root.findViewById(R.id.progress_bar_selection_fragment);
         recyclerView = (RecyclerView) root.findViewById(R.id.recycler_view_selection);
+
         recyclerView.setAdapter(selectionAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
@@ -58,7 +66,7 @@ public class SelectionFragment extends Fragment implements SelectionContract.Vie
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-//        presenter.load();
+        presenter.load();
     }
 
     @Override
@@ -68,12 +76,23 @@ public class SelectionFragment extends Fragment implements SelectionContract.Vie
     }
 
     @Override
-    public void onDetach() {
-        super.onDetach();
+    public void onDestroy() {
+        super.onDestroy();
+        presenter.unSubscribe();
     }
 
     @Override
-    public void showLoadedRestaurants(List<Restaurant> restaurants) {
-        selectionAdapter.addAll(restaurants);
+    public void showLoadedRestaurants(List<ItemCategory> itemCategories) {
+        selectionAdapter.addAll(itemCategories);
+    }
+
+    @Override
+    public void showLoadingProgress() {
+        progressBar.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void hideLoadingProgress() {
+        progressBar.setVisibility(View.GONE);
     }
 }

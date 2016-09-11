@@ -1,6 +1,7 @@
 package com.example.kolin.testapplication.domain.repository;
 
-import com.example.kolin.testapplication.domain.Restaurant;
+import com.example.kolin.testapplication.domain.ItemCategory;
+import com.example.kolin.testapplication.domain.categories.Categories;
 
 import java.util.List;
 
@@ -13,6 +14,5 @@ import rx.Observable;
 
 public interface Repository {
 
-    Observable<List<Restaurant>> getRestaurants();
-
+    Observable<List<ItemCategory>> getRestaurants(@Categories.Category String categoryName);
 }

@@ -1,8 +1,11 @@
 package com.example.kolin.testapplication.presentation.products.catalog.selection;
 
-import com.example.kolin.testapplication.domain.Restaurant;
+import android.util.Log;
+
+import com.example.kolin.testapplication.domain.ItemCategory;
+import com.example.kolin.testapplication.domain.categories.Categories;
 import com.example.kolin.testapplication.domain.interactor.DefaultSubscriber;
-import com.example.kolin.testapplication.domain.interactor.GetRestaurantsUC;
+import com.example.kolin.testapplication.domain.interactor.GetCategoriesUC;
 import com.example.kolin.testapplication.presentation.AbstractPresenter;
 
 import java.util.List;
@@ -11,30 +14,48 @@ import java.util.List;
  * Created by kolin on 06.09.2016.
  */
 
-public class SelectionPresenter extends AbstractPresenter<SelectionContract.View> {
+public class SelectionPresenter extends AbstractPresenter<SelectionContractView> {
 
-    private GetRestaurantsUC getRestaurantsUC;
+    private static final String TAG = "SelectionPresenter";
+
+    private GetCategoriesUC getCategoriesUC;
+
+    @Categories.Category
+    private String currentCategory;
 
     public SelectionPresenter() {
-        getRestaurantsUC = new GetRestaurantsUC();
+        getCategoriesUC = new GetCategoriesUC();
     }
 
 
-    public void loadRestaurants(List<Restaurant> restaurants) {
-        if (isViewAttach()) {
-            getWeakReference().showLoadedRestaurants(restaurants);
+    public void loadRestaurants(List<ItemCategory> itemCategories) {
+        if (!isViewAttach()) {
+            Log.e(TAG, "View was detach!");
+            return;
         }
+        getWeakReference().showLoadedRestaurants(itemCategories);
     }
 
 
     public void load() {
-        getRestaurantsUC.execute(new SelectionSubscriber());
+        showLoadingProgressBar();
+        getCategoriesUC.setCategoryName(currentCategory);
+        getCategoriesUC.execute(new SelectionSubscriber());
+    }
+
+    private void showLoadingProgressBar() {
+        getWeakReference().showLoadingProgress();
+    }
+
+    private void hideLoadingProgressBar() {
+        getWeakReference().hideLoadingProgress();
     }
 
 
-    private final class SelectionSubscriber extends DefaultSubscriber<List<Restaurant>> {
+    private final class SelectionSubscriber extends DefaultSubscriber<List<ItemCategory>> {
         @Override
         public void onCompleted() {
+            SelectionPresenter.this.hideLoadingProgressBar();
         }
 
         @Override
@@ -42,8 +63,16 @@ public class SelectionPresenter extends AbstractPresenter<SelectionContract.View
         }
 
         @Override
-        public void onNext(List<Restaurant> list) {
+        public void onNext(List<ItemCategory> list) {
             SelectionPresenter.this.loadRestaurants(list);
         }
+    }
+
+    public void unSubscribe() {
+        getCategoriesUC.unsubscribe();
+    }
+
+    public void setCurrentCategory(String currentCategory) {
+        this.currentCategory = currentCategory;
     }
 }

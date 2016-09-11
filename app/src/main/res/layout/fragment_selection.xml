@@ -4,10 +4,19 @@
     android:layout_height="match_parent"
     tools:context=".presentation.products.catalog.selection.SelectionFragment">
 
-    <android.support.v7.widget.RecyclerView
+    <ProgressBar
+        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+        android:id="@+id/progress_bar_selection_fragment"
         android:layout_width="match_parent"
-        android:layout_marginTop="8dp"
+        android:layout_height="wrap_content"
+        android:indeterminate="true"
+        android:visibility="visible" />
+
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_view_selection"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/recycler_view_selection"/>
+        android:layout_marginTop="8dp" />
 
 </FrameLayout>

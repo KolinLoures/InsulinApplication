@@ -105,14 +105,14 @@ public class MainActivity extends AppCompatActivity implements ProductsFragment.
     @Override
     public void onClickCardViewRestaurant() {
         Intent intent = new Intent(getApplicationContext(), CatalogActivity.class);
-        intent.putExtra("NameCategory", 0);
+        intent.putExtra("NameCategory", 1);
         startActivity(intent);
     }
 
     @Override
     public void onClickCardViewFood() {
         Intent intent = new Intent(getApplicationContext(), CatalogActivity.class);
-        intent.putExtra("NameCategory", 1);
+        intent.putExtra("NameCategory", 0);
         startActivity(intent);
     }
 }

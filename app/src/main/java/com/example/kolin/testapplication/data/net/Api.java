@@ -1,10 +1,12 @@
 package com.example.kolin.testapplication.data.net;
 
-import com.example.kolin.testapplication.domain.Restaurant;
+import com.example.kolin.testapplication.domain.ItemCategory;
+import com.example.kolin.testapplication.domain.categories.Categories;
 
 import java.util.List;
 
 import retrofit2.http.GET;
+import retrofit2.http.Path;
 import rx.Observable;
 
 /**
@@ -13,6 +15,7 @@ import rx.Observable;
 
 public interface Api {
 
-    @GET("restaurants.json")
-    Observable<List<Restaurant>> getRestaurants();
+    @GET("list_categories/{category}/.json")
+    Observable<List<ItemCategory>> getRestaurants(@Path("category")
+                                                  @Categories.Category String category);
 }

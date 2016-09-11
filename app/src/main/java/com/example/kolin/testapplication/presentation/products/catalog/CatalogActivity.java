@@ -12,6 +12,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
 import com.example.kolin.testapplication.R;
+import com.example.kolin.testapplication.domain.categories.CategoriesName;
 import com.example.kolin.testapplication.presentation.products.catalog.foodlist.ListFragment;
 import com.example.kolin.testapplication.presentation.products.catalog.selection.SelectionFragment;
 
@@ -27,7 +28,6 @@ public class CatalogActivity extends AppCompatActivity {
     private PagerAdapter pagerAdapter;
 
     private int extra;
-    private String extraString;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,16 +36,13 @@ public class CatalogActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         extra = intent.getIntExtra("NameCategory", 0);
-        if (extra == 0){
-            extraString = "Продукты";
-        } else {
-            extraString = "Рестораны";
-        }
+
 
         toolbar = (Toolbar) findViewById(R.id.toolbar_catalog);
         tabLayout = (TabLayout) findViewById(R.id.tabs_catalog);
         viewPager = (ViewPager) findViewById(R.id.view_pager_catalog);
 
+        toolbar.setTitle(CategoriesName.getCategoryById(extra));
         setSupportActionBar(toolbar);
 
         ActionBar actionBar = getSupportActionBar();
@@ -63,8 +60,8 @@ public class CatalogActivity extends AppCompatActivity {
             pagerAdapter = new PagerAdapter(getSupportFragmentManager());
         }
 
-        pagerAdapter.addFragment(extraString, new SelectionFragment());
-        pagerAdapter.addFragment("Список", new ListFragment());
+        pagerAdapter.addFragment("Список", SelectionFragment.newInstance(extra));
+        pagerAdapter.addFragment("Блюда", new ListFragment());
     }
 
     static class PagerAdapter extends FragmentPagerAdapter {

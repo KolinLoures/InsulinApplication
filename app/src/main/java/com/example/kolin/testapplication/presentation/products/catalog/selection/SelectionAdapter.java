@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.kolin.testapplication.R;
-import com.example.kolin.testapplication.domain.Restaurant;
+import com.example.kolin.testapplication.domain.ItemCategory;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -22,7 +22,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class SelectionAdapter extends RecyclerView.Adapter<SelectionAdapter.SelectionHolder> {
 
-    private List<Restaurant> list;
+    private List<ItemCategory> list;
     private Context context;
 
     public SelectionAdapter(Context context) {
@@ -39,10 +39,10 @@ public class SelectionAdapter extends RecyclerView.Adapter<SelectionAdapter.Sele
 
     @Override
     public void onBindViewHolder(SelectionHolder holder, int position) {
-        Restaurant restaurant = list.get(position);
-        holder.textViewName.setText(restaurant.getName());
-        holder.textViewDescription.setText(restaurant.getDescription());
-        Picasso.with(context).load(restaurant.getSrc())
+        ItemCategory itemCategory = list.get(position);
+        holder.textViewName.setText(itemCategory.getName());
+        holder.textViewDescription.setText(itemCategory.getDescription());
+        Picasso.with(context).load(itemCategory.getSrc())
                 .placeholder(R.color.colorPrimaryDark)
                 .fit()
                 .into(holder.avatar);
@@ -68,8 +68,8 @@ public class SelectionAdapter extends RecyclerView.Adapter<SelectionAdapter.Sele
         }
     }
 
-    public void addAll(List<Restaurant> restaurants){
-        list.addAll(restaurants);
+    public void addAll(List<ItemCategory> itemCategories){
+        list.addAll(itemCategories);
         notifyDataSetChanged();
     }
 

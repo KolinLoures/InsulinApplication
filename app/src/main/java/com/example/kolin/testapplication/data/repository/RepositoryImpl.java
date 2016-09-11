@@ -2,7 +2,8 @@ package com.example.kolin.testapplication.data.repository;
 
 import com.example.kolin.testapplication.data.net.Api;
 import com.example.kolin.testapplication.data.net.RetrofitSingleton;
-import com.example.kolin.testapplication.domain.Restaurant;
+import com.example.kolin.testapplication.domain.ItemCategory;
+import com.example.kolin.testapplication.domain.categories.Categories;
 import com.example.kolin.testapplication.domain.repository.Repository;
 
 import java.util.List;
@@ -22,7 +23,7 @@ public class RepositoryImpl implements Repository {
     }
 
     @Override
-    public Observable<List<Restaurant>> getRestaurants() {
-        return api.getRestaurants();
+    public Observable<List<ItemCategory>> getRestaurants(@Categories.Category String categoryName) {
+        return api.getRestaurants(categoryName);
     }
 }
