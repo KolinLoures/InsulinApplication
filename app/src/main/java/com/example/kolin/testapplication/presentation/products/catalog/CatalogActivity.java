@@ -12,7 +12,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
 import com.example.kolin.testapplication.R;
-import com.example.kolin.testapplication.domain.categories.CategoriesName;
+import com.example.kolin.testapplication.domain.groups.GroupName;
 import com.example.kolin.testapplication.presentation.products.catalog.foodlist.ListFragment;
 import com.example.kolin.testapplication.presentation.products.catalog.selection.SelectionFragment;
 
@@ -42,7 +42,7 @@ public class CatalogActivity extends AppCompatActivity {
         tabLayout = (TabLayout) findViewById(R.id.tabs_catalog);
         viewPager = (ViewPager) findViewById(R.id.view_pager_catalog);
 
-        toolbar.setTitle(CategoriesName.getCategoryById(extra));
+        toolbar.setTitle(GroupName.getCategoryById(extra));
         setSupportActionBar(toolbar);
 
         ActionBar actionBar = getSupportActionBar();

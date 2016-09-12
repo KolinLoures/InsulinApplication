@@ -1,6 +1,6 @@
 package com.example.kolin.testapplication.presentation.products.catalog.selection;
 
-import com.example.kolin.testapplication.domain.ItemCategory;
+import com.example.kolin.testapplication.domain.ItemOfGroup;
 
 import java.util.List;
 
@@ -9,7 +9,7 @@ import java.util.List;
  */
 
 public interface SelectionContractView {
-    void showLoadedRestaurants(List<ItemCategory> itemCategories);
+    void showLoadedRestaurants(List<ItemOfGroup> itemCategories);
 
     void showLoadingProgress();
 

@@ -8,7 +8,7 @@
         android:layout_height="48dp"
         android:layout_margin="16dp"
         android:id="@+id/avatar_rv_item"
-        android:src="@color/colorWhite"/>
+        android:src="@color/colorWhite" />
 
     <LinearLayout android:layout_height="wrap_content"
         android:layout_width="match_parent"

@@ -1,4 +1,4 @@
-package com.example.kolin.testapplication.domain.categories;
+package com.example.kolin.testapplication.domain.groups;
 
 import android.support.annotation.StringDef;
 
@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * Created by kolin on 04.09.2016.
  */
-public class Categories {
+public class Group {
 
     @Retention(RetentionPolicy.RUNTIME)
     @StringDef({
@@ -18,7 +18,7 @@ public class Categories {
             RESTAURANT
     })
 
-    public @interface Category {}
+    public @interface GroupAllFood {}
 
     public static final String FOOD = "food";
     public static final String RESTAURANT = "restaurants";

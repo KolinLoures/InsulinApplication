@@ -12,8 +12,8 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
 import com.example.kolin.testapplication.R;
-import com.example.kolin.testapplication.domain.ItemCategory;
-import com.example.kolin.testapplication.domain.categories.Categories;
+import com.example.kolin.testapplication.domain.ItemOfGroup;
+import com.example.kolin.testapplication.domain.groups.Group;
 
 import java.util.List;
 
@@ -44,7 +44,7 @@ public class SelectionFragment extends Fragment implements SelectionContractView
         super.onCreate(savedInstanceState);
         Bundle bundle = getArguments();
         presenter = new SelectionPresenter();
-        presenter.setCurrentCategory(Categories.getCategoryById(bundle.getInt("idCategory")));
+        presenter.setCurrentCategory(Group.getCategoryById(bundle.getInt("idCategory")));
         presenter.attachView(this);
         selectionAdapter = new SelectionAdapter(getContext());
     }
@@ -82,7 +82,7 @@ public class SelectionFragment extends Fragment implements SelectionContractView
     }
 
     @Override
-    public void showLoadedRestaurants(List<ItemCategory> itemCategories) {
+    public void showLoadedRestaurants(List<ItemOfGroup> itemCategories) {
         selectionAdapter.addAll(itemCategories);
     }
 

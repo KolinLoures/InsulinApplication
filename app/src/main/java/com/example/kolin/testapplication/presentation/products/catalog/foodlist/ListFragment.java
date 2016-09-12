@@ -1,7 +1,6 @@
 package com.example.kolin.testapplication.presentation.products.catalog.foodlist;
 
 import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -10,13 +9,10 @@ import android.view.ViewGroup;
 
 import com.example.kolin.testapplication.R;
 
-public class ListFragment extends Fragment {
-
-
+public class ListFragment extends Fragment implements ListFoodView {
 
 
     public ListFragment() {
-        // Required empty public constructor
     }
 
     public static ListFragment newInstance(String param1, String param2) {
@@ -34,19 +30,15 @@ public class ListFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_list, container, false);
+        View root = inflater.inflate(R.layout.fragment_list, container, false);
+        return root;
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
 
-    }
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-
     }
 
     @Override
@@ -54,4 +46,8 @@ public class ListFragment extends Fragment {
         super.onDetach();
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+    }
 }

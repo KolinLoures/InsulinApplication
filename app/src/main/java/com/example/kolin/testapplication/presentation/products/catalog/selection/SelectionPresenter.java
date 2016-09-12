@@ -2,10 +2,10 @@ package com.example.kolin.testapplication.presentation.products.catalog.selectio
 
 import android.util.Log;
 
-import com.example.kolin.testapplication.domain.ItemCategory;
-import com.example.kolin.testapplication.domain.categories.Categories;
+import com.example.kolin.testapplication.domain.ItemOfGroup;
+import com.example.kolin.testapplication.domain.groups.Group;
 import com.example.kolin.testapplication.domain.interactor.DefaultSubscriber;
-import com.example.kolin.testapplication.domain.interactor.GetCategoriesUC;
+import com.example.kolin.testapplication.domain.interactor.GetItemsOfGroupUC;
 import com.example.kolin.testapplication.presentation.AbstractPresenter;
 
 import java.util.List;
@@ -18,17 +18,17 @@ public class SelectionPresenter extends AbstractPresenter<SelectionContractView>
 
     private static final String TAG = "SelectionPresenter";
 
-    private GetCategoriesUC getCategoriesUC;
+    private GetItemsOfGroupUC getItemsOfGroupUC;
 
-    @Categories.Category
+    @Group.GroupAllFood
     private String currentCategory;
 
     public SelectionPresenter() {
-        getCategoriesUC = new GetCategoriesUC();
+        getItemsOfGroupUC = new GetItemsOfGroupUC();
     }
 
 
-    public void loadRestaurants(List<ItemCategory> itemCategories) {
+    public void loadRestaurants(List<ItemOfGroup> itemCategories) {
         if (!isViewAttach()) {
             Log.e(TAG, "View was detach!");
             return;
@@ -39,8 +39,8 @@ public class SelectionPresenter extends AbstractPresenter<SelectionContractView>
 
     public void load() {
         showLoadingProgressBar();
-        getCategoriesUC.setParameterCategoryName(currentCategory);
-        getCategoriesUC.execute(new SelectionSubscriber());
+        getItemsOfGroupUC.setParameterCategoryName(currentCategory);
+        getItemsOfGroupUC.execute(new SelectionSubscriber());
     }
 
     private void showLoadingProgressBar() {
@@ -52,7 +52,7 @@ public class SelectionPresenter extends AbstractPresenter<SelectionContractView>
     }
 
 
-    private final class SelectionSubscriber extends DefaultSubscriber<List<ItemCategory>> {
+    private final class SelectionSubscriber extends DefaultSubscriber<List<ItemOfGroup>> {
         @Override
         public void onCompleted() {
             SelectionPresenter.this.hideLoadingProgressBar();
@@ -63,13 +63,13 @@ public class SelectionPresenter extends AbstractPresenter<SelectionContractView>
         }
 
         @Override
-        public void onNext(List<ItemCategory> list) {
+        public void onNext(List<ItemOfGroup> list) {
             SelectionPresenter.this.loadRestaurants(list);
         }
     }
 
     public void unSubscribe() {
-        getCategoriesUC.unsubscribe();
+        getItemsOfGroupUC.unsubscribe();
     }
 
     public void setCurrentCategory(String currentCategory) {

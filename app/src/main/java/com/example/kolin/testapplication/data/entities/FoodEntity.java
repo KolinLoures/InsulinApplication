@@ -1,12 +1,15 @@
-package com.example.kolin.testapplication.domain;
+package com.example.kolin.testapplication.data.entities;
+
+import com.google.gson.annotations.SerializedName;
 
 /**
- * Created by kolin on 11.09.2016.
+ * Created by kolin on 12.09.2016.
  */
 
-public class Food {
+public class FoodEntity {
 
     private Double b;
+    @SerializedName("id_name")
     private String idName;
     private Integer j;
     private String name;
@@ -60,5 +63,4 @@ public class Food {
     public void setY(Double y) {
         this.y = y;
     }
-
 }

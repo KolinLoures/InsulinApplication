@@ -1,8 +1,11 @@
 package com.example.kolin.testapplication.domain.repository;
 
-import com.example.kolin.testapplication.domain.ItemCategory;
-import com.example.kolin.testapplication.domain.categories.Categories;
+import com.example.kolin.testapplication.domain.Food;
+import com.example.kolin.testapplication.domain.FoodCategory;
+import com.example.kolin.testapplication.domain.ItemOfGroup;
+import com.example.kolin.testapplication.domain.groups.Group;
 
+import java.util.HashMap;
 import java.util.List;
 
 import rx.Observable;
@@ -14,5 +17,7 @@ import rx.Observable;
 
 public interface Repository {
 
-    Observable<List<ItemCategory>> getRestaurants(@Categories.Category String categoryName);
+    Observable<List<ItemOfGroup>> getRestaurants(@Group.GroupAllFood String categoryName);
+
+    Observable<HashMap<FoodCategory, List<Food>>> getFood(String itemGroupName);
 }

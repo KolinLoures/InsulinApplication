@@ -63,7 +63,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="24dp"
-                android:text="@string/itemCategory" />
+                android:text="@string/itemOfGroup" />
 
             <TextView
                 style="@style/textViewSupportingText"

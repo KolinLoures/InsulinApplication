@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.kolin.testapplication.R;
-import com.example.kolin.testapplication.domain.ItemCategory;
+import com.example.kolin.testapplication.domain.ItemOfGroup;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -22,12 +22,18 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class SelectionAdapter extends RecyclerView.Adapter<SelectionAdapter.SelectionHolder> {
 
-    private List<ItemCategory> list;
+    private List<ItemOfGroup> list;
     private Context context;
+
+    private ClickItemSelection clickItemListener;
 
     public SelectionAdapter(Context context) {
         this.list = new ArrayList<>();
         this.context = context;
+    }
+
+    public interface ClickItemSelection{
+        void onClickItemSelection(int position);
     }
 
     @Override
@@ -39,11 +45,11 @@ public class SelectionAdapter extends RecyclerView.Adapter<SelectionAdapter.Sele
 
     @Override
     public void onBindViewHolder(SelectionHolder holder, int position) {
-        ItemCategory itemCategory = list.get(position);
-        holder.textViewName.setText(itemCategory.getName());
-        holder.textViewDescription.setText(itemCategory.getDescription());
-        Picasso.with(context).load(itemCategory.getSrc())
-                .placeholder(R.color.colorPrimaryDark)
+        ItemOfGroup itemOfGroup = list.get(position);
+        holder.textViewName.setText(itemOfGroup.getName());
+        holder.textViewDescription.setText(itemOfGroup.getDescription());
+        Picasso.with(context).load(itemOfGroup.getSrc())
+                .placeholder(R.color.colorWhite)
                 .fit()
                 .into(holder.avatar);
     }
@@ -53,7 +59,7 @@ public class SelectionAdapter extends RecyclerView.Adapter<SelectionAdapter.Sele
         return list.size();
     }
 
-    static class SelectionHolder extends RecyclerView.ViewHolder{
+    class SelectionHolder extends RecyclerView.ViewHolder{
 
         private CircleImageView avatar;
         private TextView textViewName;
@@ -65,10 +71,19 @@ public class SelectionAdapter extends RecyclerView.Adapter<SelectionAdapter.Sele
             avatar = (CircleImageView) itemView.findViewById(R.id.avatar_rv_item);
             textViewName = (TextView) itemView.findViewById(R.id.name_rv_item);
             textViewDescription = (TextView) itemView.findViewById(R.id.description_rv_item);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (clickItemListener != null){
+                        clickItemListener.onClickItemSelection(getLayoutPosition());
+                    }
+                }
+            });
         }
     }
 
-    public void addAll(List<ItemCategory> itemCategories){
+    public void addAll(List<ItemOfGroup> itemCategories){
         list.addAll(itemCategories);
         notifyDataSetChanged();
     }
@@ -78,6 +93,7 @@ public class SelectionAdapter extends RecyclerView.Adapter<SelectionAdapter.Sele
         notifyDataSetChanged();
     }
 
-
-
+    public void setClickItemListener(ClickItemSelection clickItemListener) {
+        this.clickItemListener = clickItemListener;
+    }
 }

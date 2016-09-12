@@ -1,7 +1,8 @@
 package com.example.kolin.testapplication.data.net;
 
-import com.example.kolin.testapplication.domain.ItemCategory;
-import com.example.kolin.testapplication.domain.categories.Categories;
+import com.example.kolin.testapplication.data.entities.FoodCategoryEntity;
+import com.example.kolin.testapplication.data.entities.ItemOfGroupEntity;
+import com.example.kolin.testapplication.domain.groups.Group;
 
 import java.util.List;
 
@@ -15,7 +16,12 @@ import rx.Observable;
 
 public interface Api {
 
-    @GET("list_categories/{category}/.json")
-    Observable<List<ItemCategory>> getRestaurants(@Path("category")
-                                                  @Categories.Category String category);
+    @GET("list_group/{group}/.json")
+    Observable<List<ItemOfGroupEntity>> getItemsOfGroup(@Path("group")
+                                                  @Group.GroupAllFood String group);
+
+
+    @GET("{name_item_group}.json")
+    Observable<List<FoodCategoryEntity>> getFoodFromItem(@Path("name_item_group")
+                                                             String itemName);
 }
