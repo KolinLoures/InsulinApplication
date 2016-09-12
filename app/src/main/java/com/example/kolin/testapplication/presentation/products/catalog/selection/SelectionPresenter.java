@@ -3,7 +3,6 @@ package com.example.kolin.testapplication.presentation.products.catalog.selectio
 import android.util.Log;
 
 import com.example.kolin.testapplication.domain.ItemOfGroup;
-import com.example.kolin.testapplication.domain.groups.Group;
 import com.example.kolin.testapplication.domain.interactor.DefaultSubscriber;
 import com.example.kolin.testapplication.domain.interactor.GetItemsOfGroupUC;
 import com.example.kolin.testapplication.presentation.AbstractPresenter;
@@ -16,19 +15,16 @@ import java.util.List;
 
 public class SelectionPresenter extends AbstractPresenter<SelectionContractView> {
 
-    private static final String TAG = "SelectionPresenter";
+    private static final String TAG = SelectionPresenter.class.getSimpleName();
 
     private GetItemsOfGroupUC getItemsOfGroupUC;
-
-    @Group.GroupAllFood
-    private String currentCategory;
 
     public SelectionPresenter() {
         getItemsOfGroupUC = new GetItemsOfGroupUC();
     }
 
 
-    public void loadRestaurants(List<ItemOfGroup> itemCategories) {
+    public void showLoadedData(List<ItemOfGroup> itemCategories) {
         if (!isViewAttach()) {
             Log.e(TAG, "View was detach!");
             return;
@@ -37,9 +33,9 @@ public class SelectionPresenter extends AbstractPresenter<SelectionContractView>
     }
 
 
-    public void load() {
+    public void load(String currentGroup) {
         showLoadingProgressBar();
-        getItemsOfGroupUC.setParameterCategoryName(currentCategory);
+        getItemsOfGroupUC.setParameterCategoryName(currentGroup);
         getItemsOfGroupUC.execute(new SelectionSubscriber());
     }
 
@@ -64,7 +60,7 @@ public class SelectionPresenter extends AbstractPresenter<SelectionContractView>
 
         @Override
         public void onNext(List<ItemOfGroup> list) {
-            SelectionPresenter.this.loadRestaurants(list);
+            SelectionPresenter.this.showLoadedData(list);
         }
     }
 
@@ -72,7 +68,4 @@ public class SelectionPresenter extends AbstractPresenter<SelectionContractView>
         getItemsOfGroupUC.unsubscribe();
     }
 
-    public void setCurrentCategory(String currentCategory) {
-        this.currentCategory = currentCategory;
-    }
 }

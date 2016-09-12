@@ -96,4 +96,8 @@ public class SelectionAdapter extends RecyclerView.Adapter<SelectionAdapter.Sele
     public void setClickItemListener(ClickItemSelection clickItemListener) {
         this.clickItemListener = clickItemListener;
     }
+
+    public ItemOfGroup getObjectAtPosition(int position){
+        return list.get(position);
+    }
 }

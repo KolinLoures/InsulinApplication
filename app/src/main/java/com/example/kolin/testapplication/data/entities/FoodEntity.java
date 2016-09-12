@@ -11,7 +11,7 @@ public class FoodEntity {
     private Double b;
     @SerializedName("id_name")
     private String idName;
-    private Integer j;
+    private Double j;
     private String name;
     private Integer weight;
     private Double y;
@@ -32,11 +32,11 @@ public class FoodEntity {
         this.idName = idName;
     }
 
-    public Integer getJ() {
+    public Double getJ() {
         return j;
     }
 
-    public void setJ(Integer j) {
+    public void setJ(Double j) {
         this.j = j;
     }
 

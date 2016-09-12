@@ -26,9 +26,16 @@ public class SelectionFragment extends Fragment implements SelectionContractView
     //Views
     private RecyclerView recyclerView;
     private ProgressBar progressBar;
+    private String currentGroup;
+
+    private OnClickItemOnSelectionFragment listener;
 
     public SelectionFragment() {
         // Required empty public constructor
+    }
+
+    public interface OnClickItemOnSelectionFragment {
+        void clickItem(String itemName);
     }
 
     public static SelectionFragment newInstance(int param1) {
@@ -43,10 +50,18 @@ public class SelectionFragment extends Fragment implements SelectionContractView
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Bundle bundle = getArguments();
+        currentGroup = Group.getCategoryById(bundle.getInt("idCategory"));
         presenter = new SelectionPresenter();
-        presenter.setCurrentCategory(Group.getCategoryById(bundle.getInt("idCategory")));
         presenter.attachView(this);
         selectionAdapter = new SelectionAdapter(getContext());
+        selectionAdapter.setClickItemListener(new SelectionAdapter.ClickItemSelection() {
+            @Override
+            public void onClickItemSelection(int position) {
+                if (listener != null){
+                    listener.clickItem(selectionAdapter.getObjectAtPosition(position).getIdName());
+                }
+            }
+        });
     }
 
     @Override
@@ -66,13 +81,24 @@ public class SelectionFragment extends Fragment implements SelectionContractView
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        presenter.load();
+        presenter.load(currentGroup);
     }
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
+        if (context instanceof OnClickItemOnSelectionFragment){
+            listener = (OnClickItemOnSelectionFragment) context;
+        } else {
+            throw new RuntimeException(context.toString()
+                    + " must implement OnClickItemOnSelectionFragment");
+        }
+    }
 
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        listener = null;
     }
 
     @Override

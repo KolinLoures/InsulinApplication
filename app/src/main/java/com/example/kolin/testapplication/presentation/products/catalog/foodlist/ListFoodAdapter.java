@@ -50,7 +50,6 @@ public class ListFoodAdapter extends RecyclerView.Adapter<ListFoodAdapter.ListFo
     }
 
     public void addAll(List<Food> listFood){
-        this.listFood.clear();
         this.listFood.addAll(listFood);
         notifyDataSetChanged();
     }
