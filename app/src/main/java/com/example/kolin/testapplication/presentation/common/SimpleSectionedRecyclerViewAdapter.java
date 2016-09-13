@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.kolin.testapplication.R;
+import com.squareup.picasso.Picasso;
 
 import java.util.Arrays;
 import java.util.Comparator;
@@ -85,8 +86,14 @@ public class SimpleSectionedRecyclerViewAdapter extends RecyclerView.Adapter<Rec
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder sectionViewHolder, int position) {
         if (isSectionHeaderPosition(position)) {
-            ((SectionViewHolder) sectionViewHolder).title.setText(mSections.get(position).title);
-
+            String title = mSections.get(position).title.toString();
+            title = title.toUpperCase();
+            ((SectionViewHolder) sectionViewHolder).title.setText(title);
+            Picasso.with(mContext)
+                    .load(mSections.get(position).src)
+                    .centerCrop()
+                    .fit()
+                    .into(((SectionViewHolder) sectionViewHolder).imageView);
         } else {
             mBaseAdapter.onBindViewHolder(sectionViewHolder, sectionedPositionToPosition(position));
         }
@@ -105,10 +112,13 @@ public class SimpleSectionedRecyclerViewAdapter extends RecyclerView.Adapter<Rec
         int firstPosition;
         int sectionedPosition;
         CharSequence title;
+        //URL of section icon
+        String src;
 
-        public Section(int firstPosition, CharSequence title) {
+        public Section(int firstPosition, CharSequence title, String src) {
             this.firstPosition = firstPosition;
             this.title = title;
+            this.src = src;
         }
 
         public CharSequence getTitle() {

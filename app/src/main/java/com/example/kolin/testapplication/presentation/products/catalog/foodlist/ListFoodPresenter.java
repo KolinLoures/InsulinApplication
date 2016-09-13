@@ -29,12 +29,12 @@ public class ListFoodPresenter extends AbstractPresenter<ListFoodView> {
         getFoodUC.execute(new ListFoodSubscriber());
     }
 
-    public void showLoadedData(List<Food> list) {
+    public void showLoadedData(HashMap<FoodCategory, List<Food>> foodCategoryListHashMap) {
         if (!isViewAttach()) {
             Log.e(TAG, "View was detach");
         }
 
-        getWeakReference().showLoadedFood(list);
+        getWeakReference().showLoadedFood(foodCategoryListHashMap);
     }
 
     private final class ListFoodSubscriber extends DefaultSubscriber<HashMap<FoodCategory, List<Food>>> {
@@ -48,9 +48,7 @@ public class ListFoodPresenter extends AbstractPresenter<ListFoodView> {
 
         @Override
         public void onNext(HashMap<FoodCategory, List<Food>> foodCategoryListHashMap) {
-            for (HashMap.Entry<FoodCategory, List<Food>> pair : foodCategoryListHashMap.entrySet()) {
-                ListFoodPresenter.this.showLoadedData(pair.getValue());
-            }
+                ListFoodPresenter.this.showLoadedData(foodCategoryListHashMap);
         }
     }
 

@@ -1,7 +1,9 @@
 package com.example.kolin.testapplication.presentation.products.catalog.foodlist;
 
 import com.example.kolin.testapplication.domain.Food;
+import com.example.kolin.testapplication.domain.FoodCategory;
 
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -9,5 +11,5 @@ import java.util.List;
  */
 
 public interface ListFoodView {
-    void showLoadedFood(List<Food> listFood);
+    void showLoadedFood(HashMap<FoodCategory, List<Food>> foodCategoryListHashMap);
 }

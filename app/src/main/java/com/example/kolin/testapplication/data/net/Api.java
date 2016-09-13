@@ -21,7 +21,7 @@ public interface Api {
                                                   @Group.GroupAllFood String group);
 
 
-    @GET("{name_item_group}.json")
+    @GET("list_food/{name_item_group}.json")
     Observable<List<FoodCategoryEntity>> getFoodFromItem(@Path("name_item_group")
                                                              String itemName);
 }

@@ -12,6 +12,7 @@ public class Food {
     private String name;
     private Integer weight;
     private Double y;
+    private String owner;
 
     public Double getB() {
         return b;
@@ -61,4 +62,11 @@ public class Food {
         this.y = y;
     }
 
+    public String getOwner() {
+        return owner;
+    }
+
+    public void setOwner(String owner) {
+        this.owner = owner;
+    }
 }

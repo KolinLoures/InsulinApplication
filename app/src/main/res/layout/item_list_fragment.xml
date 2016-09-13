@@ -8,7 +8,7 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="80dp"
         android:orientation="vertical">
 
         <TextView
@@ -35,7 +35,7 @@
                 style="@style/bottomTextViewRvItem"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="80dp"
+                android:layout_marginStart="60dp"
                 android:text="Ж: " />
 
             <TextView
@@ -43,7 +43,7 @@
                 style="@style/bottomTextViewRvItem"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="80dp"
+                android:layout_marginStart="60dp"
                 android:text="У: " />
         </LinearLayout>
 
@@ -54,11 +54,12 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <ImageView
+        <ImageButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end|center"
             android:layout_marginEnd="16dp"
+            android:backgroundTint="@color/colorWhite"
             android:id="@+id/list_food_add_to_favorite"
             android:src="@drawable/ic_star_border_black_24dp" />
     </FrameLayout>

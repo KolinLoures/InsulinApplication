@@ -14,6 +14,7 @@ import android.widget.ProgressBar;
 import com.example.kolin.testapplication.R;
 import com.example.kolin.testapplication.domain.ItemOfGroup;
 import com.example.kolin.testapplication.domain.groups.Group;
+import com.example.kolin.testapplication.presentation.common.SimpleDividerItemDecoration;
 
 import java.util.List;
 
@@ -75,6 +76,7 @@ public class SelectionFragment extends Fragment implements SelectionContractView
 
         recyclerView.setAdapter(selectionAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerView.addItemDecoration(new SimpleDividerItemDecoration(getContext()));
 
         return root;
     }

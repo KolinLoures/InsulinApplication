@@ -9,7 +9,7 @@ import android.support.v7.widget.Toolbar;
 
 import com.example.kolin.testapplication.R;
 import com.example.kolin.testapplication.domain.groups.GroupName;
-import com.example.kolin.testapplication.presentation.products.catalog.foodlist.ListFragment;
+import com.example.kolin.testapplication.presentation.products.catalog.foodlist.ListFoodFragment;
 import com.example.kolin.testapplication.presentation.products.catalog.selection.SelectionFragment;
 
 public class CatalogActivity extends AppCompatActivity
@@ -46,7 +46,7 @@ public class CatalogActivity extends AppCompatActivity
     @Override
     public void clickItem(String itemName) {
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.catalog_fragment_container, ListFragment.newInstance(itemName));
+        fragmentTransaction.replace(R.id.catalog_fragment_container, ListFoodFragment.newInstance(itemName));
         fragmentTransaction.commit();
     }
 }

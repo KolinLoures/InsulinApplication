@@ -2,12 +2,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presentation.products.catalog.foodlist.ListFragment">
+    tools:context=".presentation.products.catalog.foodlist.ListFoodFragment">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_view_list_fragment"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="8dp" />
+        android:layout_height="match_parent" />
 
 </FrameLayout>
