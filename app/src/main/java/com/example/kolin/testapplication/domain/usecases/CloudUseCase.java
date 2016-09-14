@@ -1,4 +1,4 @@
-package com.example.kolin.testapplication.domain.interactor;
+package com.example.kolin.testapplication.domain.usecases;
 
 import rx.Observable;
 import rx.Subscriber;
@@ -11,11 +11,11 @@ import rx.subscriptions.Subscriptions;
  * Created by kolin on 06.09.2016.
  */
 
-public abstract class UseCase {
+public abstract class CloudUseCase {
 
     private Subscription subscription = Subscriptions.empty();
 
-    public UseCase() {
+    public CloudUseCase() {
     }
 
     protected abstract Observable buildUseCaseObservable();

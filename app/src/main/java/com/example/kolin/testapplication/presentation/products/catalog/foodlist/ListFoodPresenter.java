@@ -6,8 +6,10 @@ import com.example.kolin.testapplication.domain.Food;
 import com.example.kolin.testapplication.domain.FoodCategory;
 import com.example.kolin.testapplication.domain.interactor.DefaultSubscriber;
 import com.example.kolin.testapplication.domain.interactor.GetFoodUC;
+import com.example.kolin.testapplication.domain.interactor.SetFoodToFavoriteUC;
 import com.example.kolin.testapplication.presentation.AbstractPresenter;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -19,9 +21,15 @@ public class ListFoodPresenter extends AbstractPresenter<ListFoodView> {
 
     private static final String TAG = ListFoodPresenter.class.getSimpleName();
     private GetFoodUC getFoodUC;
+    private SetFoodToFavoriteUC setFoodToFavoriteUC;
+
+    private List<Food> loadedFoodList;
 
     public ListFoodPresenter() {
         getFoodUC = new GetFoodUC();
+        setFoodToFavoriteUC = new SetFoodToFavoriteUC();
+
+        loadedFoodList = new ArrayList<>();
     }
 
     public void load(String itemGroupName) {
@@ -32,9 +40,25 @@ public class ListFoodPresenter extends AbstractPresenter<ListFoodView> {
     public void showLoadedData(HashMap<FoodCategory, List<Food>> foodCategoryListHashMap) {
         if (!isViewAttach()) {
             Log.e(TAG, "View was detach");
+            return;
+        }
+
+        for (HashMap.Entry<FoodCategory, List<Food>> pair: foodCategoryListHashMap.entrySet()){
+
         }
 
         getWeakReference().showLoadedFood(foodCategoryListHashMap);
+    }
+
+    public void addToFavorite(int position) {
+        setFoodToFavoriteUC.execute(null);
+
+        if (!isViewAttach()) {
+            Log.e(TAG, "View was detach");
+            return;
+        }
+
+        getWeakReference().showSnackBar();
     }
 
     private final class ListFoodSubscriber extends DefaultSubscriber<HashMap<FoodCategory, List<Food>>> {

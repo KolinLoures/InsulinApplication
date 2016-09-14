@@ -35,9 +35,14 @@ public class RepositoryImpl implements Repository {
 
     @Override
     public Observable<HashMap<FoodCategory, List<Food>>> getFood(String itemGroupName) {
+        Observable<HashMap<FoodCategory, List<Food>>> favoriteFood = realQueries.getFavoriteFood();
+
         return rest.getFoodFromCloud(itemGroupName)
-                .concatWith(realQueries.getFavoriteFood());
+                .concatWith(favoriteFood);
     }
 
-
+    @Override
+    public void addFoodToFavorite(Food food) {
+        realQueries.addFoodToFavorite(food);
+    }
 }

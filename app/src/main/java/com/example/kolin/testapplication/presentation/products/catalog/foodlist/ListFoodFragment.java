@@ -2,6 +2,7 @@ package com.example.kolin.testapplication.presentation.products.catalog.foodlist
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -57,13 +58,18 @@ public class ListFoodFragment extends Fragment implements ListFoodView {
         currentItemOfGroup = bundle.getString("itemName");
 
         presenter = new ListFoodPresenter();
+        adapter = new ListFoodAdapter();
+        sectionedAdapter = new SimpleSectionedRecyclerViewAdapter(getContext(), adapter);
+
         presenter.attachView(this);
-
-        adapter = new ListFoodAdapter(getContext());
-        sectionedAdapter = new
-                SimpleSectionedRecyclerViewAdapter(getContext(), adapter);
-
         presenter.load(currentItemOfGroup);
+
+        adapter.setListener(new ListFoodAdapter.OnClickFavoriteBtn() {
+            @Override
+            public void onClickFavoriteBtn(int position) {
+                presenter.addToFavorite(0);
+            }
+        });
     }
 
     @Override
@@ -121,4 +127,8 @@ public class ListFoodFragment extends Fragment implements ListFoodView {
         recyclerView.setAdapter(sectionedAdapter);
     }
 
+    @Override
+    public void showSnackBar() {
+        Snackbar.make(recyclerView, "Добавленно в изранное", Snackbar.LENGTH_LONG).show();
+    }
 }

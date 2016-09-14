@@ -1,11 +1,10 @@
 package com.example.kolin.testapplication.presentation.products.catalog.foodlist;
 
-import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.example.kolin.testapplication.R;
@@ -21,10 +20,14 @@ import java.util.List;
 public class ListFoodAdapter extends RecyclerView.Adapter<ListFoodAdapter.ListFoodViewHolder> {
 
     private List<Food> listFood;
-    private Context context;
+    private OnClickFavoriteBtn listener;
 
-    public ListFoodAdapter(Context context) {
-        this.context = context;
+    public interface OnClickFavoriteBtn {
+        void onClickFavoriteBtn(int position);
+    }
+
+
+    public ListFoodAdapter() {
         listFood = new ArrayList<>();
     }
 
@@ -49,23 +52,23 @@ public class ListFoodAdapter extends RecyclerView.Adapter<ListFoodAdapter.ListFo
         return listFood.size();
     }
 
-    public void addAll(List<Food> listFood){
+    public void addAll(List<Food> listFood) {
         this.listFood.addAll(listFood);
         notifyDataSetChanged();
     }
 
-    public void clearAll(){
+    public void clearAll() {
         this.listFood.clear();
         notifyDataSetChanged();
     }
 
-    class ListFoodViewHolder extends RecyclerView.ViewHolder{
+    class ListFoodViewHolder extends RecyclerView.ViewHolder {
 
         private TextView textViewNameProduct;
         private TextView textViewB;
         private TextView textViewJ;
         private TextView textViewY;
-        private ImageView imageViewFavorite;
+        private ImageButton imageViewFavorite;
 
         public ListFoodViewHolder(View itemView) {
             super(itemView);
@@ -74,7 +77,22 @@ public class ListFoodAdapter extends RecyclerView.Adapter<ListFoodAdapter.ListFo
             textViewB = (TextView) itemView.findViewById(R.id.list_food_b);
             textViewJ = (TextView) itemView.findViewById(R.id.list_food_j);
             textViewY = (TextView) itemView.findViewById(R.id.list_food_y);
-            imageViewFavorite = (ImageView) itemView.findViewById(R.id.list_food_add_to_favorite);
+            imageViewFavorite = (ImageButton) itemView.findViewById(R.id.list_food_add_to_favorite);
+
+
+            imageViewFavorite.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (listener != null) {
+                        int layoutPosition = getAdapterPosition();
+                        listener.onClickFavoriteBtn(layoutPosition);
+                    }
+                }
+            });
         }
+    }
+
+    public void setListener(OnClickFavoriteBtn listener) {
+        this.listener = listener;
     }
 }

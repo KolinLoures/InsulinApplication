@@ -1,5 +1,7 @@
 package com.example.kolin.testapplication.data.orm;
 
+import android.util.Log;
+
 import com.example.kolin.testapplication.domain.Food;
 import com.example.kolin.testapplication.domain.FoodCategory;
 
@@ -24,16 +26,19 @@ public class RealQueries {
         this.realm = RealmSingleton.getInstance();
     }
 
-    public void addFoodToFavorite(Food food) {
-        realm.beginTransaction();
-        realm.copyToRealmOrUpdate(food);
-        realm.commitTransaction();
+    public void addFoodToFavorite(final Food food) {
+        realm.executeTransaction(new Realm.Transaction() {
+            @Override
+            public void execute(Realm realm) {
+                realm.copyToRealmOrUpdate(food);
+            }
+        });
     }
 
     public Observable<HashMap<FoodCategory, List<Food>>> getFavoriteFood() {
-        return realm.where(Food.class)
+        Observable<HashMap<FoodCategory, List<Food>>> hashMapObservable = realm.where(Food.class)
                 .isNotNull("idName")
-                .findAllAsync()
+                .findAll()
                 .asObservable()
                 .filter(new Func1<RealmResults<Food>, Boolean>() {
                     @Override
@@ -47,6 +52,8 @@ public class RealQueries {
                         HashMap<FoodCategory, List<Food>> map = new HashMap<>();
                         List<Food> list = new ArrayList<>();
                         for (Food food : foods) {
+                            Log.e("ЕДА", food.getName());
+                            Log.e("ЕДА", food.getOwner());
                             list.add(food);
                         }
                         FoodCategory foodCategory = new FoodCategory();
@@ -55,6 +62,7 @@ public class RealQueries {
                         return Observable.just(map);
                     }
                 });
+        return hashMapObservable;
     }
 
 }

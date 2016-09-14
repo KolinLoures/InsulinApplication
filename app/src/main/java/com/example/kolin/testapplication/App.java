@@ -16,5 +16,4 @@ public class App extends Application {
 
         RealmSingleton.initialize(getApplicationContext());
     }
-
 }

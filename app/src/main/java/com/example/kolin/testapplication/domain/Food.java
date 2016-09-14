@@ -1,7 +1,7 @@
 package com.example.kolin.testapplication.domain;
 
 import io.realm.RealmObject;
-import io.realm.annotations.Index;
+import io.realm.annotations.PrimaryKey;
 
 /**
  * Created by kolin on 11.09.2016.
@@ -10,7 +10,7 @@ import io.realm.annotations.Index;
 public class Food extends RealmObject {
 
     private Double b;
-    @Index
+    @PrimaryKey
     private String idName;
     private Double j;
     private String name;

@@ -20,4 +20,6 @@ public interface Repository {
     Observable<List<ItemOfGroup>> getRestaurants(@Group.GroupAllFood String categoryName);
 
     Observable<HashMap<FoodCategory, List<Food>>> getFood(String itemGroupName);
+
+    void addFoodToFavorite(Food food);
 }
