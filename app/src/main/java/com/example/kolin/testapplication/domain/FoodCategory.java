@@ -25,4 +25,11 @@ public class FoodCategory {
     public void setSrc(String src) {
         this.src = src;
     }
+
+    public void setDefaults(){
+        this.src = "file://res/drawable/ic_star_black_24dp.xml";
+        this.nameFoodCategory = "ЛЮБИМЫЕ";
+    }
+
+
 }
