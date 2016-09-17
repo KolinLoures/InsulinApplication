@@ -84,8 +84,7 @@ public class ListFoodAdapter extends RecyclerView.Adapter<ListFoodAdapter.ListFo
                 @Override
                 public void onClick(View view) {
                     if (listener != null) {
-                        int layoutPosition = getAdapterPosition();
-                        listener.onClickFavoriteBtn(layoutPosition);
+                        listener.onClickFavoriteBtn(getLayoutPosition());
                     }
                 }
             });
@@ -95,4 +94,5 @@ public class ListFoodAdapter extends RecyclerView.Adapter<ListFoodAdapter.ListFo
     public void setListener(OnClickFavoriteBtn listener) {
         this.listener = listener;
     }
+
 }

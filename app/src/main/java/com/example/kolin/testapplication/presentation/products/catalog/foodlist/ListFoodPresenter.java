@@ -7,9 +7,8 @@ import com.example.kolin.testapplication.domain.FoodCategory;
 import com.example.kolin.testapplication.domain.interactor.DefaultSubscriber;
 import com.example.kolin.testapplication.domain.interactor.GetFoodUC;
 import com.example.kolin.testapplication.domain.interactor.SetFoodToFavoriteUC;
-import com.example.kolin.testapplication.presentation.AbstractPresenter;
+import com.example.kolin.testapplication.presentation.common.AbstractPresenter;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -23,13 +22,10 @@ public class ListFoodPresenter extends AbstractPresenter<ListFoodView> {
     private GetFoodUC getFoodUC;
     private SetFoodToFavoriteUC setFoodToFavoriteUC;
 
-    private List<Food> loadedFoodList;
-
     public ListFoodPresenter() {
         getFoodUC = new GetFoodUC();
         setFoodToFavoriteUC = new SetFoodToFavoriteUC();
 
-        loadedFoodList = new ArrayList<>();
     }
 
     public void load(String itemGroupName) {
@@ -50,8 +46,8 @@ public class ListFoodPresenter extends AbstractPresenter<ListFoodView> {
         getWeakReference().showLoadedFood(foodCategoryListHashMap);
     }
 
-    public void addToFavorite(int position) {
-        setFoodToFavoriteUC.execute(null);
+    public void addToFavorite(Food food) {
+        setFoodToFavoriteUC.execute(food);
 
         if (!isViewAttach()) {
             Log.e(TAG, "View was detach");

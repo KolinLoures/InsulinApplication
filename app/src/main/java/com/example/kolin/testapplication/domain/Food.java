@@ -73,4 +73,11 @@ public class Food extends RealmObject {
     public void setOwner(String owner) {
         this.owner = owner;
     }
+
+    @Override
+    public String toString() {
+        return "Food{" +
+                "name='" + name + '\'' +
+                '}';
+    }
 }

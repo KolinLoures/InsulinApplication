@@ -4,7 +4,6 @@ import android.content.Context;
 
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
-import io.realm.rx.RealmObservableFactory;
 
 /**
  * Created by kolin on 14.09.2016.
@@ -16,15 +15,18 @@ public class RealmSingleton {
 
     public static Realm initialize(Context context) {
         if (instance == null) {
-            Realm.setDefaultConfiguration(new RealmConfiguration.Builder(context)
-                    .rxFactory(new RealmObservableFactory())
-                    .build());
-            instance = Realm.getDefaultInstance();
+            RealmConfiguration build = new RealmConfiguration.Builder(context)
+                    .build();
+            Realm.setDefaultConfiguration(build);
+            instance = Realm.getInstance(build);
         }
         return instance;
     }
 
     public static Realm getInstance() {
         return instance;
+    }
+
+    private RealmSingleton() {
     }
 }

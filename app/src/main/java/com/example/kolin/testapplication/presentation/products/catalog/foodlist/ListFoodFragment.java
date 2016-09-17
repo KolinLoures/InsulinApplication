@@ -2,6 +2,7 @@ package com.example.kolin.testapplication.presentation.products.catalog.foodlist
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -36,6 +37,9 @@ public class ListFoodFragment extends Fragment implements ListFoodView {
     private SimpleSectionedRecyclerViewAdapter sectionedAdapter;
 
 
+    private List<Food> loadedList = new ArrayList<>();
+
+
     public ListFoodFragment() {
     }
 
@@ -55,19 +59,23 @@ public class ListFoodFragment extends Fragment implements ListFoodView {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Bundle bundle = getArguments();
-        currentItemOfGroup = bundle.getString("itemName");
+        if (bundle != null)
+            currentItemOfGroup = bundle.getString("itemName");
 
         presenter = new ListFoodPresenter();
         adapter = new ListFoodAdapter();
         sectionedAdapter = new SimpleSectionedRecyclerViewAdapter(getContext(), adapter);
 
         presenter.attachView(this);
-        presenter.load(currentItemOfGroup);
 
         adapter.setListener(new ListFoodAdapter.OnClickFavoriteBtn() {
             @Override
             public void onClickFavoriteBtn(int position) {
-                presenter.addToFavorite(0);
+                Food food = null;
+                if (loadedList != null && !loadedList.isEmpty()) {
+                    food = loadedList.get(sectionedAdapter.sectionedPositionToPosition(position));
+                }
+                presenter.addToFavorite(food);
             }
         });
     }
@@ -81,9 +89,15 @@ public class ListFoodFragment extends Fragment implements ListFoodView {
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.addItemDecoration(new SimpleDividerItemDecoration(getContext()));
+        recyclerView.setAdapter(sectionedAdapter);
         return root;
     }
 
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        if (currentItemOfGroup != null)
+            presenter.load(currentItemOfGroup);
+    }
 
     @Override
     public void onAttach(Context context) {
@@ -100,6 +114,7 @@ public class ListFoodFragment extends Fragment implements ListFoodView {
     public void onDetach() {
         super.onDetach();
         listener = null;
+        presenter.detachView();
     }
 
     @Override
@@ -113,22 +128,21 @@ public class ListFoodFragment extends Fragment implements ListFoodView {
         int i = 0;
         for (HashMap.Entry<FoodCategory, List<Food>> pair : foodCategoryListHashMap.entrySet()) {
             FoodCategory key = pair.getKey();
-            sections.add(
-                    new SimpleSectionedRecyclerViewAdapter.Section(
-                            i, key.getNameFoodCategory(), key.getSrc()));
+            sections.add(new SimpleSectionedRecyclerViewAdapter
+                    .Section(i, key.getNameFoodCategory(), key.getSrc()));
             i += pair.getValue().size();
-            adapter.addAll(pair.getValue());
+            loadedList.addAll(pair.getValue());
         }
 
         SimpleSectionedRecyclerViewAdapter.Section[] dummy =
                 new SimpleSectionedRecyclerViewAdapter.Section[sections.size()];
 
+        adapter.addAll(loadedList);
         sectionedAdapter.setSections(sections.toArray(dummy));
-        recyclerView.setAdapter(sectionedAdapter);
     }
 
     @Override
     public void showSnackBar() {
-        Snackbar.make(recyclerView, "Добавленно в изранное", Snackbar.LENGTH_LONG).show();
+        Snackbar.make(recyclerView, "Добавленно в избранное", Snackbar.LENGTH_LONG).show();
     }
 }

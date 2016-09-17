@@ -5,7 +5,7 @@ import android.util.Log;
 import com.example.kolin.testapplication.domain.ItemOfGroup;
 import com.example.kolin.testapplication.domain.interactor.DefaultSubscriber;
 import com.example.kolin.testapplication.domain.interactor.GetItemsOfGroupUC;
-import com.example.kolin.testapplication.presentation.AbstractPresenter;
+import com.example.kolin.testapplication.presentation.common.AbstractPresenter;
 
 import java.util.List;
 

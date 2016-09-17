@@ -1,7 +1,7 @@
 package com.example.kolin.testapplication.data.repository;
 
 import com.example.kolin.testapplication.data.net.Rest;
-import com.example.kolin.testapplication.data.orm.RealQueries;
+import com.example.kolin.testapplication.data.orm.RealmQueries;
 import com.example.kolin.testapplication.domain.Food;
 import com.example.kolin.testapplication.domain.FoodCategory;
 import com.example.kolin.testapplication.domain.ItemOfGroup;
@@ -21,11 +21,11 @@ public class RepositoryImpl implements Repository {
 
 
     private Rest rest;
-    private RealQueries realQueries;
+    private RealmQueries realmQueries;
 
     public RepositoryImpl() {
         rest = new Rest();
-        realQueries = new RealQueries();
+        realmQueries = new RealmQueries();
     }
 
     @Override
@@ -35,14 +35,19 @@ public class RepositoryImpl implements Repository {
 
     @Override
     public Observable<HashMap<FoodCategory, List<Food>>> getFood(String itemGroupName) {
-        Observable<HashMap<FoodCategory, List<Food>>> favoriteFood = realQueries.getFavoriteFood();
-
-        return rest.getFoodFromCloud(itemGroupName)
-                .concatWith(favoriteFood);
+        realmQueries.getFavoriteFood();
+        return rest.getFoodFromCloud(itemGroupName);
     }
 
     @Override
     public void addFoodToFavorite(Food food) {
-        realQueries.addFoodToFavorite(food);
+        realmQueries.addFoodToFavorite(food);
     }
+
+    @Override
+    public Observable<List<Food>> getFavoriteFood() {
+        return realmQueries.getFavoriteFood();
+    }
+
+
 }

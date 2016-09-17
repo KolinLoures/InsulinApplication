@@ -4,32 +4,31 @@ import rx.Observable;
 import rx.Subscriber;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
 import rx.subscriptions.Subscriptions;
 
 /**
- * Created by kolin on 06.09.2016.
+ * Created by kolin on 18.09.2016.
  */
 
-public abstract class CloudUseCase {
+public abstract class ObservableRealmDataUseCase extends DataUseCase<Subscriber> {
 
-    private Subscription subscription = Subscriptions.empty();
+    public Subscription subscription = Subscriptions.empty();
 
-    public CloudUseCase() {
+    public ObservableRealmDataUseCase() {
     }
 
-    protected abstract Observable buildUseCaseObservable();
+    public abstract Observable buildObservable();
 
+    @Override
     @SuppressWarnings("unchecked")
     public void execute(Subscriber subscriber) {
-        subscription = buildUseCaseObservable()
-                .subscribeOn(Schedulers.io())
+        subscription = buildObservable()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
     }
 
     public void unsubscribe() {
-        if (!subscription.isUnsubscribed()) {
+        if (!subscription.isUnsubscribed()){
             subscription.unsubscribe();
         }
     }

@@ -1,4 +1,4 @@
-package com.example.kolin.testapplication.presentation;
+package com.example.kolin.testapplication.presentation.common;
 
 import java.lang.ref.WeakReference;
 

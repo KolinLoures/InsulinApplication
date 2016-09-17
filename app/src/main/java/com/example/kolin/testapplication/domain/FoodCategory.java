@@ -32,4 +32,11 @@ public class FoodCategory {
     }
 
 
+    @Override
+    public String toString() {
+        return "FoodCategory{" +
+                "src='" + src + '\'' +
+                ", nameFoodCategory='" + nameFoodCategory + '\'' +
+                '}';
+    }
 }

@@ -50,15 +50,18 @@ public class SelectionFragment extends Fragment implements SelectionContractView
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Bundle bundle = getArguments();
-        currentGroup = Group.getCategoryById(bundle.getInt("idCategory"));
+        Bundle bundle = null;
+        if (getArguments() != null) {
+            bundle = getArguments();
+            currentGroup = Group.getCategoryById(bundle.getInt("idCategory"));
+        }
         presenter = new SelectionPresenter();
         presenter.attachView(this);
         selectionAdapter = new SelectionAdapter(getContext());
         selectionAdapter.setClickItemListener(new SelectionAdapter.ClickItemSelection() {
             @Override
             public void onClickItemSelection(int position) {
-                if (listener != null){
+                if (listener != null) {
                     listener.clickItem(selectionAdapter.getObjectAtPosition(position).getIdName());
                 }
             }
@@ -83,13 +86,14 @@ public class SelectionFragment extends Fragment implements SelectionContractView
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        presenter.load(currentGroup);
+        if (currentGroup != null)
+            presenter.load(currentGroup);
     }
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof OnClickItemOnSelectionFragment){
+        if (context instanceof OnClickItemOnSelectionFragment) {
             listener = (OnClickItemOnSelectionFragment) context;
         } else {
             throw new RuntimeException(context.toString()
@@ -101,6 +105,7 @@ public class SelectionFragment extends Fragment implements SelectionContractView
     public void onDetach() {
         super.onDetach();
         listener = null;
+        presenter.detachView();
     }
 
     @Override

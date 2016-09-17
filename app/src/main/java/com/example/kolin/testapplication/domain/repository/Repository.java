@@ -22,4 +22,6 @@ public interface Repository {
     Observable<HashMap<FoodCategory, List<Food>>> getFood(String itemGroupName);
 
     void addFoodToFavorite(Food food);
+
+    Observable<List<Food>> getFavoriteFood();
 }
