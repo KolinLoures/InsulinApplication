@@ -36,7 +36,7 @@ public class SelectionFragment extends Fragment implements SelectionContractView
     }
 
     public interface OnClickItemOnSelectionFragment {
-        void clickItem(String itemName);
+        void clickItemSelectionFragment(String itemName, String title);
     }
 
     public static SelectionFragment newInstance(int param1) {
@@ -62,7 +62,9 @@ public class SelectionFragment extends Fragment implements SelectionContractView
             @Override
             public void onClickItemSelection(int position) {
                 if (listener != null) {
-                    listener.clickItem(selectionAdapter.getObjectAtPosition(position).getIdName());
+                    ItemOfGroup objectAtPosition = selectionAdapter.getObjectAtPosition(position);
+                    listener.clickItemSelectionFragment(objectAtPosition.getIdName(),
+                            objectAtPosition.getName());
                 }
             }
         });

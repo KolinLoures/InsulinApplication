@@ -71,6 +71,7 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.Favori
     }
 
     public void addAll(List<Food> list){
+        this.list.clear();
         this.list.addAll(list);
         notifyDataSetChanged();
     }

@@ -14,4 +14,6 @@ public interface ListFoodView {
     void showLoadedFood(HashMap<FoodCategory, List<Food>> foodCategoryListHashMap);
 
     void showSnackBar();
+
+    String getItemNameFromBundle();
 }

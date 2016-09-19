@@ -29,9 +29,6 @@ public class ListFoodFragment extends Fragment implements ListFoodView {
 
     private String currentItemOfGroup;
 
-
-    private OnSwipeRightListFragment listener;
-
     private RecyclerView recyclerView;
     private List<SimpleSectionedRecyclerViewAdapter.Section> sections = new ArrayList<>();
     private SimpleSectionedRecyclerViewAdapter sectionedAdapter;
@@ -43,9 +40,6 @@ public class ListFoodFragment extends Fragment implements ListFoodView {
     public ListFoodFragment() {
     }
 
-    public interface OnSwipeRightListFragment {
-        void onSwipeRight();
-    }
 
     public static ListFoodFragment newInstance(String itemName) {
         ListFoodFragment fragment = new ListFoodFragment();
@@ -58,9 +52,8 @@ public class ListFoodFragment extends Fragment implements ListFoodView {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Bundle bundle = getArguments();
-        if (bundle != null)
-            currentItemOfGroup = bundle.getString("itemName");
+
+        currentItemOfGroup = getItemNameFromBundle();
 
         presenter = new ListFoodPresenter();
         adapter = new ListFoodAdapter();
@@ -95,25 +88,19 @@ public class ListFoodFragment extends Fragment implements ListFoodView {
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        if (currentItemOfGroup != null)
-            presenter.load(currentItemOfGroup);
+        presenter.load(currentItemOfGroup);
     }
+
+
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof OnSwipeRightListFragment) {
-            listener = (OnSwipeRightListFragment) context;
-        } else {
-//            throw new RuntimeException(context.toString()
-//                    + " must implement OnSwipeRightListFragment");
-        }
     }
 
     @Override
     public void onDetach() {
         super.onDetach();
-        listener = null;
         presenter.detachView();
     }
 
@@ -125,6 +112,8 @@ public class ListFoodFragment extends Fragment implements ListFoodView {
 
     @Override
     public void showLoadedFood(HashMap<FoodCategory, List<Food>> foodCategoryListHashMap) {
+        sections.clear();
+        loadedList.clear();
         int i = 0;
         for (HashMap.Entry<FoodCategory, List<Food>> pair : foodCategoryListHashMap.entrySet()) {
             FoodCategory key = pair.getKey();
@@ -145,4 +134,12 @@ public class ListFoodFragment extends Fragment implements ListFoodView {
     public void showSnackBar() {
         Snackbar.make(recyclerView, "Добавленно в избранное", Snackbar.LENGTH_LONG).show();
     }
+
+    @Override
+    public String getItemNameFromBundle() {
+        Bundle bundle = getArguments();
+        String itemName = bundle.getString("itemName");
+        return itemName;
+    }
+
 }
