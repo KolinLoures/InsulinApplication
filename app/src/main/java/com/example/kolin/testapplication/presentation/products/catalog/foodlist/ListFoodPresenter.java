@@ -22,6 +22,9 @@ public class ListFoodPresenter extends AbstractPresenter<ListFoodView> {
     private GetFoodUC getFoodUC;
     private SetFoodToFavoriteUC setFoodToFavoriteUC;
 
+    private String currentCallItemName;
+    private HashMap<FoodCategory, List<Food>> loadedData;
+
     public ListFoodPresenter() {
         getFoodUC = new GetFoodUC();
         setFoodToFavoriteUC = new SetFoodToFavoriteUC();
@@ -29,8 +32,18 @@ public class ListFoodPresenter extends AbstractPresenter<ListFoodView> {
     }
 
     public void load(String itemGroupName) {
-        getFoodUC.setItemGroupName(itemGroupName);
-        getFoodUC.execute(new ListFoodSubscriber());
+        if (!itemGroupName.equals(currentCallItemName)) {
+            currentCallItemName = itemGroupName;
+            getFoodUC.setItemGroupName(itemGroupName);
+            getFoodUC.execute(new ListFoodSubscriber());
+        } else {
+            if (!isViewAttach()) {
+                Log.e(TAG, "View was detach");
+                return;
+            }
+
+            getWeakReference().showLoadedFood(loadedData);
+        }
     }
 
     public void showLoadedData(HashMap<FoodCategory, List<Food>> foodCategoryListHashMap) {
@@ -38,11 +51,7 @@ public class ListFoodPresenter extends AbstractPresenter<ListFoodView> {
             Log.e(TAG, "View was detach");
             return;
         }
-
-        for (HashMap.Entry<FoodCategory, List<Food>> pair: foodCategoryListHashMap.entrySet()){
-
-        }
-
+        loadedData = foodCategoryListHashMap;
         getWeakReference().showLoadedFood(foodCategoryListHashMap);
     }
 

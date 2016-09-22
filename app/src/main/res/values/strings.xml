@@ -14,5 +14,13 @@
     <string name="card_products_for_every_day_additional_text">Списки продуктов повседневной жизни</string>
     <string name="itemOfGroup">Рестораны</string>
     <string name="card_restaurant_additional_text">Меню наиболее популярных ресторанов</string>
+    <string name="b">Б: </string>
+    <string name="j">Ж: </string>
+    <string name="y">У: </string>
+    <string name="search">Поиск</string>
+    <string name="list_products">Список продуктов</string>
+    <string name="enter_product_name">Введите название продукта</string>
+    <string name="back">Назад</string>
+    <string name="compute">Расчитать</string>
 
 </resources>

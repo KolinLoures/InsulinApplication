@@ -1,5 +1,7 @@
 package com.example.kolin.testapplication.presentation.products.catalog.foodlist;
 
+import android.annotation.SuppressLint;
+import android.content.res.Resources;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,6 +23,7 @@ public class ListFoodAdapter extends RecyclerView.Adapter<ListFoodAdapter.ListFo
 
     private List<Food> listFood;
     private OnClickFavoriteBtn listener;
+    private Resources resources;
 
     public interface OnClickFavoriteBtn {
         void onClickFavoriteBtn(int position);
@@ -33,18 +36,23 @@ public class ListFoodAdapter extends RecyclerView.Adapter<ListFoodAdapter.ListFo
 
     @Override
     public ListFoodViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        resources = parent.getResources();
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
         View view = layoutInflater.inflate(R.layout.item_list_fragment, parent, false);
         return new ListFoodViewHolder(view);
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(ListFoodViewHolder holder, int position) {
         Food food = listFood.get(position);
         holder.textViewNameProduct.setText(food.getName());
-        holder.textViewB.append(String.valueOf(food.getB()));
-        holder.textViewJ.append(String.valueOf(food.getJ()));
-        holder.textViewY.append(String.valueOf(food.getY()));
+        holder.textViewB.setText(resources.getString(R.string.b)
+                + String.valueOf(food.getB()));
+        holder.textViewJ.setText(resources.getString(R.string.j)
+                + String.valueOf(food.getJ()));
+        holder.textViewY.setText(resources.getString(R.string.y)
+                + String.valueOf(food.getY()));
     }
 
     @Override

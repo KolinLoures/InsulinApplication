@@ -14,6 +14,7 @@
     <style name="AppTheme" parent="AppTheme.Base"></style>
 
 
+
     <style name="textViewEmail">
         <item name="android:textSize">14sp</item>
         <item name="android:fontFamily">@string/Roboto_Light</item>
@@ -48,6 +49,20 @@
     <style name="textViewSupportingText">
         <item name="android:fontFamily">@string/Roboto_Light</item>
         <item name="android:textSize">14sp</item>
+    </style>
+    
+    <style name="btnStyleDialog">
+        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:layout_height">36dp</item>
+    </style>
+
+    <style name="textViewTitleDialog">
+        <item name="android:layout_marginStart">24dp</item>
+        <item name="android:layout_marginTop">24dp</item>
+        <item name="android:layout_marginEnd">24dp</item>
+        <item name="android:textSize">24sp</item>
+        <item name="android:fontFamily">@string/Roboto_Medium</item>
     </style>
 
 </resources>

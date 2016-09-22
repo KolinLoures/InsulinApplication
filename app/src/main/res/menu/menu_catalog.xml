@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <group android:checkableBehavior="single">
+
+        <item
+            android:title="@string/list_products"
+            android:id="@+id/item_catalog_added_products"
+            android:icon="@drawable/ic_shopping_basket"
+            app:showAsAction="ifRoom"/>
+
+        <item
+            android:id="@+id/item_search_catalog"
+            android:icon="@drawable/ic_search_black_24px"
+            android:title="@string/search"
+            app:actionViewClass="android.support.v7.widget.SearchView"
+            app:showAsAction="ifRoom"/>
+
+    </group>
+</menu>

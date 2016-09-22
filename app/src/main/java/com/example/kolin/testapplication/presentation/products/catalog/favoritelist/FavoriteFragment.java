@@ -74,11 +74,6 @@ public class FavoriteFragment extends Fragment implements FavoriteView {
     public void onDetach() {
         super.onDetach();
         presenter.detachView();
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
         presenter.unsubscribe();
     }
 

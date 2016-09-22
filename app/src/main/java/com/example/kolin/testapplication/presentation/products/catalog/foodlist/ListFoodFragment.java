@@ -16,12 +16,15 @@ import com.example.kolin.testapplication.domain.Food;
 import com.example.kolin.testapplication.domain.FoodCategory;
 import com.example.kolin.testapplication.presentation.common.SimpleDividerItemDecoration;
 import com.example.kolin.testapplication.presentation.common.SimpleSectionedRecyclerViewAdapter;
+import com.example.kolin.testapplication.presentation.common.Updateable;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class ListFoodFragment extends Fragment implements ListFoodView {
+public class ListFoodFragment extends Fragment implements ListFoodView, Updateable {
+
+    private static final String keyToArgs = "itemName";
 
     private ListFoodAdapter adapter;
 
@@ -44,7 +47,7 @@ public class ListFoodFragment extends Fragment implements ListFoodView {
     public static ListFoodFragment newInstance(String itemName) {
         ListFoodFragment fragment = new ListFoodFragment();
         Bundle args = new Bundle();
-        args.putString("itemName", itemName);
+        args.putString(keyToArgs, itemName);
         fragment.setArguments(args);
         return fragment;
     }
@@ -53,7 +56,7 @@ public class ListFoodFragment extends Fragment implements ListFoodView {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        currentItemOfGroup = getItemNameFromBundle();
+        currentItemOfGroup = getArguments().getString(keyToArgs);
 
         presenter = new ListFoodPresenter();
         adapter = new ListFoodAdapter();
@@ -92,7 +95,6 @@ public class ListFoodFragment extends Fragment implements ListFoodView {
     }
 
 
-
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -102,18 +104,12 @@ public class ListFoodFragment extends Fragment implements ListFoodView {
     public void onDetach() {
         super.onDetach();
         presenter.detachView();
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
         presenter.unSubscribe();
+        adapter.setListener(null);
     }
 
     @Override
     public void showLoadedFood(HashMap<FoodCategory, List<Food>> foodCategoryListHashMap) {
-        sections.clear();
-        loadedList.clear();
         int i = 0;
         for (HashMap.Entry<FoodCategory, List<Food>> pair : foodCategoryListHashMap.entrySet()) {
             FoodCategory key = pair.getKey();
@@ -135,11 +131,19 @@ public class ListFoodFragment extends Fragment implements ListFoodView {
         Snackbar.make(recyclerView, "Добавленно в избранное", Snackbar.LENGTH_LONG).show();
     }
 
+
     @Override
-    public String getItemNameFromBundle() {
-        Bundle bundle = getArguments();
-        String itemName = bundle.getString("itemName");
-        return itemName;
+    public void update(Bundle bundleToUpdate) {
+        clearAll();
+        presenter.load(bundleToUpdate.getString(keyToArgs));
     }
+
+    @Override
+    public void clearAll() {
+        sections.clear();
+        adapter.clearAll();
+        loadedList.clear();
+    }
+
 
 }

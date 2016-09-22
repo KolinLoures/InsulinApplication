@@ -108,13 +108,9 @@ public class SelectionFragment extends Fragment implements SelectionContractView
         super.onDetach();
         listener = null;
         presenter.detachView();
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
         presenter.unSubscribe();
     }
+
 
     @Override
     public void showLoadedRestaurants(List<ItemOfGroup> itemCategories) {

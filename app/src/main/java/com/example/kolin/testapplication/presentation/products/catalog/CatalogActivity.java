@@ -1,24 +1,25 @@
 package com.example.kolin.testapplication.presentation.products.catalog;
 
+import android.app.SearchManager;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 
 import com.example.kolin.testapplication.R;
 import com.example.kolin.testapplication.domain.groups.GroupName;
+import com.example.kolin.testapplication.presentation.products.catalog.dialog.DialogFragment;
 import com.example.kolin.testapplication.presentation.products.catalog.favoritelist.FavoriteFragment;
 import com.example.kolin.testapplication.presentation.products.catalog.foodlist.ListFoodFragment;
 import com.example.kolin.testapplication.presentation.products.catalog.selection.SelectionFragment;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class CatalogActivity extends AppCompatActivity
         implements SelectionFragment.OnClickItemOnSelectionFragment {
@@ -27,9 +28,11 @@ public class CatalogActivity extends AppCompatActivity
     private TabLayout tabs;
     private ViewPager viewPager;
 
+    private MenuItem searchItem;
+    private SearchView searchView;
+
     private int extra;
     private PagerAdapter pagerAdapter;
-    private ViewPager.OnPageChangeListener listener;
 
 
     @Override
@@ -54,37 +57,20 @@ public class CatalogActivity extends AppCompatActivity
         }
 
         setupAdapter();
-        setupViewPagerListener();
         tabs.setupWithViewPager(viewPager);
     }
 
-    private void setupViewPagerListener() {
-        listener = new ViewPager.OnPageChangeListener() {
-
-            private int positionScrolledPage = 0;
-
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-
-            }
-        };
-        viewPager.addOnPageChangeListener(listener);
-    }
-
-
     @Override
     public void clickItemSelectionFragment(String itemName, String title) {
-        pagerAdapter.addFragment(ListFoodFragment.newInstance(itemName), title, 2);
+        if (pagerAdapter.getItem(2) == null) {
+            pagerAdapter.addFragment(ListFoodFragment.newInstance(itemName), title, 2);
+        } else {
+            Bundle args = new Bundle();
+            args.putString("itemName", itemName);
+            pagerAdapter.setTitleToPosition(title, 2);
+            pagerAdapter.setBundleToUpdate(args);
+            pagerAdapter.notifyDataSetChanged();
+        }
         viewPager.setCurrentItem(pagerAdapter.getCount() - 1);
     }
 
@@ -96,69 +82,39 @@ public class CatalogActivity extends AppCompatActivity
         viewPager.setCurrentItem(pagerAdapter.getCount() - 1);
     }
 
-    static class PagerAdapter extends FragmentStatePagerAdapter {
-
-        private List<String> titleList = new ArrayList<>();
-        private List<Fragment> fragmentList = new ArrayList<>();
-        private static int position = 0;
-
-        public PagerAdapter(FragmentManager fm) {
-            super(fm);
-        }
-
-        @Override
-        public Fragment getItem(int position) {
-            return fragmentList.get(position);
-        }
-
-        @Override
-        public int getItemPosition(Object object) {
-            if (object instanceof ListFoodFragment){
-                return POSITION_NONE;
-            }
-            return super.getItemPosition(object);
-        }
-
-        @Override
-        public int getCount() {
-            return fragmentList.size();
-        }
-
-        public void addFragment(Fragment fragment, String title, int position) {
-            if (fragment instanceof  ListFoodFragment){
-                removeFragment(position);
-            }
-            titleList.add(position, title);
-            fragmentList.add(position, fragment);
-            notifyDataSetChanged();
-        }
-
-        public void removeFragment(int position) {
-            if (fragmentList.size() > position) {
-                titleList.remove(position);
-                fragmentList.remove(position);
-                notifyDataSetChanged();
-            }
-        }
-
-        @Override
-        public CharSequence getPageTitle(int position) {
-            setPosition(position);
-            return titleList.get(position);
-        }
-
-        private static void setPosition(int position) {
-            PagerAdapter.position = position;
-        }
-
-
-    }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        listener = null;
-        viewPager.addOnPageChangeListener(listener);
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_catalog, menu);
+
+        searchItem = menu.findItem(R.id.item_search_catalog);
+        SearchManager searchManager =
+                (SearchManager) CatalogActivity.this.getSystemService(Context.SEARCH_SERVICE);
+
+        searchView = (SearchView) searchItem.getActionView();
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(CatalogActivity.this.getComponentName()));
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.item_catalog_added_products:
+                showDialog();
+                break;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void showDialog(){
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        DialogFragment dialogFragment = DialogFragment.newInstance("sasda");
+        dialogFragment.show(fragmentManager, "fragment_edit_name");
+    }
 }

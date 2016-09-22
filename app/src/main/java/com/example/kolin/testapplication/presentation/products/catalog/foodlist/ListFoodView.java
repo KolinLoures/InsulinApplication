@@ -15,5 +15,5 @@ public interface ListFoodView {
 
     void showSnackBar();
 
-    String getItemNameFromBundle();
+    void clearAll();
 }
