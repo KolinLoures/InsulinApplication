@@ -1,51 +1,54 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:layout_gravity="center"
-    tools:context="com.example.kolin.testapplication.presentation.products.catalog.dialog.DialogFragment"
-    android:elevation="24dp">
+    android:elevation="24dp"
+    android:orientation="vertical"
+    android:minHeight="250dp"
+    android:minWidth="300dp"
+    tools:context="com.example.kolin.testapplication.presentation.products.catalog.dialog.DialogFragment">
 
     <TextView
+        style="@style/textViewTitleDialog"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        style="@style/textViewTitleDialog"
-        android:text="Диалог"
-        android:layout_marginBottom="20dp"/>
+        android:layout_marginBottom="20dp"
+        android:text="Диалог" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_view_dialog"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="165dp"
         android:layout_marginEnd="24dp"
         android:layout_marginStart="24dp" />
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="52dp"
-        android:layout_marginEnd="24dp"
+        android:layout_marginEnd="8dp"
         android:layout_marginStart="24dp">
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_gravity="end"
+            android:layout_gravity="end|bottom"
             android:padding="8dp">
 
             <Button
+                style="@style/btnStyleDialog"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
-                android:text="@string/back"
-                style="@style/btnStyleDialog"/>
+                android:text="@string/back" />
 
             <Button
+                style="@style/btnStyleDialog"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
-                android:text="@string/compute"
-                style="@style/btnStyleDialog"/>
+                android:text="@string/compute" />
         </LinearLayout>
 
     </FrameLayout>

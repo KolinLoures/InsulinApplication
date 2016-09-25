@@ -25,6 +25,7 @@ import java.util.List;
 public class ListFoodFragment extends Fragment implements ListFoodView, Updateable {
 
     private static final String keyToArgs = "itemName";
+    private static final String keyToState = "state";
 
     private ListFoodAdapter adapter;
 
@@ -74,6 +75,8 @@ public class ListFoodFragment extends Fragment implements ListFoodView, Updateab
                 presenter.addToFavorite(food);
             }
         });
+
+
     }
 
     @Override
@@ -89,9 +92,16 @@ public class ListFoodFragment extends Fragment implements ListFoodView, Updateab
         return root;
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        presenter.load(currentItemOfGroup);
+        clearAll();
+        if (savedInstanceState != null){
+            presenter.showLoadedData((HashMap<FoodCategory, List<Food>>)
+                    savedInstanceState.getSerializable(keyToState));
+        } else {
+            presenter.load(currentItemOfGroup);
+        }
     }
 
 
@@ -145,5 +155,12 @@ public class ListFoodFragment extends Fragment implements ListFoodView, Updateab
         loadedList.clear();
     }
 
-
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        HashMap<FoodCategory, List<Food>> loadedData = presenter.getLoadedData();
+        if (loadedData != null){
+            outState.putSerializable(keyToState, loadedData);
+        }
+        super.onSaveInstanceState(outState);
+    }
 }

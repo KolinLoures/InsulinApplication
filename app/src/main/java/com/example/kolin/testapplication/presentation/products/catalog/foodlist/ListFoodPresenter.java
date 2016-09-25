@@ -84,4 +84,8 @@ public class ListFoodPresenter extends AbstractPresenter<ListFoodView> {
     public void unSubscribe() {
         getFoodUC.unsubscribe();
     }
+
+    public HashMap<FoodCategory, List<Food>> getLoadedData() {
+        return loadedData;
+    }
 }
