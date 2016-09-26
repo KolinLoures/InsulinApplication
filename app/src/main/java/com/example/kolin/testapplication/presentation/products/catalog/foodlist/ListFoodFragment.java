@@ -65,7 +65,7 @@ public class ListFoodFragment extends Fragment implements ListFoodView, Updateab
 
         presenter.attachView(this);
 
-        adapter.setListener(new ListFoodAdapter.OnClickFavoriteBtn() {
+        adapter.setListener(new ListFoodAdapter.OnLongClickListFoodAdapter() {
             @Override
             public void onClickFavoriteBtn(int position) {
                 Food food = null;
@@ -102,6 +102,7 @@ public class ListFoodFragment extends Fragment implements ListFoodView, Updateab
         } else {
             presenter.load(currentItemOfGroup);
         }
+        presenter.getLoadedData();
     }
 
 

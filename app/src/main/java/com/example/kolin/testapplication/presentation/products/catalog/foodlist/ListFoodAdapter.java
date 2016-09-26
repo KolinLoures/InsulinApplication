@@ -22,10 +22,10 @@ import java.util.List;
 public class ListFoodAdapter extends RecyclerView.Adapter<ListFoodAdapter.ListFoodViewHolder> {
 
     private List<Food> listFood;
-    private OnClickFavoriteBtn listener;
+    private OnLongClickListFoodAdapter listener;
     private Resources resources;
 
-    public interface OnClickFavoriteBtn {
+    public interface OnLongClickListFoodAdapter {
         void onClickFavoriteBtn(int position);
     }
 
@@ -89,18 +89,19 @@ public class ListFoodAdapter extends RecyclerView.Adapter<ListFoodAdapter.ListFo
             imageViewFavorite = (ImageButton) itemView.findViewById(R.id.list_food_add_to_favorite);
 
 
-            imageViewFavorite.setOnClickListener(new View.OnClickListener() {
+            itemView.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
-                public void onClick(View view) {
+                public boolean onLongClick(View v) {
                     if (listener != null) {
                         listener.onClickFavoriteBtn(getLayoutPosition());
                     }
+                    return true;
                 }
             });
         }
     }
 
-    public void setListener(OnClickFavoriteBtn listener) {
+    public void setListener(OnLongClickListFoodAdapter listener) {
         this.listener = listener;
     }
 

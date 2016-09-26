@@ -19,11 +19,12 @@ import java.util.List;
 public class ListFoodPresenter extends AbstractPresenter<ListFoodView> {
 
     private static final String TAG = ListFoodPresenter.class.getSimpleName();
+
     private GetFoodUC getFoodUC;
     private SetFoodToFavoriteUC setFoodToFavoriteUC;
 
     private String currentCallItemName;
-    private HashMap<FoodCategory, List<Food>> loadedData;
+    private HashMap<FoodCategory, List<Food>> loadedData = new HashMap<>();
 
     public ListFoodPresenter() {
         getFoodUC = new GetFoodUC();
@@ -51,7 +52,8 @@ public class ListFoodPresenter extends AbstractPresenter<ListFoodView> {
             Log.e(TAG, "View was detach");
             return;
         }
-        loadedData = foodCategoryListHashMap;
+        loadedData.clear();
+        loadedData.putAll(foodCategoryListHashMap);
         getWeakReference().showLoadedFood(foodCategoryListHashMap);
     }
 
