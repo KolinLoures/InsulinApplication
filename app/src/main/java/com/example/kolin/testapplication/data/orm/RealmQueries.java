@@ -22,14 +22,16 @@ public class RealmQueries {
     }
 
     public void addFoodToFavorite(final Food food) {
-        this.realm.executeTransaction(new Realm.Transaction() {
+        realm.executeTransaction(new Realm.Transaction() {
             @Override
             public void execute(Realm realm) {
                 realm.copyToRealmOrUpdate(food);
             }
         });
+    }
 
-//        getFavoriteFood();
+    public void addFoodToCalc(){
+
     }
 
     public Observable<List<Food>> getFavoriteFood() {
@@ -50,4 +52,12 @@ public class RealmQueries {
                 });
     }
 
+    public void deleteFavoriteFood(final Food food){
+        realm.executeTransaction(new Realm.Transaction() {
+            @Override
+            public void execute(Realm realm) {
+                food.deleteFromRealm();
+            }
+        });
+    }
 }

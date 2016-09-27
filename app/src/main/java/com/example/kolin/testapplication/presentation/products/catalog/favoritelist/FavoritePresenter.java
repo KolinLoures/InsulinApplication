@@ -3,7 +3,9 @@ package com.example.kolin.testapplication.presentation.products.catalog.favorite
 import android.util.Log;
 
 import com.example.kolin.testapplication.domain.Food;
+import com.example.kolin.testapplication.domain.interactor.AddCalcFoodUC;
 import com.example.kolin.testapplication.domain.interactor.DefaultSubscriber;
+import com.example.kolin.testapplication.domain.interactor.DeleteFoodUC;
 import com.example.kolin.testapplication.domain.interactor.GetFavoriteFoodUC;
 import com.example.kolin.testapplication.presentation.common.AbstractPresenter;
 
@@ -18,10 +20,14 @@ public class FavoritePresenter extends AbstractPresenter<FavoriteView> {
     private static final String TAG = FavoritePresenter.class.getSimpleName();
 
     private GetFavoriteFoodUC getFavoriteFoodUC;
+    private DeleteFoodUC deleteFoodUC;
+    private AddCalcFoodUC addCalcFoodUC;
 
 
     public FavoritePresenter() {
-        this.getFavoriteFoodUC = new GetFavoriteFoodUC();
+        getFavoriteFoodUC = new GetFavoriteFoodUC();
+        deleteFoodUC = new DeleteFoodUC();
+        addCalcFoodUC = new AddCalcFoodUC();
     }
 
     public void load(){
@@ -53,7 +59,27 @@ public class FavoritePresenter extends AbstractPresenter<FavoriteView> {
         }
     }
 
-    public void unsubscribe(){
+    public void unSubscribe(){
         getFavoriteFoodUC.unsubscribe();
+    }
+
+    public void deleteFromFavorite(Food food){
+        deleteFoodUC.execute(food);
+
+        if (!isViewAttach()){
+            Log.e(TAG, "View is detach!");
+        }
+
+        getWeakReference().showSnackBar("Удалено из избраннного!");
+    }
+
+    public void addFoodToCalc(Food food){
+        addCalcFoodUC.execute(food);
+
+        if (!isViewAttach()){
+            Log.e(TAG, "View is detach!");
+        }
+
+        getWeakReference().showSnackBar("Добавлено в расчет!");
     }
 }

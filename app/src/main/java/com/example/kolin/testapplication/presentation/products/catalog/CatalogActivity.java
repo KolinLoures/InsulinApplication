@@ -114,7 +114,7 @@ public class CatalogActivity extends AppCompatActivity
 
     private void showDialog(){
         FragmentManager fragmentManager = getSupportFragmentManager();
-        DialogFragment dialogFragment = DialogFragment.newInstance("sasda");
+        DialogFragment dialogFragment = DialogFragment.newInstance("Список расчета");
         dialogFragment.show(fragmentManager, "fragment_edit_name");
     }
 }

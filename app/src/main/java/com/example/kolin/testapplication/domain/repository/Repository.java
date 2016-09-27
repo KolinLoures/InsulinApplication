@@ -24,4 +24,12 @@ public interface Repository {
     void addFoodToFavorite(Food food);
 
     Observable<List<Food>> getFavoriteFood();
+
+    void deleteFavoriteFood(Food food);
+
+    void addFoodToCalc(Food food);
+
+    Observable<List<Food>> getFoodCalc();
+
+    void deleteFoodFromCalc(Food food);
 }

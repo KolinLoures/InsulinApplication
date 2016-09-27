@@ -3,6 +3,7 @@ package com.example.kolin.testapplication.presentation.products.catalog.favorite
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -13,6 +14,7 @@ import android.view.ViewGroup;
 import com.example.kolin.testapplication.R;
 import com.example.kolin.testapplication.domain.Food;
 import com.example.kolin.testapplication.presentation.common.SimpleDividerItemDecoration;
+import com.example.kolin.testapplication.presentation.products.catalog.adapters.FavoriteAdapter;
 
 import java.util.List;
 
@@ -43,6 +45,7 @@ public class FavoriteFragment extends Fragment implements FavoriteView {
 
         presenter = new FavoritePresenter();
         adapter = new FavoriteAdapter();
+        setListenerAdapter();
 
         presenter.attachView(this);
     }
@@ -53,6 +56,7 @@ public class FavoriteFragment extends Fragment implements FavoriteView {
         // Inflate the layout for this fragment
         View root = inflater.inflate(R.layout.fragment_favorite, container, false);
         recyclerView = (RecyclerView) root.findViewById(R.id.recycler_view_favorite_fragment);
+
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.addItemDecoration(new SimpleDividerItemDecoration(getContext()));
@@ -74,11 +78,31 @@ public class FavoriteFragment extends Fragment implements FavoriteView {
     public void onDetach() {
         super.onDetach();
         presenter.detachView();
-        presenter.unsubscribe();
+        presenter.unSubscribe();
+        adapter.setListener(null);
     }
 
     @Override
     public void showFavoriteFood(List<Food> foodList) {
         adapter.addAll(foodList);
+    }
+
+    @Override
+    public void showSnackBar(String title) {
+        Snackbar.make(recyclerView, title, Snackbar.LENGTH_LONG).show();
+    }
+
+    private void setListenerAdapter(){
+        adapter.setListener(new FavoriteAdapter.OnClickItemFavoriteAdapter() {
+            @Override
+            public void onClickAddToCalc(Food food) {
+                presenter.addFoodToCalc(food);
+            }
+
+            @Override
+            public void onLongClickItem(Food food) {
+                presenter.deleteFromFavorite(food);
+            }
+        });
     }
 }

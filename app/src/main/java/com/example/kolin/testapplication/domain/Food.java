@@ -18,6 +18,9 @@ public class Food extends RealmObject {
     private Double y;
     private String owner;
 
+    public Food() {
+    }
+
     public Double getB() {
         return b;
     }

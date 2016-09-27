@@ -8,11 +8,11 @@ import com.example.kolin.testapplication.domain.usecases.DataUseCase;
  * Created by kolin on 14.09.2016.
  */
 
-public class SetFoodToFavoriteUC extends DataUseCase<Food> {
+public class AddFoodToFavoriteUC extends DataUseCase<Food> {
 
     private RepositoryImpl repository;
 
-    public SetFoodToFavoriteUC() {
+    public AddFoodToFavoriteUC() {
         repository = new RepositoryImpl();
     }
 

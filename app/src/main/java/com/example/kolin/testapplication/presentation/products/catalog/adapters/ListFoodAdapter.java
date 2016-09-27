@@ -1,4 +1,4 @@
-package com.example.kolin.testapplication.presentation.products.catalog.foodlist;
+package com.example.kolin.testapplication.presentation.products.catalog.adapters;
 
 import android.annotation.SuppressLint;
 import android.content.res.Resources;
@@ -22,12 +22,15 @@ import java.util.List;
 public class ListFoodAdapter extends RecyclerView.Adapter<ListFoodAdapter.ListFoodViewHolder> {
 
     private List<Food> listFood;
-    private OnLongClickListFoodAdapter listener;
+    private OnClickListFoodAdapter listener;
     private Resources resources;
 
-    public interface OnLongClickListFoodAdapter {
-        void onClickFavoriteBtn(int position);
+    public interface OnClickListFoodAdapter {
+        void onLongClickItemView(int position);
+
+        void onClickBtnAddToCalc(int position);
     }
+
 
 
     public ListFoodAdapter() {
@@ -77,7 +80,7 @@ public class ListFoodAdapter extends RecyclerView.Adapter<ListFoodAdapter.ListFo
         private TextView textViewB;
         private TextView textViewJ;
         private TextView textViewY;
-        private ImageButton imageViewFavorite;
+        private ImageButton imageBtnAddToCalc;
 
         public ListFoodViewHolder(View itemView) {
             super(itemView);
@@ -86,22 +89,31 @@ public class ListFoodAdapter extends RecyclerView.Adapter<ListFoodAdapter.ListFo
             textViewB = (TextView) itemView.findViewById(R.id.list_food_b);
             textViewJ = (TextView) itemView.findViewById(R.id.list_food_j);
             textViewY = (TextView) itemView.findViewById(R.id.list_food_y);
-            imageViewFavorite = (ImageButton) itemView.findViewById(R.id.list_food_add_to_favorite);
+            imageBtnAddToCalc = (ImageButton) itemView.findViewById(R.id.list_food_add_to_calc);
 
 
             itemView.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View v) {
                     if (listener != null) {
-                        listener.onClickFavoriteBtn(getLayoutPosition());
+                        listener.onLongClickItemView(getLayoutPosition());
                     }
                     return true;
+                }
+            });
+
+            imageBtnAddToCalc.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (listener != null){
+                        listener.onClickBtnAddToCalc(getLayoutPosition());
+                    }
                 }
             });
         }
     }
 
-    public void setListener(OnLongClickListFoodAdapter listener) {
+    public void setListener(OnClickListFoodAdapter listener) {
         this.listener = listener;
     }
 

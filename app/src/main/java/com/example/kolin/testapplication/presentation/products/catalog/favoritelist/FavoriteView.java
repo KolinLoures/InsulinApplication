@@ -12,4 +12,5 @@ public interface FavoriteView {
 
     void showFavoriteFood(List<Food> foodList);
 
+    void showSnackBar(String title);
 }

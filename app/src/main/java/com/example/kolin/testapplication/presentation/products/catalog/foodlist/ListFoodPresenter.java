@@ -4,9 +4,10 @@ import android.util.Log;
 
 import com.example.kolin.testapplication.domain.Food;
 import com.example.kolin.testapplication.domain.FoodCategory;
+import com.example.kolin.testapplication.domain.interactor.AddCalcFoodUC;
 import com.example.kolin.testapplication.domain.interactor.DefaultSubscriber;
 import com.example.kolin.testapplication.domain.interactor.GetFoodUC;
-import com.example.kolin.testapplication.domain.interactor.SetFoodToFavoriteUC;
+import com.example.kolin.testapplication.domain.interactor.AddFoodToFavoriteUC;
 import com.example.kolin.testapplication.presentation.common.AbstractPresenter;
 
 import java.util.HashMap;
@@ -21,15 +22,16 @@ public class ListFoodPresenter extends AbstractPresenter<ListFoodView> {
     private static final String TAG = ListFoodPresenter.class.getSimpleName();
 
     private GetFoodUC getFoodUC;
-    private SetFoodToFavoriteUC setFoodToFavoriteUC;
+    private AddFoodToFavoriteUC addFoodToFavoriteUC;
+    private AddCalcFoodUC addCalcFoodUC;
 
     private String currentCallItemName;
     private HashMap<FoodCategory, List<Food>> loadedData = new HashMap<>();
 
     public ListFoodPresenter() {
         getFoodUC = new GetFoodUC();
-        setFoodToFavoriteUC = new SetFoodToFavoriteUC();
-
+        addFoodToFavoriteUC = new AddFoodToFavoriteUC();
+        addCalcFoodUC = new AddCalcFoodUC();
     }
 
     public void load(String itemGroupName) {
@@ -58,14 +60,25 @@ public class ListFoodPresenter extends AbstractPresenter<ListFoodView> {
     }
 
     public void addToFavorite(Food food) {
-        setFoodToFavoriteUC.execute(food);
+        addFoodToFavoriteUC.execute(food);
 
         if (!isViewAttach()) {
             Log.e(TAG, "View was detach");
             return;
         }
 
-        getWeakReference().showSnackBar();
+        getWeakReference().showSnackBar("Добавленно в избранное!");
+    }
+
+    public void addToCalc(Food food) {
+        addCalcFoodUC.execute(food);
+
+        if (!isViewAttach()) {
+            Log.e(TAG, "View was detach");
+            return;
+        }
+
+        getWeakReference().showSnackBar("Добавленно в расчет!");
     }
 
     private final class ListFoodSubscriber extends DefaultSubscriber<HashMap<FoodCategory, List<Food>>> {

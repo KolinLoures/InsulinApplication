@@ -17,6 +17,7 @@ import com.example.kolin.testapplication.domain.FoodCategory;
 import com.example.kolin.testapplication.presentation.common.SimpleDividerItemDecoration;
 import com.example.kolin.testapplication.presentation.common.SimpleSectionedRecyclerViewAdapter;
 import com.example.kolin.testapplication.presentation.common.Updateable;
+import com.example.kolin.testapplication.presentation.products.catalog.adapters.ListFoodAdapter;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -65,18 +66,7 @@ public class ListFoodFragment extends Fragment implements ListFoodView, Updateab
 
         presenter.attachView(this);
 
-        adapter.setListener(new ListFoodAdapter.OnLongClickListFoodAdapter() {
-            @Override
-            public void onClickFavoriteBtn(int position) {
-                Food food = null;
-                if (loadedList != null && !loadedList.isEmpty()) {
-                    food = loadedList.get(sectionedAdapter.sectionedPositionToPosition(position));
-                }
-                presenter.addToFavorite(food);
-            }
-        });
-
-
+        setAdapterListener();
     }
 
     @Override
@@ -96,7 +86,7 @@ public class ListFoodFragment extends Fragment implements ListFoodView, Updateab
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         clearAll();
-        if (savedInstanceState != null){
+        if (savedInstanceState != null) {
             presenter.showLoadedData((HashMap<FoodCategory, List<Food>>)
                     savedInstanceState.getSerializable(keyToState));
         } else {
@@ -138,8 +128,8 @@ public class ListFoodFragment extends Fragment implements ListFoodView, Updateab
     }
 
     @Override
-    public void showSnackBar() {
-        Snackbar.make(recyclerView, "Добавленно в избранное", Snackbar.LENGTH_LONG).show();
+    public void showSnackBar(String title) {
+        Snackbar.make(recyclerView, title, Snackbar.LENGTH_LONG).show();
     }
 
 
@@ -159,9 +149,31 @@ public class ListFoodFragment extends Fragment implements ListFoodView, Updateab
     @Override
     public void onSaveInstanceState(Bundle outState) {
         HashMap<FoodCategory, List<Food>> loadedData = presenter.getLoadedData();
-        if (loadedData != null){
+        if (loadedData != null) {
             outState.putSerializable(keyToState, loadedData);
         }
         super.onSaveInstanceState(outState);
+    }
+
+    private void setAdapterListener() {
+        adapter.setListener(new ListFoodAdapter.OnClickListFoodAdapter() {
+            @Override
+            public void onLongClickItemView(int position) {
+                Food food = null;
+                if (loadedList != null && !loadedList.isEmpty()) {
+                    food = loadedList.get(sectionedAdapter.sectionedPositionToPosition(position));
+                }
+                presenter.addToFavorite(food);
+            }
+
+            @Override
+            public void onClickBtnAddToCalc(int position) {
+                Food food = null;
+                if (loadedList != null && !loadedList.isEmpty()) {
+                    food = loadedList.get(sectionedAdapter.sectionedPositionToPosition(position));
+                }
+                presenter.addToCalc(food);
+            }
+        });
     }
 }

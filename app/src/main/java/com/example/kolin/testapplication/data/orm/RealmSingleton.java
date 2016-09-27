@@ -15,7 +15,8 @@ public class RealmSingleton {
 
     public static Realm initialize(Context context) {
         if (instance == null) {
-            RealmConfiguration build = new RealmConfiguration.Builder(context)
+            RealmConfiguration build = new RealmConfiguration
+                    .Builder(context)
                     .build();
             Realm.setDefaultConfiguration(build);
             instance = Realm.getInstance(build);

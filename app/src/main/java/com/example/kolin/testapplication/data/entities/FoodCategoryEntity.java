@@ -1,6 +1,5 @@
 package com.example.kolin.testapplication.data.entities;
 
-import com.example.kolin.testapplication.domain.Food;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
@@ -13,16 +12,16 @@ import java.util.List;
 public class FoodCategoryEntity {
 
     @SerializedName("list")
-    private List<Food> listFood = new ArrayList<>();
+    private List<FoodEntity> listFood = new ArrayList<>();
     private String src;
     @SerializedName("name_food_category")
     private String nameFoodCategory;
 
-    public List<Food> getListFood() {
+    public List<FoodEntity> getListFood() {
         return listFood;
     }
 
-    public void setListFood(List<Food> listFood) {
+    public void setListFood(List<FoodEntity> listFood) {
         this.listFood = listFood;
     }
 

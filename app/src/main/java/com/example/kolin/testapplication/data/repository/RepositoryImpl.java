@@ -1,5 +1,6 @@
 package com.example.kolin.testapplication.data.repository;
 
+import com.example.kolin.testapplication.data.local.LocalCalculationData;
 import com.example.kolin.testapplication.data.net.Rest;
 import com.example.kolin.testapplication.data.orm.RealmQueries;
 import com.example.kolin.testapplication.domain.Food;
@@ -23,6 +24,8 @@ public class RepositoryImpl implements Repository {
     private Rest rest;
     private RealmQueries realmQueries;
 
+
+
     public RepositoryImpl() {
         rest = new Rest();
         realmQueries = new RealmQueries();
@@ -35,7 +38,6 @@ public class RepositoryImpl implements Repository {
 
     @Override
     public Observable<HashMap<FoodCategory, List<Food>>> getFood(String itemGroupName) {
-        realmQueries.getFavoriteFood();
         return rest.getFoodFromCloud(itemGroupName);
     }
 
@@ -49,5 +51,23 @@ public class RepositoryImpl implements Repository {
         return realmQueries.getFavoriteFood();
     }
 
+    @Override
+    public void deleteFavoriteFood(Food food) {
+        realmQueries.deleteFavoriteFood(food);
+    }
 
+    @Override
+    public void addFoodToCalc(Food food) {
+        LocalCalculationData.putFoodToObservable(food);
+    }
+
+    @Override
+    public Observable<List<Food>> getFoodCalc() {
+        return LocalCalculationData.getObservableCalcFood();
+    }
+
+    @Override
+    public void deleteFoodFromCalc(Food food) {
+        LocalCalculationData.deleteFood(food);
+    }
 }

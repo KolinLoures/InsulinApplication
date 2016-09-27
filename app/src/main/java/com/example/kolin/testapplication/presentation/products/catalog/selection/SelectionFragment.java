@@ -15,6 +15,7 @@ import com.example.kolin.testapplication.R;
 import com.example.kolin.testapplication.domain.ItemOfGroup;
 import com.example.kolin.testapplication.domain.groups.Group;
 import com.example.kolin.testapplication.presentation.common.SimpleDividerItemDecoration;
+import com.example.kolin.testapplication.presentation.products.catalog.adapters.SelectionAdapter;
 
 import java.util.List;
 

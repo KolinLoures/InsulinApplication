@@ -47,7 +47,8 @@ public class Rest {
                     public HashMap<FoodCategory, List<Food>> call(List<FoodCategoryEntity> foodCategoryEntities) {
                         HashMap<FoodCategory, List<Food>> map = new HashMap<>();
                         for (FoodCategoryEntity f : foodCategoryEntities) {
-                            map.put(DataMapper.convertToFoodCategory(f), f.getListFood());
+                            map.put(DataMapper.convertToFoodCategory(f),
+                                    DataMapper.convertListToFoodList(f.getListFood()));
                         }
                         return map;
                     }

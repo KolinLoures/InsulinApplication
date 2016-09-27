@@ -1,4 +1,4 @@
-package com.example.kolin.testapplication.presentation.products.catalog.selection;
+package com.example.kolin.testapplication.presentation.products.catalog.adapters;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;

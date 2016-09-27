@@ -1,4 +1,4 @@
-package com.example.kolin.testapplication.presentation.products.catalog.favoritelist;
+package com.example.kolin.testapplication.presentation.products.catalog.adapters;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -21,6 +21,14 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.Favori
 
     private List<Food> list = new ArrayList<>();
 
+    private OnClickItemFavoriteAdapter listener;
+
+    public interface OnClickItemFavoriteAdapter{
+        void onClickAddToCalc(Food food);
+
+        void onLongClickItem(Food food);
+    }
+
     @Override
     public FavoriteHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
@@ -32,9 +40,9 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.Favori
     public void onBindViewHolder(FavoriteHolder holder, int position) {
         Food food = list.get(position);
         holder.textViewName.setText(food.getName()+" ("+food.getOwner()+")");
-        holder.textViewB.append(String.valueOf(food.getB()));
-        holder.textViewJ.append(String.valueOf(food.getJ()));
-        holder.textViewY.append(String.valueOf(food.getY()));
+        holder.textViewB.setText("Б: " + String.valueOf(food.getB()));
+        holder.textViewJ.setText("Ж: " + String.valueOf(food.getJ()));
+        holder.textViewY.setText("У: " + String.valueOf(food.getY()));
     }
 
     @Override
@@ -42,7 +50,7 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.Favori
         return list.size();
     }
 
-    static class FavoriteHolder extends RecyclerView.ViewHolder{
+    class FavoriteHolder extends RecyclerView.ViewHolder{
 
         private TextView textViewB;
         private TextView textViewJ;
@@ -50,7 +58,7 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.Favori
 
         private TextView textViewName;
 
-        private ImageButton imageButtonRemove;
+        private ImageButton imageButtonAdd;
 
 
 
@@ -61,7 +69,26 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.Favori
             textViewB = (TextView) itemView.findViewById(R.id.favorite_food_b);
             textViewJ = (TextView) itemView.findViewById(R.id.favorite_food_j);
             textViewY = (TextView) itemView.findViewById(R.id.favorite_food_y);
-            imageButtonRemove = (ImageButton) itemView.findViewById(R.id.favorite_food_remove_from_favorite);
+            imageButtonAdd = (ImageButton) itemView.findViewById(R.id.favorite_food_remove_from_favorite);
+
+            imageButtonAdd.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (listener != null){
+                        listener.onClickAddToCalc(list.get(getLayoutPosition()));
+                    }
+                }
+            });
+
+            itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    if (listener != null){
+                        listener.onLongClickItem(list.get(getLayoutPosition()));
+                    }
+                    return true;
+                }
+            });
         }
     }
 
@@ -76,4 +103,7 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.Favori
         notifyDataSetChanged();
     }
 
+    public void setListener(OnClickItemFavoriteAdapter listener) {
+        this.listener = listener;
+    }
 }
