@@ -21,9 +21,9 @@ public class DialogAdapter extends RecyclerView.Adapter<DialogAdapter.DialogHold
 
     private List<Food> list = new ArrayList<>();
 
-    private FavoriteAdapter.OnClickItemFavoriteAdapter listener;
+    private OnClickItemDialogAdapter listener;
 
-    public interface OnClickItemFavoriteAdapter{
+    public interface OnClickItemDialogAdapter{
         void onClickDeleteItem(Food food);
     }
 
@@ -53,7 +53,6 @@ public class DialogAdapter extends RecyclerView.Adapter<DialogAdapter.DialogHold
         private TextView textViewB;
         private TextView textViewJ;
         private TextView textViewY;
-
         private TextView textViewName;
 
         private ImageButton imageButtonRemove;
@@ -67,6 +66,17 @@ public class DialogAdapter extends RecyclerView.Adapter<DialogAdapter.DialogHold
             textViewB = (TextView) itemView.findViewById(R.id.dialog_food_b);
             textViewJ = (TextView) itemView.findViewById(R.id.dialog_food_j);
             textViewY = (TextView) itemView.findViewById(R.id.dialog_food_y);
+            imageButtonRemove = (ImageButton) itemView.findViewById(R.id.dialog_remove_from_calc);
+
+
+            imageButtonRemove.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (listener != null){
+                        listener.onClickDeleteItem(list.get(getLayoutPosition()));
+                    }
+                }
+            });
 
         }
     }
@@ -82,7 +92,7 @@ public class DialogAdapter extends RecyclerView.Adapter<DialogAdapter.DialogHold
         notifyDataSetChanged();
     }
 
-    public void setListener(FavoriteAdapter.OnClickItemFavoriteAdapter listener) {
+    public void setListener(OnClickItemDialogAdapter listener) {
         this.listener = listener;
     }
 }

@@ -6,19 +6,19 @@ import com.example.kolin.testapplication.domain.repository.Repository;
 import com.example.kolin.testapplication.domain.usecases.DataUseCase;
 
 /**
- * Created by kolin on 27.09.2016.
+ * Created by kolin on 26.09.2016.
  */
 
-public class DeleteCalcFoodUC extends DataUseCase<Food> {
+public class DeleteFavoriteFoodUC extends DataUseCase<Food> {
 
     private Repository repository;
 
-    public DeleteCalcFoodUC() {
+    public DeleteFavoriteFoodUC() {
         this.repository = new RepositoryImpl();
     }
 
     @Override
-    public void execute(Food food) {
-        repository.deleteFoodFromCalc(food);
+    public void execute(Food deleteFood) {
+        repository.deleteFavoriteFood(deleteFood);
     }
 }

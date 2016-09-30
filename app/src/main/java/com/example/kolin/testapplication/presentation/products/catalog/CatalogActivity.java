@@ -21,8 +21,8 @@ import com.example.kolin.testapplication.presentation.products.catalog.favoritel
 import com.example.kolin.testapplication.presentation.products.catalog.foodlist.ListFoodFragment;
 import com.example.kolin.testapplication.presentation.products.catalog.selection.SelectionFragment;
 
-public class CatalogActivity extends AppCompatActivity
-        implements SelectionFragment.OnClickItemOnSelectionFragment {
+public class CatalogActivity extends AppCompatActivity implements
+        SelectionFragment.OnClickItemOnSelectionFragment {
 
     private Toolbar toolbar;
     private TabLayout tabs;
@@ -33,6 +33,7 @@ public class CatalogActivity extends AppCompatActivity
 
     private int extra;
     private PagerAdapter pagerAdapter;
+
 
 
     @Override
@@ -58,6 +59,7 @@ public class CatalogActivity extends AppCompatActivity
 
         setupAdapter();
         tabs.setupWithViewPager(viewPager);
+
     }
 
     @Override
@@ -103,7 +105,7 @@ public class CatalogActivity extends AppCompatActivity
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case R.id.item_catalog_added_products:
                 showDialog();
                 break;
@@ -112,7 +114,7 @@ public class CatalogActivity extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
-    private void showDialog(){
+    private void showDialog() {
         FragmentManager fragmentManager = getSupportFragmentManager();
         DialogFragment dialogFragment = DialogFragment.newInstance("Список расчета");
         dialogFragment.show(fragmentManager, "fragment_edit_name");

@@ -6,14 +6,16 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
+import android.widget.CheckBox;
 import android.widget.TextView;
 
 import com.example.kolin.testapplication.R;
 import com.example.kolin.testapplication.domain.Food;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by kolin on 12.09.2016.
@@ -22,6 +24,7 @@ import java.util.List;
 public class ListFoodAdapter extends RecyclerView.Adapter<ListFoodAdapter.ListFoodViewHolder> {
 
     private List<Food> listFood;
+    private Set<Food> checkedFood;
     private OnClickListFoodAdapter listener;
     private Resources resources;
 
@@ -29,12 +32,15 @@ public class ListFoodAdapter extends RecyclerView.Adapter<ListFoodAdapter.ListFo
         void onLongClickItemView(int position);
 
         void onClickBtnAddToCalc(int position);
+
+        void onRemoveFromCalculator(int position);
     }
 
 
 
     public ListFoodAdapter() {
         listFood = new ArrayList<>();
+        checkedFood = new HashSet<>();
     }
 
     @Override
@@ -49,6 +55,9 @@ public class ListFoodAdapter extends RecyclerView.Adapter<ListFoodAdapter.ListFo
     @Override
     public void onBindViewHolder(ListFoodViewHolder holder, int position) {
         Food food = listFood.get(position);
+        if (checkedFood.contains(food)){
+            holder.checkBoxAddToCalc.setChecked(true);
+        }
         holder.textViewNameProduct.setText(food.getName());
         holder.textViewB.setText(resources.getString(R.string.b)
                 + String.valueOf(food.getB()));
@@ -80,7 +89,7 @@ public class ListFoodAdapter extends RecyclerView.Adapter<ListFoodAdapter.ListFo
         private TextView textViewB;
         private TextView textViewJ;
         private TextView textViewY;
-        private ImageButton imageBtnAddToCalc;
+        private CheckBox checkBoxAddToCalc;
 
         public ListFoodViewHolder(View itemView) {
             super(itemView);
@@ -89,7 +98,7 @@ public class ListFoodAdapter extends RecyclerView.Adapter<ListFoodAdapter.ListFo
             textViewB = (TextView) itemView.findViewById(R.id.list_food_b);
             textViewJ = (TextView) itemView.findViewById(R.id.list_food_j);
             textViewY = (TextView) itemView.findViewById(R.id.list_food_y);
-            imageBtnAddToCalc = (ImageButton) itemView.findViewById(R.id.list_food_add_to_calc);
+            checkBoxAddToCalc = (CheckBox) itemView.findViewById(R.id.list_food_check_box_calc);
 
 
             itemView.setOnLongClickListener(new View.OnLongClickListener() {
@@ -102,11 +111,16 @@ public class ListFoodAdapter extends RecyclerView.Adapter<ListFoodAdapter.ListFo
                 }
             });
 
-            imageBtnAddToCalc.setOnClickListener(new View.OnClickListener() {
+            checkBoxAddToCalc.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (listener != null){
-                        listener.onClickBtnAddToCalc(getLayoutPosition());
+                    CheckBox checkBox = (CheckBox) v;
+                    if (listener != null) {
+                        if (checkBox.isChecked()) {
+                            listener.onClickBtnAddToCalc(getLayoutPosition());
+                        } else {
+                            listener.onRemoveFromCalculator(getLayoutPosition());
+                        }
                     }
                 }
             });
@@ -117,4 +131,11 @@ public class ListFoodAdapter extends RecyclerView.Adapter<ListFoodAdapter.ListFo
         this.listener = listener;
     }
 
+    public void setCheckedFood(Set<Food> checkedFood) {
+        this.checkedFood = checkedFood;
+    }
+
+    public Set<Food> getCheckedFood() {
+        return checkedFood;
+    }
 }

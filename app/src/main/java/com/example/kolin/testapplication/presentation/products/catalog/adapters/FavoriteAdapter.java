@@ -4,7 +4,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
+import android.widget.CheckBox;
 import android.widget.TextView;
 
 import com.example.kolin.testapplication.R;
@@ -20,11 +20,14 @@ import java.util.List;
 public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.FavoriteHolder> {
 
     private List<Food> list = new ArrayList<>();
+    private List<Food> checkedFood = new ArrayList<>();
 
     private OnClickItemFavoriteAdapter listener;
 
-    public interface OnClickItemFavoriteAdapter{
+    public interface OnClickItemFavoriteAdapter {
         void onClickAddToCalc(Food food);
+
+        void onClickRemoveFromCalc(Food food);
 
         void onLongClickItem(Food food);
     }
@@ -39,7 +42,10 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.Favori
     @Override
     public void onBindViewHolder(FavoriteHolder holder, int position) {
         Food food = list.get(position);
-        holder.textViewName.setText(food.getName()+" ("+food.getOwner()+")");
+        if (checkedFood.contains(food)) {
+            holder.checkBoxCalc.setChecked(true);
+        }
+        holder.textViewName.setText(food.getName() + " (" + food.getOwner() + ")");
         holder.textViewB.setText("Б: " + String.valueOf(food.getB()));
         holder.textViewJ.setText("Ж: " + String.valueOf(food.getJ()));
         holder.textViewY.setText("У: " + String.valueOf(food.getY()));
@@ -50,7 +56,7 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.Favori
         return list.size();
     }
 
-    class FavoriteHolder extends RecyclerView.ViewHolder{
+    class FavoriteHolder extends RecyclerView.ViewHolder {
 
         private TextView textViewB;
         private TextView textViewJ;
@@ -58,8 +64,7 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.Favori
 
         private TextView textViewName;
 
-        private ImageButton imageButtonAdd;
-
+        private CheckBox checkBoxCalc;
 
 
         public FavoriteHolder(View itemView) {
@@ -69,13 +74,17 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.Favori
             textViewB = (TextView) itemView.findViewById(R.id.favorite_food_b);
             textViewJ = (TextView) itemView.findViewById(R.id.favorite_food_j);
             textViewY = (TextView) itemView.findViewById(R.id.favorite_food_y);
-            imageButtonAdd = (ImageButton) itemView.findViewById(R.id.favorite_food_remove_from_favorite);
+            checkBoxCalc = (CheckBox) itemView.findViewById(R.id.favorite_food_check_boc_calc);
 
-            imageButtonAdd.setOnClickListener(new View.OnClickListener() {
+            checkBoxCalc.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (listener != null){
-                        listener.onClickAddToCalc(list.get(getLayoutPosition()));
+                    if (listener != null) {
+                        if (((CheckBox) v).isChecked()) {
+                            listener.onClickAddToCalc(list.get(getLayoutPosition()));
+                        } else {
+                            listener.onClickRemoveFromCalc(list.get(getLayoutPosition()));
+                        }
                     }
                 }
             });
@@ -83,7 +92,7 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.Favori
             itemView.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View v) {
-                    if (listener != null){
+                    if (listener != null) {
                         listener.onLongClickItem(list.get(getLayoutPosition()));
                     }
                     return true;
@@ -92,16 +101,22 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.Favori
         }
     }
 
-    public void clearAll(){
+    public void clearAll() {
         list.clear();
         notifyDataSetChanged();
     }
 
-    public void addAll(List<Food> list){
-        this.list.clear();
-        this.list.addAll(list);
+    public void addAll(List<Food> foodList) {
+        list.clear();
+        list.addAll(foodList);
         notifyDataSetChanged();
     }
+
+    public void addCheckedFood(List<Food> foodList) {
+        checkedFood.clear();
+        checkedFood.addAll(foodList);
+    }
+
 
     public void setListener(OnClickItemFavoriteAdapter listener) {
         this.listener = listener;

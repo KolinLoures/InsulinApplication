@@ -11,7 +11,7 @@ import rx.subscriptions.Subscriptions;
  * Created by kolin on 06.09.2016.
  */
 
-public abstract class CloudUseCase {
+public abstract class CloudUseCase implements UseCase{
 
     private Subscription subscription = Subscriptions.empty();
 

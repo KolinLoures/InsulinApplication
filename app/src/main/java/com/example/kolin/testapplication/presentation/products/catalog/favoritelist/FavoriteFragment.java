@@ -21,6 +21,7 @@ import java.util.List;
 
 public class FavoriteFragment extends Fragment implements FavoriteView {
 
+    private static final String key = "loadedData";
 
     private FavoriteAdapter adapter;
     private FavoritePresenter presenter;
@@ -63,8 +64,16 @@ public class FavoriteFragment extends Fragment implements FavoriteView {
         return root;
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+//        if (savedInstanceState != null){
+//            List<Food> loadedList = (List<Food>) savedInstanceState.getSerializable(key);
+//            showFavoriteFood(loadedList);
+////            adapter.setCheckedFood((Set<Food>) savedInstanceState.getSerializable("check"));
+//        } else {
+//            presenter.load();
+//        }
         presenter.load();
     }
 
@@ -92,11 +101,16 @@ public class FavoriteFragment extends Fragment implements FavoriteView {
         Snackbar.make(recyclerView, title, Snackbar.LENGTH_LONG).show();
     }
 
-    private void setListenerAdapter(){
+    private void setListenerAdapter() {
         adapter.setListener(new FavoriteAdapter.OnClickItemFavoriteAdapter() {
             @Override
             public void onClickAddToCalc(Food food) {
-                presenter.addFoodToCalc(food);
+                presenter.addCalculationFood(food);
+            }
+
+            @Override
+            public void onClickRemoveFromCalc(Food food) {
+                presenter.deleteCalculationFood(food);
             }
 
             @Override
@@ -104,5 +118,21 @@ public class FavoriteFragment extends Fragment implements FavoriteView {
                 presenter.deleteFromFavorite(food);
             }
         });
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+//        outState.putSerializable("check", (Serializable) adapter.getCheckedFood());
+//        List<Food> loadedData = presenter.getLoadedData();
+//        if (!loadedData.isEmpty()) {
+//            outState.putSerializable(key, (Serializable) loadedData);
+//        }
+        super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    public void addCheckedFood(List<Food> foodList) {
+        adapter.addCheckedFood(foodList);
+        adapter.notifyDataSetChanged();
     }
 }

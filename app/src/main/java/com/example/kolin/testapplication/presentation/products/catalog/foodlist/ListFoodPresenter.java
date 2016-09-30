@@ -4,14 +4,15 @@ import android.util.Log;
 
 import com.example.kolin.testapplication.domain.Food;
 import com.example.kolin.testapplication.domain.FoodCategory;
-import com.example.kolin.testapplication.domain.interactor.AddCalcFoodUC;
+import com.example.kolin.testapplication.domain.interactor.AddFavoriteFoodUC;
 import com.example.kolin.testapplication.domain.interactor.DefaultSubscriber;
 import com.example.kolin.testapplication.domain.interactor.GetFoodUC;
-import com.example.kolin.testapplication.domain.interactor.AddFoodToFavoriteUC;
 import com.example.kolin.testapplication.presentation.common.AbstractPresenter;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by kolin on 12.09.2016.
@@ -22,16 +23,15 @@ public class ListFoodPresenter extends AbstractPresenter<ListFoodView> {
     private static final String TAG = ListFoodPresenter.class.getSimpleName();
 
     private GetFoodUC getFoodUC;
-    private AddFoodToFavoriteUC addFoodToFavoriteUC;
-    private AddCalcFoodUC addCalcFoodUC;
+    private AddFavoriteFoodUC addFavoriteFoodUC;
 
     private String currentCallItemName;
     private HashMap<FoodCategory, List<Food>> loadedData = new HashMap<>();
+    private Set<Food> checkedFood = new HashSet<>();
 
     public ListFoodPresenter() {
         getFoodUC = new GetFoodUC();
-        addFoodToFavoriteUC = new AddFoodToFavoriteUC();
-        addCalcFoodUC = new AddCalcFoodUC();
+        addFavoriteFoodUC = new AddFavoriteFoodUC();
     }
 
     public void load(String itemGroupName) {
@@ -60,7 +60,7 @@ public class ListFoodPresenter extends AbstractPresenter<ListFoodView> {
     }
 
     public void addToFavorite(Food food) {
-        addFoodToFavoriteUC.execute(food);
+        addFavoriteFoodUC.execute(food);
 
         if (!isViewAttach()) {
             Log.e(TAG, "View was detach");
@@ -70,8 +70,7 @@ public class ListFoodPresenter extends AbstractPresenter<ListFoodView> {
         getWeakReference().showSnackBar("Добавленно в избранное!");
     }
 
-    public void addToCalc(Food food) {
-        addCalcFoodUC.execute(food);
+    public void addCalculationFood(Food food) {
 
         if (!isViewAttach()) {
             Log.e(TAG, "View was detach");
@@ -83,16 +82,8 @@ public class ListFoodPresenter extends AbstractPresenter<ListFoodView> {
 
     private final class ListFoodSubscriber extends DefaultSubscriber<HashMap<FoodCategory, List<Food>>> {
         @Override
-        public void onCompleted() {
-        }
-
-        @Override
-        public void onError(Throwable e) {
-        }
-
-        @Override
         public void onNext(HashMap<FoodCategory, List<Food>> foodCategoryListHashMap) {
-                ListFoodPresenter.this.showLoadedData(foodCategoryListHashMap);
+            ListFoodPresenter.this.showLoadedData(foodCategoryListHashMap);
         }
     }
 
@@ -102,5 +93,23 @@ public class ListFoodPresenter extends AbstractPresenter<ListFoodView> {
 
     public HashMap<FoodCategory, List<Food>> getLoadedData() {
         return loadedData;
+    }
+
+    public Set<Food> getCheckedFood() {
+        return checkedFood;
+    }
+
+    public void addCheckedFood(Food food){
+        checkedFood.add(food);
+    }
+
+    public void removeFromCheckedFood(Food food){
+
+        if (!isViewAttach()) {
+            Log.e(TAG, "View was detach");
+            return;
+        }
+
+        getWeakReference().showSnackBar("Убрано из расчета!");
     }
 }

@@ -9,9 +9,9 @@ import io.realm.annotations.PrimaryKey;
 
 public class Food extends RealmObject {
 
-    private Double b;
     @PrimaryKey
     private String idName;
+    private Double b;
     private Double j;
     private String name;
     private Integer weight;
@@ -83,4 +83,35 @@ public class Food extends RealmObject {
                 "name='" + name + '\'' +
                 '}';
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Food food = (Food) o;
+
+        if (b != null ? !b.equals(food.b) : food.b != null) return false;
+        if (idName != null ? !idName.equals(food.idName) : food.idName != null) return false;
+        if (j != null ? !j.equals(food.j) : food.j != null) return false;
+        if (name != null ? !name.equals(food.name) : food.name != null) return false;
+        if (weight != null ? !weight.equals(food.weight) : food.weight != null) return false;
+        if (y != null ? !y.equals(food.y) : food.y != null) return false;
+        return owner != null ? owner.equals(food.owner) : food.owner == null;
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = b != null ? b.hashCode() : 0;
+        result = 31 * result + (idName != null ? idName.hashCode() : 0);
+        result = 31 * result + (j != null ? j.hashCode() : 0);
+        result = 31 * result + (name != null ? name.hashCode() : 0);
+        result = 31 * result + (weight != null ? weight.hashCode() : 0);
+        result = 31 * result + (y != null ? y.hashCode() : 0);
+        result = 31 * result + (owner != null ? owner.hashCode() : 0);
+        return result;
+    }
+
+
 }

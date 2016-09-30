@@ -2,14 +2,16 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="?android:attr/selectableItemBackground"
     android:orientation="horizontal"
-    android:background="?android:attr/selectableItemBackground">
+    android:weightSum="1">
 
 
     <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_marginStart="32dp"
+        android:layout_weight="1"
         android:orientation="vertical">
 
         <TextView
@@ -52,18 +54,18 @@
 
 
     <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="end"
+        android:layout_marginEnd="16dp">
 
-        <ImageButton
+        <CheckBox
+            android:id="@+id/list_food_check_box_calc"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="end|center"
-            android:layout_marginEnd="16dp"
-            android:backgroundTint="@android:color/transparent"
-            android:id="@+id/list_food_add_to_calc"
-            android:src="@drawable/ic_add_circle_outline_black_24dp" />
-    </FrameLayout>
+            android:layout_gravity="center_vertical|end"
+            android:layout_marginEnd="0dp" />
 
+    </FrameLayout>
 
 </LinearLayout>

@@ -11,4 +11,6 @@ import java.util.List;
 public interface DialogView {
 
     void showLoadedData(List<Food> foodList);
+
+    void showToast(String title);
 }

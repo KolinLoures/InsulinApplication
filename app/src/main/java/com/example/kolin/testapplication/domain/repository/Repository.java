@@ -9,6 +9,8 @@ import java.util.HashMap;
 import java.util.List;
 
 import rx.Observable;
+import rx.subjects.PublishSubject;
+import rx.subjects.ReplaySubject;
 
 
 /**
@@ -27,9 +29,11 @@ public interface Repository {
 
     void deleteFavoriteFood(Food food);
 
-    void addFoodToCalc(Food food);
+    void addCalculationFood(Food food);
 
-    Observable<List<Food>> getFoodCalc();
+    ReplaySubject<List<Food>> getCalculationFood();
 
-    void deleteFoodFromCalc(Food food);
+    void deleteCalculationFood(Food food);
+
+    void deleteAllFromCalculation();
 }

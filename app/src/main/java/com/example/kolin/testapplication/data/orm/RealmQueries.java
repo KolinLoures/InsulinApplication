@@ -15,14 +15,14 @@ import rx.functions.Func1;
 
 public class RealmQueries {
 
-    private Realm realm;
+    private Realm realmMain;
 
     public RealmQueries() {
-        this.realm = RealmSingleton.getInstance();
+        this.realmMain = RealmMainSingleton.getInstanceMain();
     }
 
-    public void addFoodToFavorite(final Food food) {
-        realm.executeTransaction(new Realm.Transaction() {
+    public void addFavoriteFood(final Food food) {
+        realmMain.executeTransaction(new Realm.Transaction() {
             @Override
             public void execute(Realm realm) {
                 realm.copyToRealmOrUpdate(food);
@@ -30,12 +30,9 @@ public class RealmQueries {
         });
     }
 
-    public void addFoodToCalc(){
-
-    }
-
     public Observable<List<Food>> getFavoriteFood() {
-        return realm.where(Food.class)
+        return realmMain
+                .where(Food.class)
                 .findAllAsync()
                 .asObservable()
                 .filter(new Func1<RealmResults<Food>, Boolean>() {
@@ -52,12 +49,13 @@ public class RealmQueries {
                 });
     }
 
-    public void deleteFavoriteFood(final Food food){
-        realm.executeTransaction(new Realm.Transaction() {
+    public void deleteFavoriteFood(final Food food) {
+        realmMain.executeTransaction(new Realm.Transaction() {
             @Override
             public void execute(Realm realm) {
                 food.deleteFromRealm();
             }
         });
     }
+
 }

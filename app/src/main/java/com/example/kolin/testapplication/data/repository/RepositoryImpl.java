@@ -1,6 +1,6 @@
 package com.example.kolin.testapplication.data.repository;
 
-import com.example.kolin.testapplication.data.local.LocalCalculationData;
+import com.example.kolin.testapplication.data.local.CalculatorListFood;
 import com.example.kolin.testapplication.data.net.Rest;
 import com.example.kolin.testapplication.data.orm.RealmQueries;
 import com.example.kolin.testapplication.domain.Food;
@@ -13,6 +13,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import rx.Observable;
+import rx.subjects.ReplaySubject;
 
 /**
  * Created by kolin on 06.09.2016.
@@ -23,12 +24,13 @@ public class RepositoryImpl implements Repository {
 
     private Rest rest;
     private RealmQueries realmQueries;
-
+    private CalculatorListFood calculatorListFood;
 
 
     public RepositoryImpl() {
         rest = new Rest();
         realmQueries = new RealmQueries();
+        calculatorListFood = CalculatorListFood.getInstance();
     }
 
     @Override
@@ -43,12 +45,13 @@ public class RepositoryImpl implements Repository {
 
     @Override
     public void addFoodToFavorite(Food food) {
-        realmQueries.addFoodToFavorite(food);
+        realmQueries.addFavoriteFood(food);
     }
 
     @Override
     public Observable<List<Food>> getFavoriteFood() {
-        return realmQueries.getFavoriteFood();
+        return realmQueries
+                .getFavoriteFood();
     }
 
     @Override
@@ -57,17 +60,24 @@ public class RepositoryImpl implements Repository {
     }
 
     @Override
-    public void addFoodToCalc(Food food) {
-        LocalCalculationData.putFoodToObservable(food);
+    public void addCalculationFood(Food food) {
+        calculatorListFood.addCalculationFood(food);
     }
 
     @Override
-    public Observable<List<Food>> getFoodCalc() {
-        return LocalCalculationData.getObservableCalcFood();
+    public ReplaySubject<List<Food>> getCalculationFood() {
+        return calculatorListFood.getCalculatedFood();
     }
 
     @Override
-    public void deleteFoodFromCalc(Food food) {
-        LocalCalculationData.deleteFood(food);
+    public void deleteCalculationFood(Food food) {
+        calculatorListFood.deleteFromCalculatedFood(food);
     }
+
+    @Override
+    public void deleteAllFromCalculation() {
+        calculatorListFood.clearCalculatedFood();
+    }
+
+
 }

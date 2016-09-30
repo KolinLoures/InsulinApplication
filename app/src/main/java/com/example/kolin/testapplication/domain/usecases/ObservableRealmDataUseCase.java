@@ -10,7 +10,7 @@ import rx.subscriptions.Subscriptions;
  * Created by kolin on 18.09.2016.
  */
 
-public abstract class ObservableRealmDataUseCase extends DataUseCase<Subscriber> {
+public abstract class ObservableRealmDataUseCase extends DataUseCase<Subscriber> implements UseCase {
 
     public Subscription subscription = Subscriptions.empty();
 

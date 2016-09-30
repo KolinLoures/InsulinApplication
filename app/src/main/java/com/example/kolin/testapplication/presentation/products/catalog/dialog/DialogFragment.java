@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.kolin.testapplication.R;
 import com.example.kolin.testapplication.domain.Food;
@@ -52,6 +53,13 @@ public class DialogFragment extends AppCompatDialogFragment implements DialogVie
         presenter = new DialogPresenter();
         adapter = new DialogAdapter();
 
+        adapter.setListener(new DialogAdapter.OnClickItemDialogAdapter() {
+            @Override
+            public void onClickDeleteItem(Food food) {
+                presenter.removeFoodFromCalc(food);
+            }
+        });
+
         presenter.attachView(this);
     }
 
@@ -88,12 +96,17 @@ public class DialogFragment extends AppCompatDialogFragment implements DialogVie
 
     @Override
     public void onDetach() {
-        presenter.unSubscribe();
+        adapter.setListener(null);
         super.onDetach();
     }
 
     @Override
     public void showLoadedData(List<Food> foodList) {
         adapter.addAll(foodList);
+    }
+
+    @Override
+    public void showToast(String title) {
+        Toast.makeText(getContext(), title, Toast.LENGTH_SHORT).show();
     }
 }

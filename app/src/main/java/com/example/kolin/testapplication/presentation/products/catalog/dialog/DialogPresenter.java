@@ -4,8 +4,7 @@ import android.util.Log;
 
 import com.example.kolin.testapplication.domain.Food;
 import com.example.kolin.testapplication.domain.interactor.DefaultSubscriber;
-import com.example.kolin.testapplication.domain.interactor.DeleteCalcFoodUC;
-import com.example.kolin.testapplication.domain.interactor.GetCalcFoodUC;
+import com.example.kolin.testapplication.domain.interactor.GetObservableCalculatedFoodUC;
 import com.example.kolin.testapplication.presentation.common.AbstractPresenter;
 
 import java.util.List;
@@ -18,32 +17,21 @@ public class DialogPresenter extends AbstractPresenter<DialogView> {
 
     private static final String TAG = DialogPresenter.class.getSimpleName();
 
-    private GetCalcFoodUC getCalcFoodUC;
-    private DeleteCalcFoodUC deleteCalcFoodUC;
+    private GetObservableCalculatedFoodUC getCalculatedFoodUC;
+
 
     public DialogPresenter() {
-        getCalcFoodUC = new GetCalcFoodUC();
-        deleteCalcFoodUC = new DeleteCalcFoodUC();
+        getCalculatedFoodUC = new GetObservableCalculatedFoodUC();
     }
 
     public void load() {
-        getCalcFoodUC.execute(new DialogSubscriber());
+        getCalculatedFoodUC.execute(new DialogSubscriber());
     }
 
-    private final class DialogSubscriber extends DefaultSubscriber<List<Food>> {
+    private final class DialogSubscriber extends DefaultSubscriber<List<Food>>{
         @Override
-        public void onCompleted() {
-            super.onCompleted();
-        }
-
-        @Override
-        public void onError(Throwable e) {
-            super.onError(e);
-        }
-
-        @Override
-        public void onNext(List<Food> foods) {
-           DialogPresenter.this.showLoadedData(foods);
+        public void onNext(List<Food> foodList) {
+            showLoadedData(foodList);
         }
     }
 
@@ -53,14 +41,17 @@ public class DialogPresenter extends AbstractPresenter<DialogView> {
         }
 
         getWeakReference().showLoadedData(foodList);
-
     }
 
-    public void unSubscribe(){
-        getCalcFoodUC.unsubscribe();
-    }
 
-    public void deleteFoodFromCalc(Food food){
-        deleteCalcFoodUC.execute(food);
+
+    public void removeFoodFromCalc(Food food){
+        getCalculatedFoodUC.deleteCalculationFood(food);
+
+        if (!isViewAttach()) {
+            Log.e(TAG, "View is detach!");
+        }
+
+        getWeakReference().showToast("Удалено из расчета!");
     }
 }
