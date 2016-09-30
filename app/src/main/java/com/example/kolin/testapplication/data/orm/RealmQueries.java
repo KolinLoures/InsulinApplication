@@ -33,7 +33,7 @@ public class RealmQueries {
     public Observable<List<Food>> getFavoriteFood() {
         return realmMain
                 .where(Food.class)
-                .findAllAsync()
+                .findAll()
                 .asObservable()
                 .filter(new Func1<RealmResults<Food>, Boolean>() {
                     @Override

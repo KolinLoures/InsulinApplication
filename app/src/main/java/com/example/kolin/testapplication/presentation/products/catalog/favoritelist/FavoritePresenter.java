@@ -33,9 +33,12 @@ public class FavoritePresenter extends AbstractPresenter<FavoriteView> {
         getCalculatedFoodUC = new GetObservableCalculatedFoodUC();
     }
 
-    public void load(){
-        getCalculatedFoodUC.execute(new FavoriteCalculatorSubscriber());
+    public void loadFavorite(){
         getFavoriteFoodUC.execute(new FavoriteSubscriber());
+    }
+
+    public void loadCalculated(){
+        getCalculatedFoodUC.execute(new FavoriteCalculatorSubscriber());
     }
 
     public void showLoadedData(List<Food> foodList){
@@ -65,6 +68,7 @@ public class FavoritePresenter extends AbstractPresenter<FavoriteView> {
 
     public void unSubscribe(){
         getFavoriteFoodUC.unsubscribe();
+        getCalculatedFoodUC.unsubscribe();
     }
 
     public void deleteFromFavorite(Food food){

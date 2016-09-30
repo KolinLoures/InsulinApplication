@@ -1,6 +1,7 @@
 package com.example.kolin.testapplication.domain;
 
 import io.realm.RealmObject;
+import io.realm.annotations.Ignore;
 import io.realm.annotations.PrimaryKey;
 
 /**
@@ -18,7 +19,11 @@ public class Food extends RealmObject {
     private Double y;
     private String owner;
 
+    @Ignore
+    private Boolean isChecked;
+
     public Food() {
+        isChecked = false;
     }
 
     public Double getB() {
@@ -75,6 +80,14 @@ public class Food extends RealmObject {
 
     public void setOwner(String owner) {
         this.owner = owner;
+    }
+
+    public Boolean getChecked() {
+        return isChecked;
+    }
+
+    public void setChecked(Boolean checked) {
+        isChecked = checked;
     }
 
     @Override

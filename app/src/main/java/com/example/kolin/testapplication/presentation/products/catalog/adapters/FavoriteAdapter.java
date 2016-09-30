@@ -42,9 +42,9 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.Favori
     @Override
     public void onBindViewHolder(FavoriteHolder holder, int position) {
         Food food = list.get(position);
-        if (checkedFood.contains(food)) {
-            holder.checkBoxCalc.setChecked(true);
-        }
+
+        holder.checkBoxCalc.setChecked(food.getChecked());
+
         holder.textViewName.setText(food.getName() + " (" + food.getOwner() + ")");
         holder.textViewB.setText("Б: " + String.valueOf(food.getB()));
         holder.textViewJ.setText("Ж: " + String.valueOf(food.getJ()));
@@ -80,10 +80,13 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.Favori
                 @Override
                 public void onClick(View v) {
                     if (listener != null) {
+                        Food food = list.get(getLayoutPosition());
                         if (((CheckBox) v).isChecked()) {
-                            listener.onClickAddToCalc(list.get(getLayoutPosition()));
+                            food.setChecked(true);
+                            listener.onClickAddToCalc(food);
                         } else {
-                            listener.onClickRemoveFromCalc(list.get(getLayoutPosition()));
+                            food.setChecked(false);
+                            listener.onClickRemoveFromCalc(food);
                         }
                     }
                 }
@@ -115,10 +118,30 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.Favori
     public void addCheckedFood(List<Food> foodList) {
         checkedFood.clear();
         checkedFood.addAll(foodList);
+        if (checkedFood.isEmpty()){
+            for (Food food : list){
+                food.setChecked(false);
+                notifyItemChanged(list.indexOf(food));
+            }
+        } else {
+            for (Food f : list){
+                if (checkedFood.contains(f)){
+                    f.setChecked(true);
+                    notifyItemChanged(list.indexOf(f));
+                } else {
+                    f.setChecked(false);
+                    notifyItemChanged(list.indexOf(f));
+                }
+            }
+        }
     }
 
 
     public void setListener(OnClickItemFavoriteAdapter listener) {
         this.listener = listener;
+    }
+
+    public List<Food> getList() {
+        return list;
     }
 }

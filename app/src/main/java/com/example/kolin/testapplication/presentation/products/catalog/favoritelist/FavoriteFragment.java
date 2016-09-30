@@ -67,14 +67,8 @@ public class FavoriteFragment extends Fragment implements FavoriteView {
     @SuppressWarnings("unchecked")
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-//        if (savedInstanceState != null){
-//            List<Food> loadedList = (List<Food>) savedInstanceState.getSerializable(key);
-//            showFavoriteFood(loadedList);
-////            adapter.setCheckedFood((Set<Food>) savedInstanceState.getSerializable("check"));
-//        } else {
-//            presenter.load();
-//        }
-        presenter.load();
+        presenter.loadFavorite();
+        presenter.loadCalculated();
     }
 
     @Override
@@ -122,17 +116,11 @@ public class FavoriteFragment extends Fragment implements FavoriteView {
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
-//        outState.putSerializable("check", (Serializable) adapter.getCheckedFood());
-//        List<Food> loadedData = presenter.getLoadedData();
-//        if (!loadedData.isEmpty()) {
-//            outState.putSerializable(key, (Serializable) loadedData);
-//        }
         super.onSaveInstanceState(outState);
     }
 
     @Override
     public void addCheckedFood(List<Food> foodList) {
         adapter.addCheckedFood(foodList);
-        adapter.notifyDataSetChanged();
     }
 }

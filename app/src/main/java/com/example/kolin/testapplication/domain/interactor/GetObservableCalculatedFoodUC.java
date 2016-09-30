@@ -6,6 +6,8 @@ import com.example.kolin.testapplication.domain.repository.Repository;
 import com.example.kolin.testapplication.domain.usecases.DataUseCase;
 
 import rx.Subscriber;
+import rx.Subscription;
+import rx.subscriptions.Subscriptions;
 
 /**
  * Created by kolin on 30.09.2016.
@@ -14,6 +16,7 @@ import rx.Subscriber;
 public class GetObservableCalculatedFoodUC extends DataUseCase<Subscriber> {
 
     private Repository repository;
+    private Subscription subscription = Subscriptions.empty();
 
     public GetObservableCalculatedFoodUC() {
         this.repository = new RepositoryImpl();
@@ -36,4 +39,12 @@ public class GetObservableCalculatedFoodUC extends DataUseCase<Subscriber> {
         repository.getCalculationFood()
                 .subscribe(subscriber);
     }
+
+    public void unsubscribe(){
+        if (!subscription.isUnsubscribed()) {
+            subscription.unsubscribe();
+        }
+    }
+
+
 }
