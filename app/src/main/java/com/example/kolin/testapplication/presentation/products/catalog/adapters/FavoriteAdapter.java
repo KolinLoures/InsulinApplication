@@ -29,7 +29,7 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.Favori
 
         void onClickRemoveFromCalc(Food food);
 
-        void onLongClickItem(Food food);
+        void onLongClickItem(int position);
     }
 
     @Override
@@ -42,9 +42,7 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.Favori
     @Override
     public void onBindViewHolder(FavoriteHolder holder, int position) {
         Food food = list.get(position);
-
         holder.checkBoxCalc.setChecked(food.getChecked());
-
         holder.textViewName.setText(food.getName() + " (" + food.getOwner() + ")");
         holder.textViewB.setText("Б: " + String.valueOf(food.getB()));
         holder.textViewJ.setText("Ж: " + String.valueOf(food.getJ()));
@@ -82,10 +80,8 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.Favori
                     if (listener != null) {
                         Food food = list.get(getLayoutPosition());
                         if (((CheckBox) v).isChecked()) {
-                            food.setChecked(true);
                             listener.onClickAddToCalc(food);
                         } else {
-                            food.setChecked(false);
                             listener.onClickRemoveFromCalc(food);
                         }
                     }
@@ -96,7 +92,7 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.Favori
                 @Override
                 public boolean onLongClick(View v) {
                     if (listener != null) {
-                        listener.onLongClickItem(list.get(getLayoutPosition()));
+                        listener.onLongClickItem(getLayoutPosition());
                     }
                     return true;
                 }
@@ -136,12 +132,8 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.Favori
         }
     }
 
-
     public void setListener(OnClickItemFavoriteAdapter listener) {
         this.listener = listener;
     }
 
-    public List<Food> getList() {
-        return list;
-    }
 }

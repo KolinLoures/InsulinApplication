@@ -16,9 +16,9 @@ public class RealmMainSingleton {
         if (instanceMain == null) {
             RealmConfiguration build = new RealmConfiguration
                     .Builder()
-                    .name("mainRealm.realm")
                     .build();
-            instanceMain = Realm.getInstance(build);
+            Realm.setDefaultConfiguration(build);
+            instanceMain = Realm.getDefaultInstance();
         }
         return instanceMain;
     }

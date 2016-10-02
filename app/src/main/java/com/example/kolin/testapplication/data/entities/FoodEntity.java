@@ -16,6 +16,8 @@ public class FoodEntity {
     private Integer weight;
     private Double y;
     private String owner;
+    @SerializedName("id_owner")
+    private String idOwner;
 
     public Double getB() {
         return b;
@@ -71,5 +73,13 @@ public class FoodEntity {
 
     public void setOwner(String owner) {
         this.owner = owner;
+    }
+
+    public String getIdOwner() {
+        return idOwner;
+    }
+
+    public void setIdOwner(String idOwner) {
+        this.idOwner = idOwner;
     }
 }

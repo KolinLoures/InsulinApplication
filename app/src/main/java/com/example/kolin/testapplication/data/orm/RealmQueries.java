@@ -33,6 +33,7 @@ public class RealmQueries {
     public Observable<List<Food>> getFavoriteFood() {
         return realmMain
                 .where(Food.class)
+                .isNotNull("idName")
                 .findAll()
                 .asObservable()
                 .filter(new Func1<RealmResults<Food>, Boolean>() {

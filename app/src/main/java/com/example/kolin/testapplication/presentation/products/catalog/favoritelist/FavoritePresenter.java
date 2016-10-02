@@ -8,6 +8,7 @@ import com.example.kolin.testapplication.domain.interactor.DeleteFavoriteFoodUC;
 import com.example.kolin.testapplication.domain.interactor.GetObservableCalculatedFoodUC;
 import com.example.kolin.testapplication.domain.interactor.GetFavoriteFoodUC;
 import com.example.kolin.testapplication.presentation.common.AbstractPresenter;
+import com.example.kolin.testapplication.presentation.common.FoodMapper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +26,7 @@ public class FavoritePresenter extends AbstractPresenter<FavoriteView> {
     private GetObservableCalculatedFoodUC getCalculatedFoodUC;
 
     private List<Food> loadedData = new ArrayList<>();
+    private List<Food> checkedFood = new ArrayList<>();
 
 
     public FavoritePresenter() {
@@ -38,23 +40,23 @@ public class FavoritePresenter extends AbstractPresenter<FavoriteView> {
     }
 
     public void loadCalculated(){
-        getCalculatedFoodUC.execute(new FavoriteCalculatorSubscriber());
     }
 
-    public void showLoadedData(List<Food> foodList){
+    public void showData(List<Food> foodList){
         loadedData.clear();
         loadedData.addAll(foodList);
         if (!isViewAttach()){
             Log.e(TAG, "View is detach!");
         }
 
-        getWeakReference().showFavoriteFood(foodList);
+        getWeakReference().showFavoriteFood(FoodMapper.realmListToList(loadedData));
     }
 
     private final class FavoriteSubscriber extends DefaultSubscriber<List<Food>>{
         @Override
         public void onNext(List<Food> list) {
-            FavoritePresenter.this.showLoadedData(list);
+            FavoritePresenter.this.showData(list);
+            getCalculatedFoodUC.execute(new FavoriteCalculatorSubscriber());
         }
     }
 
@@ -71,8 +73,8 @@ public class FavoritePresenter extends AbstractPresenter<FavoriteView> {
         getCalculatedFoodUC.unsubscribe();
     }
 
-    public void deleteFromFavorite(Food food){
-        deleteFavoriteFoodUC.execute(food);
+    public void deleteFromFavorite(int position){
+        deleteFavoriteFoodUC.execute(loadedData.get(position));
 
         if (!isViewAttach()){
             Log.e(TAG, "View is detach!");
@@ -102,11 +104,14 @@ public class FavoritePresenter extends AbstractPresenter<FavoriteView> {
     }
 
     public void setCalculatedFood(List<Food> foodList){
+        checkedFood.clear();
+        checkedFood.addAll(foodList);
+
         if (!isViewAttach()){
             Log.e(TAG, "View is detach!");
         }
 
-        getWeakReference().addCheckedFood(foodList);
+        getWeakReference().addCheckedFood(checkedFood);
     }
 }
 

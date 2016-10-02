@@ -13,9 +13,7 @@ import com.example.kolin.testapplication.R;
 import com.example.kolin.testapplication.domain.Food;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 /**
  * Created by kolin on 12.09.2016.
@@ -23,8 +21,8 @@ import java.util.Set;
 
 public class ListFoodAdapter extends RecyclerView.Adapter<ListFoodAdapter.ListFoodViewHolder> {
 
-    private List<Food> listFood;
-    private Set<Food> checkedFood;
+    private List<Food> list = new ArrayList<>();
+    private List<Food> checkedFood = new ArrayList<>();
     private OnClickListFoodAdapter listener;
     private Resources resources;
 
@@ -37,10 +35,7 @@ public class ListFoodAdapter extends RecyclerView.Adapter<ListFoodAdapter.ListFo
     }
 
 
-
     public ListFoodAdapter() {
-        listFood = new ArrayList<>();
-        checkedFood = new HashSet<>();
     }
 
     @Override
@@ -54,10 +49,9 @@ public class ListFoodAdapter extends RecyclerView.Adapter<ListFoodAdapter.ListFo
     @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(ListFoodViewHolder holder, int position) {
-        Food food = listFood.get(position);
-        if (checkedFood.contains(food)){
-            holder.checkBoxAddToCalc.setChecked(true);
-        }
+        Food food = list.get(position);
+        holder.checkBoxAddToCalc.setChecked(food.getChecked());
+
         holder.textViewNameProduct.setText(food.getName());
         holder.textViewB.setText(resources.getString(R.string.b)
                 + String.valueOf(food.getB()));
@@ -69,17 +63,17 @@ public class ListFoodAdapter extends RecyclerView.Adapter<ListFoodAdapter.ListFo
 
     @Override
     public int getItemCount() {
-        return listFood.size();
+        return list.size();
     }
 
     public void addAll(List<Food> listFood) {
-        this.listFood.clear();
-        this.listFood.addAll(listFood);
+        this.list.clear();
+        this.list.addAll(listFood);
         notifyDataSetChanged();
     }
 
     public void clearAll() {
-        this.listFood.clear();
+        this.list.clear();
         notifyDataSetChanged();
     }
 
@@ -114,9 +108,8 @@ public class ListFoodAdapter extends RecyclerView.Adapter<ListFoodAdapter.ListFo
             checkBoxAddToCalc.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    CheckBox checkBox = (CheckBox) v;
                     if (listener != null) {
-                        if (checkBox.isChecked()) {
+                        if (((CheckBox) v).isChecked()) {
                             listener.onClickBtnAddToCalc(getLayoutPosition());
                         } else {
                             listener.onRemoveFromCalculator(getLayoutPosition());
@@ -131,11 +124,25 @@ public class ListFoodAdapter extends RecyclerView.Adapter<ListFoodAdapter.ListFo
         this.listener = listener;
     }
 
-    public void setCheckedFood(Set<Food> checkedFood) {
-        this.checkedFood = checkedFood;
+    public void setCheckedFood(List<Food> foodList) {
+        checkedFood.clear();
+        checkedFood.addAll(foodList);
+        if (checkedFood.isEmpty()) {
+            for (Food food : list) {
+                food.setChecked(false);
+                notifyItemChanged(list.indexOf(food));
+            }
+        } else {
+            for (Food f : list) {
+                if (checkedFood.contains(f)) {
+                    f.setChecked(true);
+                    notifyItemChanged(list.indexOf(f));
+                } else {
+                    f.setChecked(false);
+                    notifyItemChanged(list.indexOf(f));
+                }
+            }
+        }
     }
 
-    public Set<Food> getCheckedFood() {
-        return checkedFood;
-    }
 }

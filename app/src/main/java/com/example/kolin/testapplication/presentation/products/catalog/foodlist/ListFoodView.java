@@ -16,4 +16,6 @@ public interface ListFoodView {
     void showSnackBar(String title);
 
     void clearAll();
+
+    void showCheckedFood(List<Food> checkedFood);
 }

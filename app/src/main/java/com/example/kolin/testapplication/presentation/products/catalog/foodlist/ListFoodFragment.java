@@ -19,11 +19,9 @@ import com.example.kolin.testapplication.presentation.common.SimpleSectionedRecy
 import com.example.kolin.testapplication.presentation.common.Updateable;
 import com.example.kolin.testapplication.presentation.products.catalog.adapters.ListFoodAdapter;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Set;
 
 public class ListFoodFragment extends Fragment implements ListFoodView, Updateable {
 
@@ -89,13 +87,12 @@ public class ListFoodFragment extends Fragment implements ListFoodView, Updateab
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         clearAll();
         if (savedInstanceState != null) {
-            adapter.setCheckedFood((Set<Food>) savedInstanceState.getSerializable("check"));
             presenter.showLoadedData((HashMap<FoodCategory, List<Food>>)
                     savedInstanceState.getSerializable(keyToState));
+            presenter.loadCalculatedFood();
         } else {
             presenter.load(currentItemOfGroup);
         }
-        presenter.getLoadedData();
     }
 
 
@@ -114,6 +111,7 @@ public class ListFoodFragment extends Fragment implements ListFoodView, Updateab
 
     @Override
     public void showLoadedFood(HashMap<FoodCategory, List<Food>> foodCategoryListHashMap) {
+        clearAll();
         int i = 0;
         for (HashMap.Entry<FoodCategory, List<Food>> pair : foodCategoryListHashMap.entrySet()) {
             FoodCategory key = pair.getKey();
@@ -152,10 +150,8 @@ public class ListFoodFragment extends Fragment implements ListFoodView, Updateab
     @Override
     public void onSaveInstanceState(Bundle outState) {
         HashMap<FoodCategory, List<Food>> loadedData = presenter.getLoadedData();
-        Set<Food> checkedFood = presenter.getCheckedFood();
         if (loadedData != null) {
             outState.putSerializable(keyToState, loadedData);
-            outState.putSerializable("check", (Serializable) checkedFood);
         }
         super.onSaveInstanceState(outState);
     }
@@ -186,10 +182,15 @@ public class ListFoodFragment extends Fragment implements ListFoodView, Updateab
                 if (loadedList != null && !loadedList.isEmpty()) {
                     food = loadedList.get(sectionedAdapter.sectionedPositionToPosition(position));
                 }
-                presenter.removeFromCheckedFood(food);
+                presenter.deleteFromCalculatedFood(food);
             }
 
 
         });
+    }
+
+    @Override
+    public void showCheckedFood(List<Food> checkedFood) {
+        adapter.setCheckedFood(checkedFood);
     }
 }

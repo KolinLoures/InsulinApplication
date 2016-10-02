@@ -68,7 +68,7 @@ public class FavoriteFragment extends Fragment implements FavoriteView {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         presenter.loadFavorite();
-        presenter.loadCalculated();
+//        presenter.loadCalculated();
     }
 
     @Override
@@ -108,8 +108,8 @@ public class FavoriteFragment extends Fragment implements FavoriteView {
             }
 
             @Override
-            public void onLongClickItem(Food food) {
-                presenter.deleteFromFavorite(food);
+            public void onLongClickItem(int position) {
+                presenter.deleteFromFavorite(position);
             }
         });
     }

@@ -42,6 +42,7 @@ public class DataMapper {
         food.setY(foodEntity.getY());
         food.setWeight(foodEntity.getWeight());
         food.setOwner(foodEntity.getOwner());
+        food.setIdOwner(foodEntity.getIdOwner());
         return food;
     }
 
