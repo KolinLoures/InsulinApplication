@@ -1,5 +1,7 @@
 package com.example.kolin.testapplication.domain;
 
+import java.io.Serializable;
+
 import io.realm.RealmObject;
 import io.realm.annotations.Ignore;
 import io.realm.annotations.PrimaryKey;
@@ -8,7 +10,7 @@ import io.realm.annotations.PrimaryKey;
  * Created by kolin on 11.09.2016.
  */
 
-public class Food extends RealmObject {
+public class Food extends RealmObject implements Serializable {
 
     @PrimaryKey
     private String idName;
@@ -114,7 +116,6 @@ public class Food extends RealmObject {
         if (idName != null ? !idName.equals(food.idName) : food.idName != null) return false;
         if (b != null ? !b.equals(food.b) : food.b != null) return false;
         if (j != null ? !j.equals(food.j) : food.j != null) return false;
-        if (weight != null ? !weight.equals(food.weight) : food.weight != null) return false;
         if (y != null ? !y.equals(food.y) : food.y != null) return false;
         return idOwner != null ? idOwner.equals(food.idOwner) : food.idOwner == null;
 

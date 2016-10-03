@@ -33,8 +33,13 @@ public class DialogFragment extends AppCompatDialogFragment implements DialogVie
     private DialogAdapter adapter;
     private DialogPresenter presenter;
 
+    private OnClickCalculateButtonListener listener;
+
     public DialogFragment() {
-        // Required empty public constructor
+    }
+
+    public interface OnClickCalculateButtonListener {
+        void onClickCalculateBtn(List<Food> foodList);
     }
 
 
@@ -51,8 +56,9 @@ public class DialogFragment extends AppCompatDialogFragment implements DialogVie
         super.onCreate(savedInstanceState);
 
         presenter = new DialogPresenter();
-        adapter = new DialogAdapter();
+        presenter.attachView(this);
 
+        adapter = new DialogAdapter();
         adapter.setListener(new DialogAdapter.OnClickItemDialogAdapter() {
             @Override
             public void onClickDeleteItem(Food food) {
@@ -60,7 +66,6 @@ public class DialogFragment extends AppCompatDialogFragment implements DialogVie
             }
         });
 
-        presenter.attachView(this);
     }
 
     @Override
@@ -73,6 +78,12 @@ public class DialogFragment extends AppCompatDialogFragment implements DialogVie
         textViewTitle = (TextView) view.findViewById(R.id.dialog_title);
         btnBack = (Button) view.findViewById(R.id.dialog_btn_back);
         btnCalculate = (Button) view.findViewById(R.id.dialog_btn_calculate);
+        btnCalculate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onClickBtnCalculate();
+            }
+        });
 
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -91,12 +102,18 @@ public class DialogFragment extends AppCompatDialogFragment implements DialogVie
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-
+        try {
+            listener = (OnClickCalculateButtonListener) context;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(context.toString()
+                    + " must implement OnClickCalculateButtonListener");
+        }
     }
 
     @Override
     public void onDetach() {
         adapter.setListener(null);
+        btnCalculate.setOnClickListener(null);
         super.onDetach();
     }
 
@@ -108,5 +125,14 @@ public class DialogFragment extends AppCompatDialogFragment implements DialogVie
     @Override
     public void showToast(String title) {
         Toast.makeText(getContext(), title, Toast.LENGTH_SHORT).show();
+    }
+
+    private void onClickBtnCalculate() {
+        List<Food> loadedData = presenter.getLoadedData();
+        if (loadedData.isEmpty()) {
+            showToast("Пустой список!");
+        } else {
+            listener.onClickCalculateBtn(loadedData);
+        }
     }
 }

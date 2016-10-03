@@ -12,14 +12,18 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
 import com.example.kolin.testapplication.R;
 import com.example.kolin.testapplication.presentation.calculator.CalculatorFragment;
+import com.example.kolin.testapplication.presentation.calculator.calculation.CalculationActivity;
 import com.example.kolin.testapplication.presentation.products.ProductsFragment;
 import com.example.kolin.testapplication.presentation.products.catalog.CatalogActivity;
 
-public class MainActivity extends AppCompatActivity implements ProductsFragment.OnClickCardViews {
+public class MainActivity extends AppCompatActivity implements
+        ProductsFragment.OnClickCardViews,
+        CalculatorFragment.OnClickCalculationFragmentListener {
 
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
@@ -113,6 +117,12 @@ public class MainActivity extends AppCompatActivity implements ProductsFragment.
     public void onClickCardViewFood() {
         Intent intent = new Intent(getApplicationContext(), CatalogActivity.class);
         intent.putExtra("NameCategory", 0);
+        startActivity(intent);
+    }
+
+    @Override
+    public void onClickFab(View v) {
+        Intent intent = new Intent(getApplicationContext(), CalculationActivity.class);
         startActivity(intent);
     }
 }

@@ -75,6 +75,11 @@ public class RepositoryImpl implements Repository {
     }
 
     @Override
+    public void deleteCalculationFoodEqualsName(Food food) {
+        calculatorListFood.deleteFromCalculationFoodEqualsName(food);
+    }
+
+    @Override
     public void deleteAllFromCalculation() {
         calculatorListFood.clearCalculatedFood();
     }

@@ -14,7 +14,6 @@
     <style name="AppTheme" parent="AppTheme.Base"></style>
 
 
-
     <style name="textViewEmail">
         <item name="android:textSize">14sp</item>
         <item name="android:fontFamily">@string/Roboto_Light</item>
@@ -27,12 +26,35 @@
         <item name="android:fontFamily">@string/Roboto_Medium</item>
     </style>
 
+    <style name="topTextViewRvItemRight">
+        <item name="android:textSize">14sp</item>
+        <item name="android:layout_marginTop">8dp</item>
+        <item name="android:fontFamily">@string/Roboto_Light</item>
+    </style>
+
+    <style name="textViewCalculationItem" parent="topTextViewRvItemLeft">
+        <item name="android:layout_marginTop">0dp</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:layout_weight">1</item>
+    </style>
+
+    <style name="textViewCalculationItemBottom" parent="topTextViewRvItemRight">
+        <item name="android:layout_marginTop">0dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:textAlignment">center</item>
+    </style>
+
+    <style name="topTextViewRvItemLeft">
+        <item name="android:textSize">16sp</item>
+        <item name="android:layout_marginTop">8dp</item>
+        <item name="android:fontFamily">@string/Roboto_Medium</item>
+    </style>
+
     <style name="bottomTextViewRvItem">
         <item name="android:textSize">14sp</item>
         <item name="android:layout_marginBottom">20dp</item>
         <item name="android:fontFamily">@string/Roboto_Regular</item>
     </style>
-
 
 
     <style name="textViewName">
@@ -50,11 +72,24 @@
         <item name="android:fontFamily">@string/Roboto_Light</item>
         <item name="android:textSize">14sp</item>
     </style>
-    
+
+    <style name="textViewResultLeft" >
+        <item name="android:textSize">16sp</item>
+        <item name="android:fontFamily">@string/Roboto_Medium</item>
+        <item name="android:layout_marginTop">8dp</item>
+    </style>
+
+    <style name="textViewResultRight" >
+        <item name="android:textSize">16sp</item>
+        <item name="android:fontFamily">@string/Roboto_Light</item>
+        <item name="android:layout_marginTop">8dp</item>
+    </style>
+
     <style name="btnStyleDialog">
         <item name="android:textColor">@color/colorPrimary</item>
-        <item name="android:background">@android:color/transparent</item>
-        <item name="android:layout_height">36dp</item>
+        <item name="android:background">?android:attr/selectableItemBackground</item>
+        <item name="android:paddingStart">8dp</item>
+        <item name="android:paddingEnd">8dp</item>
     </style>
 
     <style name="textViewTitleDialog">

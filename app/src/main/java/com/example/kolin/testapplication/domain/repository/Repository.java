@@ -9,7 +9,6 @@ import java.util.HashMap;
 import java.util.List;
 
 import rx.Observable;
-import rx.subjects.PublishSubject;
 import rx.subjects.ReplaySubject;
 
 
@@ -34,6 +33,8 @@ public interface Repository {
     ReplaySubject<List<Food>> getCalculationFood();
 
     void deleteCalculationFood(Food food);
+
+    void deleteCalculationFoodEqualsName(Food food);
 
     void deleteAllFromCalculation();
 }

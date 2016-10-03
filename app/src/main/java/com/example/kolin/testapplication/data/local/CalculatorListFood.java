@@ -40,6 +40,16 @@ public class CalculatorListFood {
         replaySubject.onNext(listFood);
     }
 
+    public void deleteFromCalculationFoodEqualsName(Food food){
+        for (Food f: listFood){
+            if (f.getIdName().equals(food.getIdName()) &&
+                    f.getIdOwner().equals(food.getIdOwner())){
+                listFood.remove(f);
+            }
+        }
+        replaySubject.onNext(listFood);
+    }
+
     public void clearCalculatedFood() {
         listFood.clear();
 

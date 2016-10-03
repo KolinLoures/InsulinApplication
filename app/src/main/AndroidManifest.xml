@@ -3,6 +3,7 @@
     package="com.example.kolin.testapplication">
 
     <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:name=".App"
         android:allowBackup="true"
@@ -13,10 +14,10 @@
         <activity android:name=".presentation.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity android:name=".presentation.products.catalog.CatalogActivity">
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH" />
@@ -27,7 +28,7 @@
                 android:name="android.app.searchable"
                 android:resource="@xml/searchable" />
         </activity>
+        <activity android:name=".presentation.calculator.calculation.CalculationActivity"></activity>
     </application>
-
 
 </manifest>

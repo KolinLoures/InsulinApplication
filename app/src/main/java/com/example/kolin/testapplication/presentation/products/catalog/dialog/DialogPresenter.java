@@ -7,6 +7,7 @@ import com.example.kolin.testapplication.domain.interactor.DefaultSubscriber;
 import com.example.kolin.testapplication.domain.interactor.GetObservableCalculatedFoodUC;
 import com.example.kolin.testapplication.presentation.common.AbstractPresenter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -18,6 +19,8 @@ public class DialogPresenter extends AbstractPresenter<DialogView> {
     private static final String TAG = DialogPresenter.class.getSimpleName();
 
     private GetObservableCalculatedFoodUC getCalculatedFoodUC;
+
+    private List<Food> loadedData = new ArrayList<>();
 
 
     public DialogPresenter() {
@@ -36,6 +39,8 @@ public class DialogPresenter extends AbstractPresenter<DialogView> {
     }
 
     private void showLoadedData(List<Food> foodList) {
+        loadedData.clear();
+        loadedData.addAll(foodList);
         if (!isViewAttach()) {
             Log.e(TAG, "View is detach!");
         }
@@ -53,5 +58,9 @@ public class DialogPresenter extends AbstractPresenter<DialogView> {
         }
 
         getWeakReference().showToast("Удалено из расчета!");
+    }
+
+    public List<Food> getLoadedData() {
+        return loadedData;
     }
 }

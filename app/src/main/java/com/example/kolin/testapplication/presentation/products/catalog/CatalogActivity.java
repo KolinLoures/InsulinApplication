@@ -15,14 +15,19 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.example.kolin.testapplication.R;
+import com.example.kolin.testapplication.domain.Food;
 import com.example.kolin.testapplication.domain.groups.GroupName;
+import com.example.kolin.testapplication.presentation.calculator.calculation.CalculationActivity;
 import com.example.kolin.testapplication.presentation.products.catalog.dialog.DialogFragment;
 import com.example.kolin.testapplication.presentation.products.catalog.favoritelist.FavoriteFragment;
 import com.example.kolin.testapplication.presentation.products.catalog.foodlist.ListFoodFragment;
 import com.example.kolin.testapplication.presentation.products.catalog.selection.SelectionFragment;
 
+import java.util.List;
+
 public class CatalogActivity extends AppCompatActivity implements
-        SelectionFragment.OnClickItemOnSelectionFragment {
+        SelectionFragment.OnClickItemOnSelectionFragment,
+        DialogFragment.OnClickCalculateButtonListener {
 
     private Toolbar toolbar;
     private TabLayout tabs;
@@ -118,5 +123,13 @@ public class CatalogActivity extends AppCompatActivity implements
         FragmentManager fragmentManager = getSupportFragmentManager();
         DialogFragment dialogFragment = DialogFragment.newInstance("Список расчета");
         dialogFragment.show(fragmentManager, "fragment_edit_name");
+    }
+
+    @Override
+    public void onClickCalculateBtn(List<Food> foodList) {
+        Intent intent = new Intent(getApplicationContext(), CalculationActivity.class);
+//        intent.putExtra("list", (Serializable) foodList);
+        startActivity(intent);
+        finish();
     }
 }
