@@ -17,7 +17,7 @@ public class Food extends RealmObject implements Serializable {
     private Double b;
     private Double j;
     private String name;
-    private Integer weight;
+    private Double weight;
     private Double y;
     private String owner;
     private String idOwner;
@@ -60,11 +60,11 @@ public class Food extends RealmObject implements Serializable {
         this.name = name;
     }
 
-    public Integer getWeight() {
+    public Double getWeight() {
         return weight;
     }
 
-    public void setWeight(Integer weight) {
+    public void setWeight(Double weight) {
         this.weight = weight;
     }
 

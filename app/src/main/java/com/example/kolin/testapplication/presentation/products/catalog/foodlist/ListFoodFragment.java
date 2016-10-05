@@ -41,6 +41,12 @@ public class ListFoodFragment extends Fragment implements ListFoodView, Updateab
 
     private List<Food> loadedList = new ArrayList<>();
 
+    private OnClickAddFoodToCalculator listener;
+
+    public interface OnClickAddFoodToCalculator {
+        void onClickAddFood(Food food);
+    }
+
 
     public ListFoodFragment() {
     }
@@ -99,6 +105,12 @@ public class ListFoodFragment extends Fragment implements ListFoodView, Updateab
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
+        try {
+            listener = (OnClickAddFoodToCalculator) context;
+        } catch (ClassCastException e) {
+            throw new RuntimeException(context.toString()
+                    + " must implement OnClickItemOnSelectionFragment");
+        }
     }
 
     @Override
@@ -107,6 +119,7 @@ public class ListFoodFragment extends Fragment implements ListFoodView, Updateab
         presenter.detachView();
         presenter.unSubscribe();
         adapter.setListener(null);
+        listener = null;
     }
 
     @Override
@@ -173,7 +186,9 @@ public class ListFoodFragment extends Fragment implements ListFoodView, Updateab
                 if (loadedList != null && !loadedList.isEmpty()) {
                     food = loadedList.get(sectionedAdapter.sectionedPositionToPosition(position));
                 }
-                presenter.addCalculationFood(food);
+                if (listener != null) {
+                    listener.onClickAddFood(food);
+                }
             }
 
             @Override
@@ -188,7 +203,6 @@ public class ListFoodFragment extends Fragment implements ListFoodView, Updateab
 
         });
     }
-
     @Override
     public void showCheckedFood(List<Food> checkedFood) {
         adapter.setCheckedFood(checkedFood);

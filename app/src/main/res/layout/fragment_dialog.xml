@@ -2,9 +2,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_gravity="center"
-    android:elevation="24dp"
-    android:minHeight="250dp"
+    app:cardElevation="24dp"
+    android:minHeight="350dp"
     android:minWidth="350dp"
     tools:context="com.example.kolin.testapplication.presentation.products.catalog.dialog.DialogFragment">
 
@@ -24,20 +25,21 @@
         <android.support.v7.widget.RecyclerView
             android:id="@+id/dialog_recycler_view"
             android:layout_width="match_parent"
-            android:layout_height="165dp"
+            android:layout_height="300dp"
             android:layout_marginEnd="24dp"
             android:layout_marginStart="24dp" />
 
         <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="52dp"
+            android:layout_height="match_parent"
             android:layout_marginEnd="8dp"
             android:layout_marginStart="24dp">
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="36dp"
-                android:layout_gravity="end|center_vertical"
+                android:layout_marginBottom="8dp"
+                android:layout_gravity="end|bottom"
                 >
 
                 <Button

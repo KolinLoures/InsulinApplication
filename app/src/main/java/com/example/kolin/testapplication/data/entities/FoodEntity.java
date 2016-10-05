@@ -13,7 +13,7 @@ public class FoodEntity {
     private String idName;
     private Double j;
     private String name;
-    private Integer weight;
+    private Double weight;
     private Double y;
     private String owner;
     @SerializedName("id_owner")
@@ -51,11 +51,11 @@ public class FoodEntity {
         this.name = name;
     }
 
-    public Integer getWeight() {
+    public Double getWeight() {
         return weight;
     }
 
-    public void setWeight(Integer weight) {
+    public void setWeight(Double weight) {
         this.weight = weight;
     }
 

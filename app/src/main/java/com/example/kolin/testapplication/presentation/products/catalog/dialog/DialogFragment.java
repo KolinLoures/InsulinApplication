@@ -91,6 +91,13 @@ public class DialogFragment extends AppCompatDialogFragment implements DialogVie
 
         textViewTitle.setText(getArguments().getString(keyToArgs));
 
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dismiss();
+            }
+        });
+
         return view;
     }
 
@@ -114,6 +121,7 @@ public class DialogFragment extends AppCompatDialogFragment implements DialogVie
     public void onDetach() {
         adapter.setListener(null);
         btnCalculate.setOnClickListener(null);
+        btnBack.setOnClickListener(null);
         super.onDetach();
     }
 

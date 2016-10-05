@@ -18,6 +18,7 @@ import com.example.kolin.testapplication.R;
 import com.example.kolin.testapplication.domain.Food;
 import com.example.kolin.testapplication.domain.groups.GroupName;
 import com.example.kolin.testapplication.presentation.calculator.calculation.CalculationActivity;
+import com.example.kolin.testapplication.presentation.common.weightdialog.WeightFragment;
 import com.example.kolin.testapplication.presentation.products.catalog.dialog.DialogFragment;
 import com.example.kolin.testapplication.presentation.products.catalog.favoritelist.FavoriteFragment;
 import com.example.kolin.testapplication.presentation.products.catalog.foodlist.ListFoodFragment;
@@ -27,7 +28,9 @@ import java.util.List;
 
 public class CatalogActivity extends AppCompatActivity implements
         SelectionFragment.OnClickItemOnSelectionFragment,
-        DialogFragment.OnClickCalculateButtonListener {
+        DialogFragment.OnClickCalculateButtonListener,
+        ListFoodFragment.OnClickAddFoodToCalculator,
+        FavoriteFragment.OnClickAddFavoriteFoodToCalculator{
 
     private Toolbar toolbar;
     private TabLayout tabs;
@@ -38,7 +41,6 @@ public class CatalogActivity extends AppCompatActivity implements
 
     private int extra;
     private PagerAdapter pagerAdapter;
-
 
 
     @Override
@@ -122,7 +124,7 @@ public class CatalogActivity extends AppCompatActivity implements
     private void showDialog() {
         FragmentManager fragmentManager = getSupportFragmentManager();
         DialogFragment dialogFragment = DialogFragment.newInstance("Список расчета");
-        dialogFragment.show(fragmentManager, "fragment_edit_name");
+        dialogFragment.show(fragmentManager, DialogFragment.class.getSimpleName());
     }
 
     @Override
@@ -131,5 +133,21 @@ public class CatalogActivity extends AppCompatActivity implements
 //        intent.putExtra("list", (Serializable) foodList);
         startActivity(intent);
         finish();
+    }
+
+    @Override
+    public void onClickAddFood(Food food) {
+        openWeightDialog(food);
+    }
+
+    @Override
+    public void onClickAddFavoriteToCalculator(Food food) {
+        openWeightDialog(food);
+    }
+
+    private void openWeightDialog(Food food){
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        WeightFragment weightFragment = WeightFragment.newInstance(food);
+        weightFragment.show(fragmentManager, WeightFragment.class.getSimpleName());
     }
 }

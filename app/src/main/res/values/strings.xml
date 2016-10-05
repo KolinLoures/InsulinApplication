@@ -25,9 +25,15 @@
     <string name="result">Итого</string>
     <string name="b_j_y">Б/Ж/У</string>
     <string name="kcal">Ккал</string>
-    <string name="weight">Вес</string>
+    <string name="weight">Вес (г)</string>
     <string name="insulin">Инсулин</string>
     <string name="save">Сохранить</string>
     <string name="bread_items">Хлебные единицы</string>
+    <string name="set_weight">Установите вес</string>
+    <string name="add">добавить</string>
+    <string name="amount">Кол-во</string>
+    <string name="x">x</string>
+    <string name="gram">г</string>
+    <string name="null_value">Нулевое значение</string>
 
 </resources>

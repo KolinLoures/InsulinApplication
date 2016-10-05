@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.example.kolin.testapplication.R;
 import com.example.kolin.testapplication.domain.Food;
+import com.example.kolin.testapplication.domain.calculation.FoodCalculation;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +24,7 @@ public class DialogAdapter extends RecyclerView.Adapter<DialogAdapter.DialogHold
 
     private OnClickItemDialogAdapter listener;
 
-    public interface OnClickItemDialogAdapter{
+    public interface OnClickItemDialogAdapter {
         void onClickDeleteItem(Food food);
     }
 
@@ -37,10 +38,13 @@ public class DialogAdapter extends RecyclerView.Adapter<DialogAdapter.DialogHold
     @Override
     public void onBindViewHolder(DialogAdapter.DialogHolder holder, int position) {
         Food food = list.get(position);
-        holder.textViewName.setText(food.getName()+" ("+food.getOwner()+")");
-        holder.textViewB.setText("Б: " + String.valueOf(food.getB()));
-        holder.textViewJ.setText("Ж: " + String.valueOf(food.getJ()));
-        holder.textViewY.setText("У: " + String.valueOf(food.getY()));
+        holder.textViewName.setText(food.getName() + " (" + food.getOwner() + ")");
+        holder.textViewB.setText(String.valueOf(food.getB()));
+        holder.textViewJ.setText(String.valueOf(food.getJ()));
+        holder.textViewY.setText(String.valueOf(food.getY()));
+        holder.textViewYWeight.setText(String.valueOf(FoodCalculation.getYOnWeight(food)));
+        holder.textViewYWeightText.setText("У в " + food.getWeight() + "г");
+        holder.textViewWeight.setText(String.valueOf(food.getWeight()));
     }
 
     @Override
@@ -48,15 +52,17 @@ public class DialogAdapter extends RecyclerView.Adapter<DialogAdapter.DialogHold
         return list.size();
     }
 
-    class DialogHolder extends RecyclerView.ViewHolder{
+    class DialogHolder extends RecyclerView.ViewHolder {
 
         private TextView textViewB;
         private TextView textViewJ;
         private TextView textViewY;
+        private TextView textViewWeight;
         private TextView textViewName;
+        private TextView textViewYWeight;
+        private TextView textViewYWeightText;
 
         private ImageButton imageButtonRemove;
-
 
 
         public DialogHolder(View itemView) {
@@ -66,13 +72,16 @@ public class DialogAdapter extends RecyclerView.Adapter<DialogAdapter.DialogHold
             textViewB = (TextView) itemView.findViewById(R.id.dialog_food_b);
             textViewJ = (TextView) itemView.findViewById(R.id.dialog_food_j);
             textViewY = (TextView) itemView.findViewById(R.id.dialog_food_y);
+            textViewWeight = (TextView) itemView.findViewById(R.id.dialog_food_weight);
+            textViewYWeightText = (TextView) itemView.findViewById(R.id.dialog_food_y_weight_text);
             imageButtonRemove = (ImageButton) itemView.findViewById(R.id.dialog_remove_from_calc);
+            textViewYWeight = (TextView) itemView.findViewById(R.id.dialog_food_y_weight);
 
 
             imageButtonRemove.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (listener != null){
+                    if (listener != null) {
                         listener.onClickDeleteItem(list.get(getLayoutPosition()));
                     }
                 }
@@ -81,12 +90,12 @@ public class DialogAdapter extends RecyclerView.Adapter<DialogAdapter.DialogHold
         }
     }
 
-    public void clearAll(){
+    public void clearAll() {
         list.clear();
         notifyDataSetChanged();
     }
 
-    public void addAll(List<Food> list){
+    public void addAll(List<Food> list) {
         this.list.clear();
         this.list.addAll(list);
         notifyDataSetChanged();

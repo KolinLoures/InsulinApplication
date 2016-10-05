@@ -34,7 +34,7 @@ public interface Repository {
 
     void deleteCalculationFood(Food food);
 
-    void deleteCalculationFoodEqualsName(Food food);
+    void onNextCalculationFood();
 
     void deleteAllFromCalculation();
 }

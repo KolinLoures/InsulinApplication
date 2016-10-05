@@ -48,7 +48,7 @@ public class ListCalculatorPresenter extends AbstractPresenter<ListCalculatorVie
     }
 
     public void deleteFromCalculated(Food food) {
-        getObservableCalculatedFoodUC.deleteCalculationFoodEqualsName(food);
+        getObservableCalculatedFoodUC.deleteCalculationFood(food);
 
         if (!isViewAttach()) {
             Log.e(TAG, "View is detach!");

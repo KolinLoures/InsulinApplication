@@ -35,10 +35,6 @@ public class GetObservableCalculatedFoodUC extends DataUseCase<Subscriber> {
         repository.deleteCalculationFood(food);
     }
 
-    public void deleteCalculationFoodEqualsName(Food food) {
-        repository.deleteCalculationFoodEqualsName(food);
-    }
-
     public void clearCalculationFood() {
         repository.deleteAllFromCalculation();
     }
@@ -63,5 +59,8 @@ public class GetObservableCalculatedFoodUC extends DataUseCase<Subscriber> {
         }
     }
 
+    public void onNext(){
+        repository.onNextCalculationFood();
+    }
 
 }

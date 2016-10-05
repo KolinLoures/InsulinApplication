@@ -24,9 +24,10 @@ public class CalculatorListFood {
     }
 
     public void addCalculationFood(Food food) {
-        if (!listFood.contains(food)) {
-            listFood.add(food);
+        if (listFood.contains(food)) {
+            listFood.remove(food);
         }
+        listFood.add(food);
         replaySubject.onNext(listFood);
     }
 
@@ -40,19 +41,13 @@ public class CalculatorListFood {
         replaySubject.onNext(listFood);
     }
 
-    public void deleteFromCalculationFoodEqualsName(Food food){
-        for (Food f: listFood){
-            if (f.getIdName().equals(food.getIdName()) &&
-                    f.getIdOwner().equals(food.getIdOwner())){
-                listFood.remove(f);
-            }
-        }
-        replaySubject.onNext(listFood);
-    }
-
     public void clearCalculatedFood() {
         listFood.clear();
 
+        replaySubject.onNext(listFood);
+    }
+
+    public void onNext(){
         replaySubject.onNext(listFood);
     }
 

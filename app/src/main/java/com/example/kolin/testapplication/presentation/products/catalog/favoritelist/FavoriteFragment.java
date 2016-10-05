@@ -28,6 +28,12 @@ public class FavoriteFragment extends Fragment implements FavoriteView {
 
     private RecyclerView recyclerView;
 
+    private OnClickAddFavoriteFoodToCalculator listener;
+
+    public interface OnClickAddFavoriteFoodToCalculator {
+        void onClickAddFavoriteToCalculator(Food food);
+    }
+
     public FavoriteFragment() {
         // Required empty public constructor
     }
@@ -74,6 +80,12 @@ public class FavoriteFragment extends Fragment implements FavoriteView {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
+        if (context instanceof OnClickAddFavoriteFoodToCalculator)
+            listener = (OnClickAddFavoriteFoodToCalculator) context;
+        else {
+            throw new RuntimeException(context.toString() +
+                    "must implement OnClickAddFavoriteFoodToCalculator");
+        }
 
     }
 
@@ -99,7 +111,9 @@ public class FavoriteFragment extends Fragment implements FavoriteView {
         adapter.setListener(new FavoriteAdapter.OnClickItemFavoriteAdapter() {
             @Override
             public void onClickAddToCalc(Food food) {
-                presenter.addCalculationFood(food);
+                if (listener != null){
+                    listener.onClickAddFavoriteToCalculator(food);
+                }
             }
 
             @Override
