@@ -108,8 +108,8 @@ public class SelectionFragment extends Fragment implements SelectionContractView
     public void onDetach() {
         super.onDetach();
         listener = null;
-        presenter.detachView();
         presenter.unSubscribe();
+        presenter.detachView();
     }
 
 

@@ -30,8 +30,7 @@ public class DialogAdapter extends RecyclerView.Adapter<DialogAdapter.DialogHold
 
     @Override
     public DialogAdapter.DialogHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        View itemView = inflater.inflate(R.layout.item_dialog, parent, false);
+        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_dialog, parent, false);
         return new DialogAdapter.DialogHolder(itemView);
     }
 

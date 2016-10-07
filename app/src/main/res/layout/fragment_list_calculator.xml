@@ -1,24 +1,35 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="com.example.kolin.testapplication.presentation.calculator.calculation.list.ListCalculatorFragment">
 
 
-    <TextView
-        style="@style/textViewTitleCard"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="24dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="24dp"
-        android:text="@string/products" />
+        android:background="@color/colorPrimaryDark"
+        android:elevation="4dp"
+        android:fitsSystemWindows="true">
 
+        <TextView
+            style="@style/textViewTitleCard"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="24dp"
+            android:fitsSystemWindows="true"
+            android:text="@string/products"
+            android:textColor="@color/colorWhite" />
+
+    </LinearLayout>
 
     <android.support.v7.widget.RecyclerView
+        android:layout_marginTop="8dp"
         android:id="@+id/recycler_view_calculation"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="72dp" />
+        android:layout_height="match_parent" />
 
-</FrameLayout>
+</LinearLayout>

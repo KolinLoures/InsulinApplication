@@ -146,8 +146,7 @@ public class CatalogActivity extends AppCompatActivity implements
     }
 
     private void openWeightDialog(Food food){
-        FragmentManager fragmentManager = getSupportFragmentManager();
         WeightFragment weightFragment = WeightFragment.newInstance(food);
-        weightFragment.show(fragmentManager, WeightFragment.class.getSimpleName());
+        weightFragment.show(getSupportFragmentManager(), WeightFragment.class.getSimpleName());
     }
 }

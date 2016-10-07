@@ -122,6 +122,7 @@ public class DialogFragment extends AppCompatDialogFragment implements DialogVie
         adapter.setListener(null);
         btnCalculate.setOnClickListener(null);
         btnBack.setOnClickListener(null);
+        presenter.detachView();
         super.onDetach();
     }
 

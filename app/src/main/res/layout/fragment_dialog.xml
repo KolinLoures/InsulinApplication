@@ -6,7 +6,7 @@
     android:layout_gravity="center"
     app:cardElevation="24dp"
     android:minHeight="350dp"
-    android:minWidth="350dp"
+    android:minWidth="400dp"
     tools:context="com.example.kolin.testapplication.presentation.products.catalog.dialog.DialogFragment">
 
     <LinearLayout

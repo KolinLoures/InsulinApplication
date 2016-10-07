@@ -10,13 +10,11 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.kolin.testapplication.R;
 import com.example.kolin.testapplication.domain.CalculatedFood;
 import com.example.kolin.testapplication.domain.Food;
-import com.example.kolin.testapplication.domain.VitalCharacteristic;
 import com.example.kolin.testapplication.presentation.calculator.calculation.adapters.CalculationAdapter;
 
 import java.util.List;
@@ -28,13 +26,16 @@ public class ListCalculatorFragment extends Fragment implements ListCalculatorVi
 
     private CalculationAdapter adapter;
     private ListCalculatorPresenter presenter;
-    private Button btnCompute;
-    private Button btnSave;
     private TextView textViewHe;
     private TextView textViewInsulin;
 
-    private VitalCharacteristic vitalCharacteristic;
+//    private VitalCharacteristic vitalCharacteristic;
 
+    private ListCalculationFragmentListener listener;
+
+    public interface ListCalculationFragmentListener {
+        void onClickChangeFood(Food food);
+    }
 
     public ListCalculatorFragment() {
     }
@@ -50,11 +51,11 @@ public class ListCalculatorFragment extends Fragment implements ListCalculatorVi
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        vitalCharacteristic = new VitalCharacteristic();
-        vitalCharacteristic.setHe(10);
-        vitalCharacteristic.setkOne(1.5);
-        vitalCharacteristic.setkTwo(0.1);
-        vitalCharacteristic.setGi(60);
+//        vitalCharacteristic = new VitalCharacteristic();
+//        vitalCharacteristic.setHe(10);
+//        vitalCharacteristic.setkOne(1.5);
+//        vitalCharacteristic.setkTwo(0.1);
+//        vitalCharacteristic.setGi(60);
 
         adapter = new CalculationAdapter();
 
@@ -66,6 +67,13 @@ public class ListCalculatorFragment extends Fragment implements ListCalculatorVi
             public void onClickButtonRemove(Food food) {
                 presenter.deleteFromCalculated(food);
             }
+
+            @Override
+            public void onClickButtonChange(Food food) {
+                if (listener != null) {
+                    listener.onClickChangeFood(food);
+                }
+            }
         });
     }
 
@@ -74,20 +82,13 @@ public class ListCalculatorFragment extends Fragment implements ListCalculatorVi
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_list_calculator, container, false);
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view_calculation);
-        btnCompute = (Button) view.findViewById(R.id.list_calculation_btn_compute);
-        btnSave = (Button) view.findViewById(R.id.list_calculation_btn_save);
-        textViewHe = (TextView) view.findViewById(R.id.textViewHE_calculation);
-        textViewInsulin = (TextView) view.findViewById(R.id.textViewInsulin_calculation);
+
+        textViewHe = (TextView) view.findViewById(R.id.result_he_value);
+        textViewInsulin = (TextView) view.findViewById(R.id.result_insulin_value);
 
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        btnSave.setEnabled(false);
-        btnCompute.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                presenter.computeAllValues(adapter.getList(), vitalCharacteristic);
-            }
-        });
+
         return view;
     }
 
@@ -99,12 +100,19 @@ public class ListCalculatorFragment extends Fragment implements ListCalculatorVi
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
+        if (context instanceof ListCalculationFragmentListener) {
+            listener = (ListCalculationFragmentListener) context;
+        } else {
+            throw new RuntimeException(context.toString() +
+                    "must implement ListCalculationFragmentListener");
+        }
     }
 
     @Override
     public void onDetach() {
+        listener = null;
         adapter.setListener(null);
-        btnCompute.setOnClickListener(null);
+        presenter.detachView();
         super.onDetach();
     }
 

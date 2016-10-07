@@ -6,12 +6,22 @@ package com.example.kolin.testapplication.domain;
 
 public class VitalCharacteristic {
 
+    private String name;
     private double he;
     private double kOne;
     private double kTwo;
     private double gi;
 
     public VitalCharacteristic() {
+    }
+
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public double getHe() {

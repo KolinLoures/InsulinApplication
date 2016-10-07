@@ -57,20 +57,5 @@ public class ListCalculatorPresenter extends AbstractPresenter<ListCalculatorVie
         getWeakReference().showSnackBar("Удалено из списка!");
     }
 
-    public void computeAllValues(List<Food> list, VitalCharacteristic vitalCharacteristic) {
-        CalculatedFood calculatedFood = new CalculatedFood();
-        double sumYOnWeight = FoodCalculation.getSumYOnWeight(list);
 
-
-        calculatedFood.setFoodList(list);
-        calculatedFood.setSumYWeight(sumYOnWeight);
-        calculatedFood.setHe(sumYOnWeight / vitalCharacteristic.getHe());
-        calculatedFood.setInsulin(FoodCalculation.getInsuline(list, vitalCharacteristic));
-
-        if (!isViewAttach()) {
-            Log.e(TAG, "View is detach!");
-        }
-
-        getWeakReference().showComputeResult(calculatedFood);
-    }
 }

@@ -92,9 +92,9 @@ public class FavoriteFragment extends Fragment implements FavoriteView {
     @Override
     public void onDetach() {
         super.onDetach();
-        presenter.detachView();
         presenter.unSubscribe();
         adapter.setListener(null);
+        presenter.detachView();
     }
 
     @Override

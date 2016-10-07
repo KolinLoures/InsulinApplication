@@ -26,6 +26,8 @@ public class CalculationAdapter extends RecyclerView.Adapter<CalculationAdapter.
 
     public interface OnClickCalculationAdapterListener {
         void onClickButtonRemove(Food food);
+
+        void onClickButtonChange(Food food);
     }
 
     @Override
@@ -84,6 +86,15 @@ public class CalculationAdapter extends RecyclerView.Adapter<CalculationAdapter.
                 public void onClick(View v) {
                     if (listener != null) {
                         listener.onClickButtonRemove(list.get(getLayoutPosition()));
+                    }
+                }
+            });
+
+            imageButtonChange.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (listener != null){
+                        listener.onClickButtonChange(list.get(getLayoutPosition()));
                     }
                 }
             });

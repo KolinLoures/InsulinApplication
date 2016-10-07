@@ -116,10 +116,10 @@ public class ListFoodFragment extends Fragment implements ListFoodView, Updateab
     @Override
     public void onDetach() {
         super.onDetach();
-        presenter.detachView();
         presenter.unSubscribe();
         adapter.setListener(null);
         listener = null;
+        presenter.detachView();
     }
 
     @Override
