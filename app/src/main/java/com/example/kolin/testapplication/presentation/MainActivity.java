@@ -16,14 +16,18 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.example.kolin.testapplication.R;
+import com.example.kolin.testapplication.domain.VitalCharacteristic;
 import com.example.kolin.testapplication.presentation.calculator.CalculatorFragment;
 import com.example.kolin.testapplication.presentation.calculator.calculation.CalculationActivity;
+import com.example.kolin.testapplication.presentation.index.IndexFragment;
+import com.example.kolin.testapplication.presentation.index.addingdialog.AddIndexDialogFragment;
 import com.example.kolin.testapplication.presentation.products.ProductsFragment;
 import com.example.kolin.testapplication.presentation.products.catalog.CatalogActivity;
 
 public class MainActivity extends AppCompatActivity implements
         ProductsFragment.OnClickCardViews,
-        CalculatorFragment.OnClickCalculationFragmentListener {
+        CalculatorFragment.OnClickCalculationFragmentListener,
+        IndexFragment.OnClickIndexFragmentListener {
 
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
@@ -81,6 +85,9 @@ public class MainActivity extends AppCompatActivity implements
             case R.id.product_item:
                 fragment = new ProductsFragment();
                 break;
+            case R.id.index_item:
+                fragment = new IndexFragment();
+                break;
             case R.id.about_system_item:
                 Toast.makeText(this, "В разработке", Toast.LENGTH_LONG).show();
                 return;
@@ -124,6 +131,18 @@ public class MainActivity extends AppCompatActivity implements
     public void onClickFab(View v) {
         Intent intent = new Intent(getApplicationContext(), CalculationActivity.class);
         startActivity(intent);
+    }
+
+    @Override
+    public void onClickFabIndexFragment() {
+        AddIndexDialogFragment fragment = AddIndexDialogFragment.newInstance(null);
+        fragment.show(getSupportFragmentManager(), AddIndexDialogFragment.class.getSimpleName());
+    }
+
+    @Override
+    public void onClickChangeIndexFragment(VitalCharacteristic vitalCharacteristic) {
+        AddIndexDialogFragment fragment = AddIndexDialogFragment.newInstance(vitalCharacteristic);
+        fragment.show(getSupportFragmentManager(), AddIndexDialogFragment.class.getSimpleName());
     }
 }
 

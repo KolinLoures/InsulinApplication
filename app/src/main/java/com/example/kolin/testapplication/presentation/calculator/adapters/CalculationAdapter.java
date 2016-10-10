@@ -1,4 +1,4 @@
-package com.example.kolin.testapplication.presentation.calculator.calculation.adapters;
+package com.example.kolin.testapplication.presentation.calculator.adapters;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;

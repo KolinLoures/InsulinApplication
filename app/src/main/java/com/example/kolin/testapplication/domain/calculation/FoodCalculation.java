@@ -35,7 +35,7 @@ public class FoodCalculation {
         return sum;
     }
 
-    private static double sumWeight(List<Food> list) {
+    public static double sumWeight(List<Food> list) {
         double sum = 0;
         for (Food food : list) {
             sum += food.getWeight();
@@ -47,6 +47,15 @@ public class FoodCalculation {
         return food.getY() * food.getWeight() / 100;
     }
 
+    public static double getBOnWeight(Food food) {
+        return food.getB() * food.getWeight() / 100;
+    }
+
+    public static double getJOnWeight(Food food) {
+        return food.getJ() * food.getWeight() / 100;
+    }
+
+
     public static double getSumYOnWeight(List<Food> foodList) {
         double sum = 0;
         for (Food food : foodList) {
@@ -54,6 +63,25 @@ public class FoodCalculation {
         }
         return sum;
     }
+
+    public static double getSumJOnWeight(List<Food> foodList) {
+        double sum = 0;
+        for (Food food : foodList) {
+            sum += getJOnWeight(food);
+        }
+        return sum;
+    }
+
+    public static double getSumBOnWeight(List<Food> foodList) {
+        double sum = 0;
+        for (Food food : foodList) {
+            sum += getBOnWeight(food);
+        }
+        return sum;
+    }
+
+
+
 
     public static double getInsuline(List<Food> foodList, VitalCharacteristic vitalCharacteristic) {
         double y = sumY(foodList);

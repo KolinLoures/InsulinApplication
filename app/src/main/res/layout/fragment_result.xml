@@ -1,8 +1,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     tools:context="com.example.kolin.testapplication.presentation.calculator.calculation.result.ResultFragment">
 
@@ -27,22 +27,62 @@
 
     </LinearLayout>
 
-    <Spinner
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/result_spinner"
-        android:layout_marginEnd="16dp"
+        android:orientation="vertical"
+        android:paddingBottom="8dp"
+        android:paddingEnd="16dp"
+        android:paddingStart="16dp"
+        android:paddingTop="8dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Показатели"
+            android:textColor="@color/colorAccent"
+            android:textSize="12sp" />
+
+        <Spinner
+            android:id="@+id/result_spinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@drawable/border"
+        android:orientation="vertical"
+        android:paddingBottom="8dp"
+        android:paddingEnd="16dp"
+        android:paddingStart="16dp"
+        android:paddingTop="8dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Список продуктов"
+            android:textColor="@color/colorAccent"
+            android:textSize="12sp" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/result_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"/>
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/result_recycler_view"
-        android:layout_width="match_parent"
-        android:paddingStart="16dp"
-        android:paddingEnd="16dp"
-        android:layout_height="0dp"
-        android:layout_weight="1" />
+        android:text="Результат"
+        android:textColor="@color/colorAccent"
+        android:textSize="12sp" />
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -115,33 +155,34 @@
 
         <TextView
             android:id="@+id/result_insulin_value"
-            style="@style/textViewResultRight"
+            style="@style/textViewResultLeft"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
-            android:text="200 г" />
+            android:text="200 г"
+            android:textColor="@color/red" />
 
         <TextView
             android:id="@+id/textView"
             style="@style/textViewResultLeft"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/insulin" />
+            android:text="@string/sumInsulin" />
     </FrameLayout>
 
     <FrameLayout
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent">
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
         <android.support.design.widget.FloatingActionButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:fabSize="mini"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="16dp"
             android:layout_gravity="end"
+            android:layout_marginBottom="16dp"
             android:layout_marginEnd="16dp"
-            android:src="@drawable/ic_save_white_24px"/>
+            android:layout_marginTop="16dp"
+            android:src="@drawable/ic_save_white_24px"
+            app:fabSize="mini" />
     </FrameLayout>
 
 

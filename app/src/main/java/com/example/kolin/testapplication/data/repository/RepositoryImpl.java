@@ -6,6 +6,7 @@ import com.example.kolin.testapplication.data.orm.RealmQueries;
 import com.example.kolin.testapplication.domain.Food;
 import com.example.kolin.testapplication.domain.FoodCategory;
 import com.example.kolin.testapplication.domain.ItemOfGroup;
+import com.example.kolin.testapplication.domain.VitalCharacteristic;
 import com.example.kolin.testapplication.domain.groups.Group;
 import com.example.kolin.testapplication.domain.repository.Repository;
 
@@ -84,5 +85,18 @@ public class RepositoryImpl implements Repository {
         calculatorListFood.clearCalculatedFood();
     }
 
+    @Override
+    public Observable<List<VitalCharacteristic>> getVitalCharacteristic() {
+        return realmQueries.getVitalCharacteristic();
+    }
 
+    @Override
+    public void addVitalCharacteristic(VitalCharacteristic vitalCharacteristic) {
+        realmQueries.addVitalCharacteristic(vitalCharacteristic);
+    }
+
+    @Override
+    public void deleteVitalCharacteristic(VitalCharacteristic vitalCharacteristic) {
+        realmQueries.deleteVitalCharacteristic(vitalCharacteristic);
+    }
 }

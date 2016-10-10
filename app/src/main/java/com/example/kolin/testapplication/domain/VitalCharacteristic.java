@@ -1,11 +1,17 @@
 package com.example.kolin.testapplication.domain;
 
+import java.io.Serializable;
+
+import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
+
 /**
  * Created by kolin on 03.10.2016.
  */
 
-public class VitalCharacteristic {
+public class VitalCharacteristic extends RealmObject implements Serializable {
 
+    @PrimaryKey
     private String name;
     private double he;
     private double kOne;

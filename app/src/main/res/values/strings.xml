@@ -26,7 +26,7 @@
     <string name="b_j_y">Б/Ж/У</string>
     <string name="kcal">Ккал</string>
     <string name="common_weight">Общий вес (г)</string>
-    <string name="insulin">Инсулин</string>
+    <string name="sumInsulin">Инсулин</string>
     <string name="save">Сохранить</string>
     <string name="bread_items">Хлебные единицы</string>
     <string name="set_weight">Установите вес</string>
@@ -34,11 +34,17 @@
     <string name="amount">Кол-во</string>
     <string name="x">x</string>
     <string name="gram">г</string>
-    <string name="weight">Вес</string>
+    <string name="sumWeight">Вес</string>
     <string name="null_value">Нулевое значение</string>
     <string name="gi">ГИ</string>
     <string name="k_two">K2</string>
     <string name="k_one">K1</string>
     <string name="he">ХЕ</string>
+    <string name="index">Настройки</string>
+    <string name="indexes">Показатели</string>
+    <string name="cancel">отмена</string>
+
+    <string name="preferences_count_key" translatable="false">count_key</string>
+    <string name="preferences_characteristic_key" translatable="false">characteristic_key</string>
 
 </resources>

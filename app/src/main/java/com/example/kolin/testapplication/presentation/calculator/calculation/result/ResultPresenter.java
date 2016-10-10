@@ -21,7 +21,7 @@ public class ResultPresenter extends AbstractPresenter<ResultView> {
 
     private static final String TAG = ResultPresenter.class.getSimpleName();
 
-    private List<Food> lodedList = new ArrayList<>();
+    private List<Food> loadedList = new ArrayList<>();
 
     private GetObservableCalculatedFoodUC getObservableCalculatedFoodUC;
 
@@ -41,8 +41,8 @@ public class ResultPresenter extends AbstractPresenter<ResultView> {
     }
 
     public void showLoadedData(List<Food> foodList){
-        lodedList.clear();
-        lodedList.addAll(foodList);
+        loadedList.clear();
+        loadedList.addAll(foodList);
         if (!isViewAttach()){
             Log.e(TAG, "View is detach!");
         }
@@ -50,20 +50,28 @@ public class ResultPresenter extends AbstractPresenter<ResultView> {
         getWeakReference().showLoadedData(foodList);
     }
 
-    public void computeAllValues(List<Food> list, VitalCharacteristic vitalCharacteristic) {
+    public void computeAllValues(VitalCharacteristic vitalCharacteristic) {
         CalculatedFood calculatedFood = new CalculatedFood();
-        double sumYOnWeight = FoodCalculation.getSumYOnWeight(list);
+        double sumYOnWeight = FoodCalculation.getSumYOnWeight(loadedList);
+        double sumBOnWeight = FoodCalculation.getSumBOnWeight(loadedList);
+        double sumJOnWeight = FoodCalculation.getSumJOnWeight(loadedList);
 
-
-        calculatedFood.setFoodList(list);
+        calculatedFood.setFoodList(loadedList);
+        calculatedFood.setSumWeight(FoodCalculation.sumWeight(loadedList));
         calculatedFood.setSumYWeight(sumYOnWeight);
-        calculatedFood.setHe(sumYOnWeight / vitalCharacteristic.getHe());
-        calculatedFood.setInsulin(FoodCalculation.getInsuline(list, vitalCharacteristic));
+        calculatedFood.setSumBWeight(sumBOnWeight);
+        calculatedFood.setSumJWeight(sumJOnWeight);
+        calculatedFood.setSumHe(sumYOnWeight / vitalCharacteristic.getHe());
+        calculatedFood.setSumInsulin(FoodCalculation.getInsuline(loadedList, vitalCharacteristic));
+        calculatedFood.setValueGi(vitalCharacteristic.getGi());
+        calculatedFood.setValueHe(vitalCharacteristic.getHe());
+        calculatedFood.setValueKone(vitalCharacteristic.getkOne());
+        calculatedFood.setValueKtwo(vitalCharacteristic.getkTwo());
 
         if (!isViewAttach()) {
             Log.e(TAG, "View is detach!");
         }
 
-//        getWeakReference().showComputeResult(calculatedFood);
+        getWeakReference().showComputeResult(calculatedFood);
     }
 }

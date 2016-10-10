@@ -15,7 +15,7 @@ import android.widget.TextView;
 import com.example.kolin.testapplication.R;
 import com.example.kolin.testapplication.domain.CalculatedFood;
 import com.example.kolin.testapplication.domain.Food;
-import com.example.kolin.testapplication.presentation.calculator.calculation.adapters.CalculationAdapter;
+import com.example.kolin.testapplication.presentation.calculator.adapters.CalculationAdapter;
 
 import java.util.List;
 
@@ -50,12 +50,6 @@ public class ListCalculatorFragment extends Fragment implements ListCalculatorVi
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-//        vitalCharacteristic = new VitalCharacteristic();
-//        vitalCharacteristic.setHe(10);
-//        vitalCharacteristic.setkOne(1.5);
-//        vitalCharacteristic.setkTwo(0.1);
-//        vitalCharacteristic.setGi(60);
 
         adapter = new CalculationAdapter();
 

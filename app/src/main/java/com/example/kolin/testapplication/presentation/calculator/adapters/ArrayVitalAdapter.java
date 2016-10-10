@@ -1,4 +1,4 @@
-package com.example.kolin.testapplication.presentation.calculator.calculation.adapters;
+package com.example.kolin.testapplication.presentation.calculator.adapters;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -29,9 +29,32 @@ public class ArrayVitalAdapter extends ArrayAdapter<VitalCharacteristic> {
         this.list = list;
     }
 
+
+    @Override
+    public View getDropDownView(int position, View convertView, ViewGroup parent) {
+        return getCustomView(position, convertView, parent);
+    }
+
     @NonNull
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+        return getCustomView(position, convertView, parent);
+    }
+
+    @Override
+    public void addAll(@NonNull Collection<? extends VitalCharacteristic> collection) {
+        list.clear();
+        list.addAll(collection);
+        notifyDataSetChanged();
+    }
+
+    @Nullable
+    @Override
+    public VitalCharacteristic getItem(int position) {
+        return list.get(position);
+    }
+
+    private View getCustomView(int position, View convertView, ViewGroup parent) {
         VitalCharacteristic characteristic = getItem(position);
         if (convertView == null) {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_spinner, parent, false);
@@ -50,19 +73,6 @@ public class ArrayVitalAdapter extends ArrayAdapter<VitalCharacteristic> {
         textKtwo.setText(String.valueOf(characteristic.getkTwo()));
 
         return convertView;
-    }
-
-    @Override
-    public void addAll(@NonNull Collection<? extends VitalCharacteristic> collection) {
-        list.clear();
-        list.addAll(collection);
-        notifyDataSetChanged();
-    }
-
-    @Nullable
-    @Override
-    public VitalCharacteristic getItem(int position) {
-        return list.get(position);
     }
 
 }

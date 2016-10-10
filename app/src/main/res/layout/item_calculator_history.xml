@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="4dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorBlue500"
+            android:orientation="vertical"
+            android:paddingBottom="16dp"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:paddingTop="24dp">
+
+            <TextView
+                style="@style/textViewTitleCard"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Результат #1"
+                android:textColor="@color/colorWhite" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:id="@+id/item_history_value_he"
+                    android:layout_weight="1"
+                    android:layout_height="match_parent"
+                    style="@style/textViewSupportingText"
+                    android:textColor="@color/colorWhite"
+                    android:text="ХЕ: 20"/>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:id="@+id/item_history_value_k_one"
+
+                    android:layout_height="match_parent"
+                    style="@style/textViewSupportingText"
+                    android:textColor="@color/colorWhite"
+                    android:text="K1: 20"/>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:id="@+id/item_history_value_k_two"
+                    android:layout_height="match_parent"
+                    style="@style/textViewSupportingText"
+                    android:textColor="@color/colorWhite"
+                    android:text="K2: 20"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_weight="1"
+                    android:id="@+id/item_history_value_gi"
+                    android:layout_height="match_parent"
+                    style="@style/textViewSupportingText"
+                    android:textColor="@color/colorWhite"
+                    android:text="ГИ: 60"/>
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/item_history_products"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:text="Список продуктов" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/border"
+            android:orientation="horizontal"
+            android:paddingBottom="8dp"
+            android:paddingEnd="16dp"
+            android:paddingStart="16dp"
+            android:paddingTop="8dp">
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:src="@drawable/ic_bread_unit" />
+
+            <TextView
+                android:id="@+id/item_history_he"
+                style="@style/topTextViewRvItemLeft"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginTop="0dp"
+                android:layout_weight="1"
+                android:text="80 г"
+                android:textAlignment="center" />
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:src="@drawable/ic_injection" />
+
+            <TextView
+                android:id="@+id/item_history_insulin"
+                style="@style/topTextViewRvItemLeft"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginTop="0dp"
+                android:layout_weight="1"
+                android:text="80 г"
+
+                android:textAlignment="center" />
+
+        </LinearLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:paddingBottom="8dp"
+            android:paddingEnd="16dp"
+            android:paddingStart="16dp"
+            android:paddingTop="8dp">
+
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:id="@+id/item_history_btn_clear"
+                android:background="?android:attr/selectableItemBackground"
+                android:src="@drawable/ic_clear_black_24dp" />
+
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/item_history_btn_create"
+                android:background="?android:attr/selectableItemBackground"
+                android:layout_gravity="end"
+                android:layout_marginEnd="32dp"
+                android:src="@drawable/ic_create_black_24dp" />
+
+        </FrameLayout>
+
+
+    </LinearLayout>
+
+
+</android.support.v7.widget.CardView>

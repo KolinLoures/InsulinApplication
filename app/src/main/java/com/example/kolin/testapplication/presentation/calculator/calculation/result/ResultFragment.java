@@ -9,13 +9,16 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.example.kolin.testapplication.R;
+import com.example.kolin.testapplication.domain.CalculatedFood;
 import com.example.kolin.testapplication.domain.Food;
 import com.example.kolin.testapplication.domain.VitalCharacteristic;
-import com.example.kolin.testapplication.presentation.calculator.calculation.adapters.ArrayVitalAdapter;
-import com.example.kolin.testapplication.presentation.calculator.calculation.adapters.ResultAdapter;
+import com.example.kolin.testapplication.presentation.calculator.adapters.ArrayVitalAdapter;
+import com.example.kolin.testapplication.presentation.calculator.adapters.ResultAdapter;
 import com.example.kolin.testapplication.presentation.common.SimpleDividerItemDecoration;
 
 import java.util.ArrayList;
@@ -24,13 +27,19 @@ import java.util.List;
 
 public class ResultFragment extends Fragment implements ResultView {
 
+    private RecyclerView recyclerView;
+    private Spinner spinner;
+    private TextView textViewBJY;
+    private TextView textViewWeight;
+    private TextView textViewHE;
+    private TextView textViewInsulin;
+
+
     private ResultPresenter presenter;
     private ResultAdapter adapter;
-    private RecyclerView recyclerView;
     private VitalCharacteristic vitalCharacteristic;
     private VitalCharacteristic vitalCharacteristic2;
     private ArrayVitalAdapter arrayVitalAdapter;
-    private Spinner spinner;
 
     private List<VitalCharacteristic> vitalCharacteristicList;
 
@@ -49,6 +58,7 @@ public class ResultFragment extends Fragment implements ResultView {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        //TODO: replace vital characteristic to settings
         vitalCharacteristic = new VitalCharacteristic();
         vitalCharacteristic.setName("Утро");
         vitalCharacteristic.setHe(10);
@@ -82,8 +92,13 @@ public class ResultFragment extends Fragment implements ResultView {
         recyclerView = (RecyclerView) view.findViewById(R.id.result_recycler_view);
         spinner = (Spinner) view.findViewById(R.id.result_spinner);
 
+        textViewBJY = (TextView) view.findViewById(R.id.result_bjy_value);
+        textViewWeight = (TextView) view.findViewById(R.id.result_common_weight_value);
+        textViewHE = (TextView) view.findViewById(R.id.result_he_value);
+        textViewInsulin = (TextView) view.findViewById(R.id.result_insulin_value);
+
         spinner.setAdapter(arrayVitalAdapter);
-        spinner.setPrompt("Title");
+        setSpinnerListener();
 
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -100,17 +115,47 @@ public class ResultFragment extends Fragment implements ResultView {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
+    }
 
+    private void setSpinnerListener(){
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                presenter.computeAllValues(vitalCharacteristicList.get(position));
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
     }
 
     @Override
     public void onDetach() {
         presenter.detachView();
+        spinner.setOnItemClickListener(null);
         super.onDetach();
     }
 
     @Override
     public void showLoadedData(List<Food> foodList) {
         adapter.addAll(foodList);
+        presenter.computeAllValues(vitalCharacteristicList.get(spinner.getSelectedItemPosition()));
+    }
+
+    @Override
+    public void showComputeResult(CalculatedFood calculatedFood) {
+        String sumBWeight = String.format("%.1f", calculatedFood.getSumBWeight());
+        String sumJWeight = String.format("%.1f", calculatedFood.getSumJWeight());
+        String sumYWeight = String.format("%.1f", calculatedFood.getSumYWeight());
+        String textHe = String.format("%.2f", calculatedFood.getSumHe());
+        String textWeight = String.format("%.1f", calculatedFood.getSumWeight());
+        String textInsulin = String.format("%.2f", calculatedFood.getSumInsulin());
+
+        textViewBJY.setText(sumBWeight + "/" + sumJWeight + "/" + sumYWeight + " г");
+        textViewHE.setText(textHe);
+        textViewWeight.setText(textWeight);
+        textViewInsulin.setText(textInsulin);
     }
 }

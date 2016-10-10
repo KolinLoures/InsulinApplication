@@ -3,6 +3,7 @@ package com.example.kolin.testapplication.domain.repository;
 import com.example.kolin.testapplication.domain.Food;
 import com.example.kolin.testapplication.domain.FoodCategory;
 import com.example.kolin.testapplication.domain.ItemOfGroup;
+import com.example.kolin.testapplication.domain.VitalCharacteristic;
 import com.example.kolin.testapplication.domain.groups.Group;
 
 import java.util.HashMap;
@@ -37,4 +38,10 @@ public interface Repository {
     void onNextCalculationFood();
 
     void deleteAllFromCalculation();
+
+    Observable<List<VitalCharacteristic>> getVitalCharacteristic();
+
+    void addVitalCharacteristic(VitalCharacteristic vitalCharacteristic);
+
+    void deleteVitalCharacteristic(VitalCharacteristic vitalCharacteristic);
 }
