@@ -1,6 +1,7 @@
 package com.example.kolin.testapplication.presentation;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -35,12 +36,10 @@ public class MainActivity extends AppCompatActivity implements
     private FragmentManager fragmentManager;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
 
 
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_view);
@@ -53,6 +52,21 @@ public class MainActivity extends AppCompatActivity implements
         fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction().replace(
                 R.id.fragment_container, CalculatorFragment.newInstance()).commit();
+
+        checkSharedPreferences();
+    }
+
+
+
+    private void checkSharedPreferences() {
+        SharedPreferences sharedPreferences = getSharedPreferences(
+                getString(R.string.preferences_count_key), MODE_PRIVATE);
+        int count = sharedPreferences.getInt(getString(R.string.preferences_count_value), -1);
+        if (count == -1){
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putInt(getString(R.string.preferences_count_value), 1);
+            editor.apply();
+        }
     }
 
     private void setupDrawerContent(NavigationView navigationView) {

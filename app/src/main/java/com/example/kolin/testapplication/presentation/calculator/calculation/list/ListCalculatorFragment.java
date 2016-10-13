@@ -19,7 +19,6 @@ import java.util.List;
 
 public class ListCalculatorFragment extends Fragment implements ListCalculatorView {
 
-    private static final String ARG = "arg_key";
 
     private RecyclerView recyclerView;
 
@@ -35,10 +34,9 @@ public class ListCalculatorFragment extends Fragment implements ListCalculatorVi
     public ListCalculatorFragment() {
     }
 
-    public static ListCalculatorFragment newInstance(Long id) {
+    public static ListCalculatorFragment newInstance() {
         ListCalculatorFragment fragment = new ListCalculatorFragment();
         Bundle args = new Bundle();
-        args.putSerializable(ARG, id);
         fragment.setArguments(args);
         return fragment;
     }

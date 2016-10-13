@@ -40,7 +40,7 @@
             android:layout_marginTop="8dp"
             android:orientation="horizontal"
             android:paddingEnd="16dp"
-            android:paddingStart="16dp">
+            android:paddingStart="8dp">
 
             <TextView
                 style="@style/textViewCalculationItem"
@@ -82,11 +82,9 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
             android:orientation="horizontal"
-            android:paddingBottom="8dp"
             android:paddingEnd="16dp"
-            android:paddingStart="16dp">
+            android:paddingStart="8dp">
 
             <TextView
                 style="@style/textViewCalculationItem"

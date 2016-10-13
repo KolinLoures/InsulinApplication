@@ -46,7 +46,9 @@
     <string name="favorite">избранное</string>
 
     <string name="preferences_count_key" translatable="false">count_key</string>
-    <string name="preferences_characteristic_key" translatable="false">characteristic_key</string>
+    <string name="preferences_count_value" translatable="false">count_value</string>
+    <string name="preferences_first_start" translatable="false">first_key</string>
+    <string name="preferences_first_value" translatable="false">first_value</string>
     <string name="categories">Категории</string>
 
 </resources>

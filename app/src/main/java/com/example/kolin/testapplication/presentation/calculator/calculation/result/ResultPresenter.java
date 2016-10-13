@@ -31,6 +31,8 @@ public class ResultPresenter extends AbstractPresenter<ResultView> {
     private GetVitalCharacteristicUC getVitalCharacteristicUC;
     private GetResultCalculationUC getResultCalculationUC;
 
+    private long currentID;
+
     public ResultPresenter() {
         getObservableCalculatedFoodUC = new GetObservableCalculatedFoodUC();
         getVitalCharacteristicUC = new GetVitalCharacteristicUC();
@@ -78,6 +80,14 @@ public class ResultPresenter extends AbstractPresenter<ResultView> {
         getWeakReference().setVitalCharacteristic(list);
     }
 
+    public void setCurrentCalculationID(long currentID) {
+        this.currentID = currentID;
+    }
+
+    public int getCurrentID() {
+        return (int) currentID;
+    }
+
     public void showLoadedData(List<Food> foodList) {
         loadedList.clear();
         loadedList.addAll(foodList);
@@ -100,7 +110,7 @@ public class ResultPresenter extends AbstractPresenter<ResultView> {
         double sumBOnWeight = FoodCalculation.getSumBOnWeight(loadedList);
         double sumJOnWeight = FoodCalculation.getSumJOnWeight(loadedList);
 
-        currentCalculatedFood.setId((long) 1);
+        currentCalculatedFood.setId(currentID);
         currentCalculatedFood.setFoodList(loadedList);
         currentCalculatedFood.setSumWeight(FoodCalculation.sumWeight(loadedList));
         currentCalculatedFood.setSumYWeight(sumYOnWeight);
@@ -130,6 +140,7 @@ public class ResultPresenter extends AbstractPresenter<ResultView> {
             Log.e(TAG, "View is detach!");
         }
 
+        getWeakReference().reWriteSharedPreferences();
         getWeakReference().showSnackBar("Добавлено в историю!");
     }
 }

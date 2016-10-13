@@ -1,6 +1,7 @@
 package com.example.kolin.testapplication.presentation.calculator.calculation.result;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -30,6 +31,8 @@ import java.util.Locale;
 
 public class ResultFragment extends Fragment implements ResultView {
 
+    private static final String ARG_1 = "id";
+
     private RecyclerView recyclerView;
     private Spinner spinner;
     private TextView textViewBJY;
@@ -44,14 +47,17 @@ public class ResultFragment extends Fragment implements ResultView {
     private ArrayVitalAdapter arrayVitalAdapter;
     private Locale locale = Locale.ENGLISH;
 
+    private boolean isFromSharedPreferences;
+
 
     public ResultFragment() {
     }
 
 
-    public static ResultFragment newInstance() {
+    public static ResultFragment newInstance(Long id) {
         ResultFragment fragment = new ResultFragment();
         Bundle args = new Bundle();
+        args.putSerializable(ARG_1, id);
         fragment.setArguments(args);
         return fragment;
     }
@@ -63,10 +69,26 @@ public class ResultFragment extends Fragment implements ResultView {
         presenter = new ResultPresenter();
         presenter.attachView(this);
 
-//        presenter.load();
-
         adapter = new ResultAdapter();
         arrayVitalAdapter = new ArrayVitalAdapter(getContext(), new ArrayList<VitalCharacteristic>());
+
+        if (getArguments() != null) {
+            Long argId = (Long) getArguments().getSerializable(ARG_1);
+            if (argId != null) {
+                presenter.setCurrentCalculationID(argId);
+                isFromSharedPreferences = false;
+            } else {
+                SharedPreferences sharedPreferences = getActivity()
+                        .getSharedPreferences(
+                                getString(R.string.preferences_count_key),
+                                Context.MODE_PRIVATE);
+                int anInt = sharedPreferences.getInt(getString(R.string.preferences_count_value), -1);
+                if (anInt != -1) {
+                    presenter.setCurrentCalculationID(anInt);
+                    isFromSharedPreferences = true;
+                }
+            }
+        }
     }
 
     @Override
@@ -166,5 +188,18 @@ public class ResultFragment extends Fragment implements ResultView {
     @Override
     public void showSnackBar(String title) {
         Snackbar.make(getView(), title, Snackbar.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void reWriteSharedPreferences() {
+        if (isFromSharedPreferences) {
+            SharedPreferences sharedPreferences = getActivity()
+                    .getSharedPreferences(getString(R.string.preferences_count_key),
+                            Context.MODE_PRIVATE);
+
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putInt(getString(R.string.preferences_count_value), presenter.getCurrentID() + 1);
+            editor.apply();
+        }
     }
 }

@@ -48,8 +48,8 @@ public class CalculationActivity extends AppCompatActivity implements
     }
 
     private void setupPagerAdapter() {
-        pagerAdapter.addFragment(ListCalculatorFragment.newInstance((Long) getIntent().getSerializableExtra("id")));
-        pagerAdapter.addFragment(ResultFragment.newInstance());
+        pagerAdapter.addFragment(ListCalculatorFragment.newInstance());
+        pagerAdapter.addFragment(ResultFragment.newInstance((Long) getIntent().getSerializableExtra("id")));
         viewPager.setAdapter(pagerAdapter);
         inkPageIndicator.setViewPager(viewPager);
     }
@@ -57,7 +57,7 @@ public class CalculationActivity extends AppCompatActivity implements
 
     @Override
     protected void onDestroy() {
-//        getObservableCalculatedFoodUC.clearCalculationFood();
+        getObservableCalculatedFoodUC.clearCalculationFood();
         super.onDestroy();
     }
 

@@ -92,6 +92,9 @@ public class IndexFragment extends Fragment implements IndexView {
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        if (savedInstanceState != null) {
+            String name = savedInstanceState.getString("name");
+        }
         presenter.load();
     }
 
@@ -121,5 +124,11 @@ public class IndexFragment extends Fragment implements IndexView {
         fab.setOnClickListener(null);
         adapter.setListener(null);
         super.onDetach();
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        outState.putString("name", "mystring");
+        super.onSaveInstanceState(outState);
     }
 }

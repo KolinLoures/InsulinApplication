@@ -19,4 +19,6 @@ public interface ResultView {
     void showComputeResult(CalculatedFood calculatedFood);
 
     void showSnackBar(String title);
+
+    void reWriteSharedPreferences();
 }
