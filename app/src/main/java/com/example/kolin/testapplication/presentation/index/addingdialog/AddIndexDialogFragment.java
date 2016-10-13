@@ -19,9 +19,9 @@ import com.example.kolin.testapplication.R;
 import com.example.kolin.testapplication.domain.VitalCharacteristic;
 import com.example.kolin.testapplication.domain.groups.DayGroup;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 
 public class AddIndexDialogFragment extends AppCompatDialogFragment implements AddIndexDialogView {
@@ -55,7 +55,7 @@ public class AddIndexDialogFragment extends AppCompatDialogFragment implements A
     public static AddIndexDialogFragment newInstance(VitalCharacteristic vitalCharacteristic) {
         AddIndexDialogFragment fragment = new AddIndexDialogFragment();
         Bundle args = new Bundle();
-        args.putSerializable(ARG, (Serializable) vitalCharacteristic);
+        args.putSerializable(ARG, vitalCharacteristic);
         fragment.setArguments(args);
         return fragment;
     }
@@ -162,7 +162,7 @@ public class AddIndexDialogFragment extends AppCompatDialogFragment implements A
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (s.toString().isEmpty() || Double.valueOf(s.toString()) <= 0) {
+                if (s.toString().isEmpty() || Double.parseDouble(s.toString()) <= 0) {
                     textViewGiError.setVisibility(View.VISIBLE);
                 } else {
                     textViewGiError.setVisibility(View.INVISIBLE);
@@ -208,7 +208,7 @@ public class AddIndexDialogFragment extends AppCompatDialogFragment implements A
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (s.toString().isEmpty() || Double.valueOf(s.toString()) <= 0) {
+                if (s.toString().isEmpty() || Double.parseDouble(s.toString()) <= 0) {
                     textViewKOneError.setVisibility(View.VISIBLE);
                 } else {
                     textViewKOneError.setVisibility(View.INVISIBLE);
@@ -230,7 +230,7 @@ public class AddIndexDialogFragment extends AppCompatDialogFragment implements A
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (s.toString().isEmpty() || Double.valueOf(s.toString()) <= 0) {
+                if (s.toString().isEmpty() || Double.parseDouble(s.toString()) <= 0) {
                     textViewKTwoError.setVisibility(View.VISIBLE);
                 } else {
                     textViewKTwoError.setVisibility(View.INVISIBLE);
@@ -272,11 +272,12 @@ public class AddIndexDialogFragment extends AppCompatDialogFragment implements A
         Toast.makeText(getContext(), title, Toast.LENGTH_LONG).show();
     }
 
-    public void setEditText(VitalCharacteristic vitalCharacteristic) {
+    public void setEditText(VitalCharacteristic vitalCharacteristic){
+        Locale locale = Locale.ENGLISH;
         spinner.setSelection(DayGroup.getDayId(vitalCharacteristic.getName()));
-        editTextGi.setText(String.format("%.2f", vitalCharacteristic.getGi()));
-        editTextHe.setText(String.format("%.2f", vitalCharacteristic.getHe()));
-        editTextKOne.setText(String.format("%.2f", vitalCharacteristic.getkOne()));
-        editTextKTwo.setText(String.format("%.2f", vitalCharacteristic.getkTwo()));
+        editTextGi.setText(String.format(locale, "%.2f", vitalCharacteristic.getGi()));
+        editTextHe.setText(String.format(locale, "%.2f", vitalCharacteristic.getHe()));
+        editTextKOne.setText(String.format(locale, "%.2f", vitalCharacteristic.getkOne()));
+        editTextKTwo.setText(String.format(locale, "%.2f", vitalCharacteristic.getkTwo()));
     }
 }

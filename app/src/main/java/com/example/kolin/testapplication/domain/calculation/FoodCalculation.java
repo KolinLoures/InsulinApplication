@@ -11,30 +11,6 @@ import java.util.List;
 
 public class FoodCalculation {
 
-    private static double sumB(List<Food> list) {
-        double sum = 0;
-        for (Food food : list) {
-            sum += food.getB();
-        }
-        return sum;
-    }
-
-    private static double sumJ(List<Food> list) {
-        double sum = 0;
-        for (Food food : list) {
-            sum += food.getJ();
-        }
-        return sum;
-    }
-
-    private static double sumY(List<Food> list) {
-        double sum = 0;
-        for (Food food : list) {
-            sum += food.getY();
-        }
-        return sum;
-    }
-
     public static double sumWeight(List<Food> list) {
         double sum = 0;
         for (Food food : list) {
@@ -81,33 +57,41 @@ public class FoodCalculation {
     }
 
 
-
-
     public static double getInsuline(List<Food> foodList, VitalCharacteristic vitalCharacteristic) {
-        double y = sumY(foodList);
-        double weight = sumWeight(foodList);
-        double b = sumB(foodList);
-        double j = sumJ(foodList);
 
-        double first = y /
-                100 * (100 - vitalCharacteristic.getGi()) /
-                100 * weight /
-                vitalCharacteristic.getHe() * vitalCharacteristic.getkOne();
+        double first;
+        double second;
+        double third;
+        double fourth;
+        double s;
 
-        double second = y /
-                100 * vitalCharacteristic.getGi() /
-                100 * weight /
-                vitalCharacteristic.getHe() * vitalCharacteristic.getkOne();
+        double insulin = 0;
 
-        double third = b /
-                100 * weight * 4.1 /
-                100 * vitalCharacteristic.getkTwo();
+        for (Food f : foodList) {
 
-        double fourth = j /
-                100 * weight * 9.3 /
-                100 * vitalCharacteristic.getkTwo();
+            first = f.getY() /
+                    100 * (100 - vitalCharacteristic.getGi()) /
+                    100 * f.getWeight() /
+                    vitalCharacteristic.getHe() * vitalCharacteristic.getkOne();
 
-        return first + second + third + fourth;
+            second = f.getY() /
+                    100 * vitalCharacteristic.getGi() /
+                    100 * f.getWeight() /
+                    vitalCharacteristic.getHe() * vitalCharacteristic.getkOne();
+
+            third = f.getB() /
+                    100 * f.getWeight() * 4.1 /
+                    100 * vitalCharacteristic.getkTwo();
+
+            fourth = f.getJ() /
+                    100 * f.getWeight() * 9.3 /
+                    100 * vitalCharacteristic.getkTwo();
+
+            s = first + second + third + fourth;
+            insulin += s;
+        }
+
+        return insulin;
     }
 
 

@@ -10,10 +10,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.example.kolin.testapplication.R;
-import com.example.kolin.testapplication.domain.CalculatedFood;
 import com.example.kolin.testapplication.domain.Food;
 import com.example.kolin.testapplication.presentation.calculator.adapters.CalculationAdapter;
 
@@ -21,15 +19,12 @@ import java.util.List;
 
 public class ListCalculatorFragment extends Fragment implements ListCalculatorView {
 
+    private static final String ARG = "arg_key";
 
     private RecyclerView recyclerView;
 
     private CalculationAdapter adapter;
     private ListCalculatorPresenter presenter;
-    private TextView textViewHe;
-    private TextView textViewInsulin;
-
-//    private VitalCharacteristic vitalCharacteristic;
 
     private ListCalculationFragmentListener listener;
 
@@ -40,9 +35,10 @@ public class ListCalculatorFragment extends Fragment implements ListCalculatorVi
     public ListCalculatorFragment() {
     }
 
-    public static ListCalculatorFragment newInstance() {
+    public static ListCalculatorFragment newInstance(Long id) {
         ListCalculatorFragment fragment = new ListCalculatorFragment();
         Bundle args = new Bundle();
+        args.putSerializable(ARG, id);
         fragment.setArguments(args);
         return fragment;
     }
@@ -50,12 +46,10 @@ public class ListCalculatorFragment extends Fragment implements ListCalculatorVi
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        adapter = new CalculationAdapter();
-
         presenter = new ListCalculatorPresenter();
         presenter.attachView(this);
 
+        adapter = new CalculationAdapter();
         adapter.setListener(new CalculationAdapter.OnClickCalculationAdapterListener() {
             @Override
             public void onClickButtonRemove(Food food) {
@@ -69,6 +63,7 @@ public class ListCalculatorFragment extends Fragment implements ListCalculatorVi
                 }
             }
         });
+
     }
 
     @Override
@@ -76,9 +71,6 @@ public class ListCalculatorFragment extends Fragment implements ListCalculatorVi
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_list_calculator, container, false);
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view_calculation);
-
-        textViewHe = (TextView) view.findViewById(R.id.result_he_value);
-        textViewInsulin = (TextView) view.findViewById(R.id.result_insulin_value);
 
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -107,6 +99,7 @@ public class ListCalculatorFragment extends Fragment implements ListCalculatorVi
         listener = null;
         adapter.setListener(null);
         presenter.detachView();
+        presenter.unSubscribe();
         super.onDetach();
     }
 
@@ -118,11 +111,5 @@ public class ListCalculatorFragment extends Fragment implements ListCalculatorVi
     @Override
     public void showSnackBar(String title) {
         Snackbar.make(getView(), title, Snackbar.LENGTH_LONG).show();
-    }
-
-    @Override
-    public void showComputeResult(CalculatedFood calculatedFood) {
-        textViewHe.setText("");
-        textViewInsulin.setText("");
     }
 }

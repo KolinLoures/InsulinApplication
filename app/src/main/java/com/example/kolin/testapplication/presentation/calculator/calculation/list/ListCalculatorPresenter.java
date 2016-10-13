@@ -2,10 +2,7 @@ package com.example.kolin.testapplication.presentation.calculator.calculation.li
 
 import android.util.Log;
 
-import com.example.kolin.testapplication.domain.CalculatedFood;
 import com.example.kolin.testapplication.domain.Food;
-import com.example.kolin.testapplication.domain.VitalCharacteristic;
-import com.example.kolin.testapplication.domain.calculation.FoodCalculation;
 import com.example.kolin.testapplication.domain.interactor.DefaultSubscriber;
 import com.example.kolin.testapplication.domain.interactor.GetObservableCalculatedFoodUC;
 import com.example.kolin.testapplication.presentation.common.AbstractPresenter;
@@ -37,6 +34,11 @@ public class ListCalculatorPresenter extends AbstractPresenter<ListCalculatorVie
         public void onNext(List<Food> foodList) {
             showData(foodList);
         }
+
+        @Override
+        public void onError(Throwable e) {
+            Log.e("Errot", e.toString());
+        }
     }
 
     public void showData(List<Food> foodList) {
@@ -55,6 +57,10 @@ public class ListCalculatorPresenter extends AbstractPresenter<ListCalculatorVie
         }
 
         getWeakReference().showSnackBar("Удалено из списка!");
+    }
+
+    public void unSubscribe(){
+        getObservableCalculatedFoodUC.unsubscribe();
     }
 
 

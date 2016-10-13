@@ -36,7 +36,7 @@ public class AddIndexDialogPresenter extends AbstractPresenter<AddIndexDialogVie
         if (text.isEmpty() ||  text.equals("")) {
             return false;
         }
-        if (Double.valueOf(text) == 0){
+        if (Double.valueOf(text) <= 0){
             return false;
         }
         return true;

@@ -2,6 +2,7 @@ package com.example.kolin.testapplication.presentation.calculator.calculation.re
 
 import com.example.kolin.testapplication.domain.CalculatedFood;
 import com.example.kolin.testapplication.domain.Food;
+import com.example.kolin.testapplication.domain.VitalCharacteristic;
 
 import java.util.List;
 
@@ -11,7 +12,11 @@ import java.util.List;
 
 public interface ResultView {
 
+    void setVitalCharacteristic(List<VitalCharacteristic> list);
+
     void showLoadedData(List<Food> foodList);
 
     void showComputeResult(CalculatedFood calculatedFood);
+
+    void showSnackBar(String title);
 }

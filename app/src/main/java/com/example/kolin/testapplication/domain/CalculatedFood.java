@@ -1,5 +1,6 @@
 package com.example.kolin.testapplication.domain;
 
+import java.io.Serializable;
 import java.util.List;
 
 import io.realm.RealmList;
@@ -10,10 +11,10 @@ import io.realm.annotations.PrimaryKey;
  * Created by kolin on 03.10.2016.
  */
 
-public class CalculatedFood extends RealmObject {
+public class CalculatedFood extends RealmObject implements Serializable {
 
     @PrimaryKey
-    private int id;
+    private Long id;
     private RealmList<Food> foodList;
     private double sumYWeight;
     private double sumJWeight;
@@ -21,21 +22,17 @@ public class CalculatedFood extends RealmObject {
     private double sumWeight;
     private double sumHe;
     private double sumInsulin;
-    private double valueHe;
-    private double valueKone;
-    private double valueKtwo;
-    private double valueGi;
+    private VitalCharacteristic vitalCharacteristic;
 
     public CalculatedFood() {
         foodList = new RealmList<>();
     }
 
-
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -68,6 +65,7 @@ public class CalculatedFood extends RealmObject {
     }
 
     public void setFoodList(List<Food> foodList) {
+        this.foodList.clear();
         this.foodList.addAll(foodList);
     }
 
@@ -95,35 +93,11 @@ public class CalculatedFood extends RealmObject {
         this.sumInsulin = sumInsulin;
     }
 
-    public double getValueHe() {
-        return valueHe;
+    public VitalCharacteristic getVitalCharacteristic() {
+        return vitalCharacteristic;
     }
 
-    public void setValueHe(double valueHe) {
-        this.valueHe = valueHe;
-    }
-
-    public double getValueKone() {
-        return valueKone;
-    }
-
-    public void setValueKone(double valueKone) {
-        this.valueKone = valueKone;
-    }
-
-    public double getValueKtwo() {
-        return valueKtwo;
-    }
-
-    public void setValueKtwo(double valueKtwo) {
-        this.valueKtwo = valueKtwo;
-    }
-
-    public double getValueGi() {
-        return valueGi;
-    }
-
-    public void setValueGi(double valueGi) {
-        this.valueGi = valueGi;
+    public void setVitalCharacteristic(VitalCharacteristic vitalCharacteristic) {
+        this.vitalCharacteristic = vitalCharacteristic;
     }
 }

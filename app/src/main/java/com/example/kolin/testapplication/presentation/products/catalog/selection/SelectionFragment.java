@@ -9,14 +9,19 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ProgressBar;
+import android.widget.Spinner;
 
 import com.example.kolin.testapplication.R;
 import com.example.kolin.testapplication.domain.ItemOfGroup;
 import com.example.kolin.testapplication.domain.groups.Group;
+import com.example.kolin.testapplication.domain.groups.GroupName;
 import com.example.kolin.testapplication.presentation.common.SimpleDividerItemDecoration;
 import com.example.kolin.testapplication.presentation.products.catalog.adapters.SelectionAdapter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class SelectionFragment extends Fragment implements SelectionContractView {
@@ -28,7 +33,11 @@ public class SelectionFragment extends Fragment implements SelectionContractView
     //Views
     private RecyclerView recyclerView;
     private ProgressBar progressBar;
-    private String currentGroup;
+    private Spinner spinner;
+
+    private ArrayAdapter<String> adapter;
+
+    private int currentGroup;
 
     private OnClickItemOnSelectionFragment listener;
 
@@ -54,10 +63,14 @@ public class SelectionFragment extends Fragment implements SelectionContractView
         Bundle bundle = null;
         if (getArguments() != null) {
             bundle = getArguments();
-            currentGroup = Group.getCategoryById(bundle.getInt("idCategory"));
+            currentGroup = bundle.getInt("idCategory");
         }
+
         presenter = new SelectionPresenter();
         presenter.attachView(this);
+
+
+
         selectionAdapter = new SelectionAdapter(getContext());
         selectionAdapter.setClickItemListener(new SelectionAdapter.ClickItemSelection() {
             @Override
@@ -69,6 +82,8 @@ public class SelectionFragment extends Fragment implements SelectionContractView
                 }
             }
         });
+
+        setupArrayAdapter();
     }
 
     @Override
@@ -79,6 +94,10 @@ public class SelectionFragment extends Fragment implements SelectionContractView
 
         progressBar = (ProgressBar) root.findViewById(R.id.progress_bar_selection_fragment);
         recyclerView = (RecyclerView) root.findViewById(R.id.recycler_view_selection);
+        spinner = (Spinner) root.findViewById(R.id.selection_fragment_spinner);
+        spinner.setAdapter(adapter);
+
+        setupSpinnerListener();
 
         recyclerView.setAdapter(selectionAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -87,10 +106,25 @@ public class SelectionFragment extends Fragment implements SelectionContractView
         return root;
     }
 
+
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        if (currentGroup != null)
-            presenter.load(currentGroup);
+        spinner.setSelection(currentGroup);
+    }
+
+    private void setupSpinnerListener(){
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                selectionAdapter.clearAll();
+                presenter.load(Group.getCategoryById(position));
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
     }
 
     @Override
@@ -106,10 +140,11 @@ public class SelectionFragment extends Fragment implements SelectionContractView
 
     @Override
     public void onDetach() {
-        super.onDetach();
+        spinner.setOnItemSelectedListener(null);
         listener = null;
         presenter.unSubscribe();
         presenter.detachView();
+        super.onDetach();
     }
 
 
@@ -126,5 +161,12 @@ public class SelectionFragment extends Fragment implements SelectionContractView
     @Override
     public void hideLoadingProgress() {
         progressBar.setVisibility(View.GONE);
+    }
+
+    public void setupArrayAdapter(){
+        List<String> stringList = new ArrayList<>();
+        stringList.addAll(GroupName.getList());
+        adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, stringList);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
     }
 }

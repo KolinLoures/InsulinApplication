@@ -16,7 +16,6 @@ import android.view.MenuItem;
 
 import com.example.kolin.testapplication.R;
 import com.example.kolin.testapplication.domain.Food;
-import com.example.kolin.testapplication.domain.groups.GroupName;
 import com.example.kolin.testapplication.presentation.calculator.calculation.CalculationActivity;
 import com.example.kolin.testapplication.presentation.common.weightdialog.WeightFragment;
 import com.example.kolin.testapplication.presentation.products.catalog.dialog.DialogFragment;
@@ -56,7 +55,7 @@ public class CatalogActivity extends AppCompatActivity implements
         tabs = (TabLayout) findViewById(R.id.tabs_catalog);
         viewPager = (ViewPager) findViewById(R.id.view_pager_catalog);
 
-        toolbar.setTitle(GroupName.getCategoryById(extra));
+        toolbar.setTitle(getResources().getString(R.string.list_products));
         setSupportActionBar(toolbar);
 
         ActionBar actionBar = getSupportActionBar();
@@ -85,8 +84,10 @@ public class CatalogActivity extends AppCompatActivity implements
 
     public void setupAdapter() {
         pagerAdapter = new PagerAdapter(getSupportFragmentManager());
-        pagerAdapter.addFragment(FavoriteFragment.newInstance(), "ИЗБРАННОЕ", 0);
-        pagerAdapter.addFragment(SelectionFragment.newInstance(extra), GroupName.getCategoryById(extra), 1);
+        pagerAdapter.addFragment(FavoriteFragment.newInstance(),
+                getResources().getString(R.string.favorite).toUpperCase(), 0);
+        pagerAdapter.addFragment(SelectionFragment.newInstance(extra),
+                getResources().getString(R.string.categories).toUpperCase(), 1);
         viewPager.setAdapter(pagerAdapter);
         viewPager.setCurrentItem(pagerAdapter.getCount() - 1);
     }
@@ -130,7 +131,7 @@ public class CatalogActivity extends AppCompatActivity implements
     @Override
     public void onClickCalculateBtn(List<Food> foodList) {
         Intent intent = new Intent(getApplicationContext(), CalculationActivity.class);
-//        intent.putExtra("list", (Serializable) foodList);
+//        intent.putExtra("calc", null);
         startActivity(intent);
         finish();
     }

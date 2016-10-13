@@ -13,6 +13,7 @@ import com.example.kolin.testapplication.domain.calculation.FoodCalculation;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Created by kolin on 02.10.2016.
@@ -21,6 +22,7 @@ import java.util.List;
 public class CalculationAdapter extends RecyclerView.Adapter<CalculationAdapter.ViewHolder> {
 
     private List<Food> list = new ArrayList<>();
+    private Locale locale = Locale.ENGLISH;
 
     private OnClickCalculationAdapterListener listener;
 
@@ -46,7 +48,7 @@ public class CalculationAdapter extends RecyclerView.Adapter<CalculationAdapter.
         holder.textViewProductJ.setText(String.valueOf(food.getJ()));
         holder.textViewProductY.setText(String.valueOf(food.getY()));
         holder.textViewProductYWeight.setText(getFormattedString(FoodCalculation.getYOnWeight(food)));
-        holder.textViewProductTextYWeight.setText("У на " + food.getWeight()+" г");
+        holder.textViewProductTextYWeight.setText("У на " + food.getWeight() + " г");
     }
 
     @Override
@@ -93,7 +95,7 @@ public class CalculationAdapter extends RecyclerView.Adapter<CalculationAdapter.
             imageButtonChange.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (listener != null){
+                    if (listener != null) {
                         listener.onClickButtonChange(list.get(getLayoutPosition()));
                     }
                 }
@@ -120,7 +122,7 @@ public class CalculationAdapter extends RecyclerView.Adapter<CalculationAdapter.
         this.listener = listener;
     }
 
-    private String getFormattedString(double value){
-        return String.format("%.2f", value);
+    private String getFormattedString(double value) {
+        return String.format(locale, "%.2f", value);
     }
 }

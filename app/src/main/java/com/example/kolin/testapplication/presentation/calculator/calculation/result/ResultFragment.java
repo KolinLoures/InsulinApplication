@@ -3,6 +3,8 @@ package com.example.kolin.testapplication.presentation.calculator.calculation.re
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -23,6 +25,7 @@ import com.example.kolin.testapplication.presentation.common.SimpleDividerItemDe
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 
 public class ResultFragment extends Fragment implements ResultView {
@@ -33,15 +36,14 @@ public class ResultFragment extends Fragment implements ResultView {
     private TextView textViewWeight;
     private TextView textViewHE;
     private TextView textViewInsulin;
+    private FloatingActionButton fab;
 
 
     private ResultPresenter presenter;
     private ResultAdapter adapter;
-    private VitalCharacteristic vitalCharacteristic;
-    private VitalCharacteristic vitalCharacteristic2;
     private ArrayVitalAdapter arrayVitalAdapter;
+    private Locale locale = Locale.ENGLISH;
 
-    private List<VitalCharacteristic> vitalCharacteristicList;
 
     public ResultFragment() {
     }
@@ -58,31 +60,13 @@ public class ResultFragment extends Fragment implements ResultView {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        //TODO: replace vital characteristic to settings
-        vitalCharacteristic = new VitalCharacteristic();
-        vitalCharacteristic.setName("Утро");
-        vitalCharacteristic.setHe(10);
-        vitalCharacteristic.setkOne(1.5);
-        vitalCharacteristic.setkTwo(0.1);
-        vitalCharacteristic.setGi(60);
-
-        vitalCharacteristic2 = new VitalCharacteristic();
-        vitalCharacteristic2.setName("Ночь");
-        vitalCharacteristic2.setHe(10);
-        vitalCharacteristic2.setkOne(0.5);
-        vitalCharacteristic2.setkTwo(0.1);
-        vitalCharacteristic2.setGi(60);
-
-
-
         presenter = new ResultPresenter();
         presenter.attachView(this);
 
+//        presenter.load();
+
         adapter = new ResultAdapter();
-        vitalCharacteristicList = new ArrayList<>();
-        vitalCharacteristicList.add(vitalCharacteristic);
-        vitalCharacteristicList.add(vitalCharacteristic2);
-        arrayVitalAdapter = new ArrayVitalAdapter(getContext(),vitalCharacteristicList);
+        arrayVitalAdapter = new ArrayVitalAdapter(getContext(), new ArrayList<VitalCharacteristic>());
     }
 
     @Override
@@ -91,6 +75,8 @@ public class ResultFragment extends Fragment implements ResultView {
         View view = inflater.inflate(R.layout.fragment_result, container, false);
         recyclerView = (RecyclerView) view.findViewById(R.id.result_recycler_view);
         spinner = (Spinner) view.findViewById(R.id.result_spinner);
+        fab = (FloatingActionButton) view.findViewById(R.id.result_fab_save);
+
 
         textViewBJY = (TextView) view.findViewById(R.id.result_bjy_value);
         textViewWeight = (TextView) view.findViewById(R.id.result_common_weight_value);
@@ -104,6 +90,13 @@ public class ResultFragment extends Fragment implements ResultView {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.addItemDecoration(new SimpleDividerItemDecoration(getContext()));
 
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                presenter.saveCalculation();
+            }
+        });
+
         return view;
     }
 
@@ -113,20 +106,25 @@ public class ResultFragment extends Fragment implements ResultView {
     }
 
     @Override
+    public void onStop() {
+        super.onStop();
+    }
+
+    @Override
     public void onAttach(Context context) {
         super.onAttach(context);
     }
 
-    private void setSpinnerListener(){
+    private void setSpinnerListener() {
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                presenter.computeAllValues(vitalCharacteristicList.get(position));
+                presenter.computeAllValues(position);
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-
+                System.out.println();
             }
         });
     }
@@ -134,28 +132,39 @@ public class ResultFragment extends Fragment implements ResultView {
     @Override
     public void onDetach() {
         presenter.detachView();
-        spinner.setOnItemClickListener(null);
+        spinner.setOnItemSelectedListener(null);
+        presenter.unSubscribe();
         super.onDetach();
     }
 
     @Override
     public void showLoadedData(List<Food> foodList) {
         adapter.addAll(foodList);
-        presenter.computeAllValues(vitalCharacteristicList.get(spinner.getSelectedItemPosition()));
+        presenter.computeAllValues(spinner.getSelectedItemPosition());
+    }
+
+    @Override
+    public void setVitalCharacteristic(List<VitalCharacteristic> list) {
+        arrayVitalAdapter.addAll(list);
     }
 
     @Override
     public void showComputeResult(CalculatedFood calculatedFood) {
-        String sumBWeight = String.format("%.1f", calculatedFood.getSumBWeight());
-        String sumJWeight = String.format("%.1f", calculatedFood.getSumJWeight());
-        String sumYWeight = String.format("%.1f", calculatedFood.getSumYWeight());
-        String textHe = String.format("%.2f", calculatedFood.getSumHe());
-        String textWeight = String.format("%.1f", calculatedFood.getSumWeight());
-        String textInsulin = String.format("%.2f", calculatedFood.getSumInsulin());
+        String sumBWeight = String.format(locale, "%.1f", calculatedFood.getSumBWeight());
+        String sumJWeight = String.format(locale, "%.1f", calculatedFood.getSumJWeight());
+        String sumYWeight = String.format(locale, "%.1f", calculatedFood.getSumYWeight());
+        String textHe = String.format(locale, "%.2f", calculatedFood.getSumHe());
+        String textWeight = String.format(locale, "%.1f", calculatedFood.getSumWeight());
+        String textInsulin = String.format(locale, "%.2f", calculatedFood.getSumInsulin());
 
         textViewBJY.setText(sumBWeight + "/" + sumJWeight + "/" + sumYWeight + " г");
         textViewHE.setText(textHe);
         textViewWeight.setText(textWeight);
         textViewInsulin.setText(textInsulin);
+    }
+
+    @Override
+    public void showSnackBar(String title) {
+        Snackbar.make(getView(), title, Snackbar.LENGTH_LONG).show();
     }
 }

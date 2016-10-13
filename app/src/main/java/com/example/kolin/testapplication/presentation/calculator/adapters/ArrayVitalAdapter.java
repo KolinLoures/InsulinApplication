@@ -26,7 +26,7 @@ public class ArrayVitalAdapter extends ArrayAdapter<VitalCharacteristic> {
 
     public ArrayVitalAdapter(Context context, List<VitalCharacteristic> list) {
         super(context, R.layout.item_spinner, list);
-        this.list = list;
+        this.list = new ArrayList<>();
     }
 
 
@@ -45,7 +45,7 @@ public class ArrayVitalAdapter extends ArrayAdapter<VitalCharacteristic> {
     public void addAll(@NonNull Collection<? extends VitalCharacteristic> collection) {
         list.clear();
         list.addAll(collection);
-        notifyDataSetChanged();
+        super.addAll(collection);
     }
 
     @Nullable

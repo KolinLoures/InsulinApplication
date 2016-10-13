@@ -3,6 +3,7 @@ package com.example.kolin.testapplication.data.repository;
 import com.example.kolin.testapplication.data.local.CalculatorListFood;
 import com.example.kolin.testapplication.data.net.Rest;
 import com.example.kolin.testapplication.data.orm.RealmQueries;
+import com.example.kolin.testapplication.domain.CalculatedFood;
 import com.example.kolin.testapplication.domain.Food;
 import com.example.kolin.testapplication.domain.FoodCategory;
 import com.example.kolin.testapplication.domain.ItemOfGroup;
@@ -37,6 +38,12 @@ public class RepositoryImpl implements Repository {
     @Override
     public Observable<List<ItemOfGroup>> getRestaurants(@Group.GroupAllFood String categoryName) {
         return rest.getRestaurantsFromCloud(categoryName);
+    }
+
+    @Override
+    public Observable<List<ItemOfGroup>> getAllItemsOfGroup() {
+        return rest.getRestaurantsFromCloud(Group.RESTAURANT)
+                .concatWith(rest.getRestaurantsFromCloud(Group.FOOD));
     }
 
     @Override
@@ -98,5 +105,22 @@ public class RepositoryImpl implements Repository {
     @Override
     public void deleteVitalCharacteristic(VitalCharacteristic vitalCharacteristic) {
         realmQueries.deleteVitalCharacteristic(vitalCharacteristic);
+    }
+
+
+    @Override
+    public void addResultCalculatedFood(CalculatedFood calculatedFood) {
+        realmQueries.addResultCalculatedFood(calculatedFood);
+    }
+
+    @Override
+    public void deleteResultCalculatedFood(CalculatedFood calculatedFood) {
+        realmQueries.deleteResultCalculatedFood(calculatedFood);
+
+    }
+
+    @Override
+    public Observable<List<CalculatedFood>> getResultCalculatedFood() {
+        return realmQueries.getResultCalculatedFood();
     }
 }

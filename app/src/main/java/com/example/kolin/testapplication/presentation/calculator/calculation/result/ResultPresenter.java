@@ -8,6 +8,8 @@ import com.example.kolin.testapplication.domain.VitalCharacteristic;
 import com.example.kolin.testapplication.domain.calculation.FoodCalculation;
 import com.example.kolin.testapplication.domain.interactor.DefaultSubscriber;
 import com.example.kolin.testapplication.domain.interactor.GetObservableCalculatedFoodUC;
+import com.example.kolin.testapplication.domain.interactor.GetResultCalculationUC;
+import com.example.kolin.testapplication.domain.interactor.GetVitalCharacteristicUC;
 import com.example.kolin.testapplication.presentation.common.AbstractPresenter;
 
 import java.util.ArrayList;
@@ -22,56 +24,112 @@ public class ResultPresenter extends AbstractPresenter<ResultView> {
     private static final String TAG = ResultPresenter.class.getSimpleName();
 
     private List<Food> loadedList = new ArrayList<>();
+    private List<VitalCharacteristic> loadedVitalCharacteristicList = new ArrayList<>();
+    private CalculatedFood currentCalculatedFood;
 
     private GetObservableCalculatedFoodUC getObservableCalculatedFoodUC;
+    private GetVitalCharacteristicUC getVitalCharacteristicUC;
+    private GetResultCalculationUC getResultCalculationUC;
 
     public ResultPresenter() {
         getObservableCalculatedFoodUC = new GetObservableCalculatedFoodUC();
+        getVitalCharacteristicUC = new GetVitalCharacteristicUC();
+        getResultCalculationUC = new GetResultCalculationUC();
+        currentCalculatedFood = new CalculatedFood();
     }
 
-    public void load(){
-        getObservableCalculatedFoodUC.execute(new ResultSubscriber());
+    public void load() {
+        getVitalCharacteristicUC.execute(new ResultVitalSubscriber());
     }
 
-    private final class ResultSubscriber extends DefaultSubscriber<List<Food>>{
+    private final class ResultSubscriber extends DefaultSubscriber<List<Food>> {
         @Override
         public void onNext(List<Food> foodList) {
             showLoadedData(foodList);
         }
+
+        @Override
+        public void onError(Throwable e) {
+            Log.e("Error", e.toString());
+        }
     }
 
-    public void showLoadedData(List<Food> foodList){
+    private final class ResultVitalSubscriber extends DefaultSubscriber<List<VitalCharacteristic>> {
+        @Override
+        public void onNext(List<VitalCharacteristic> list) {
+            setSpinnerData(list);
+            getObservableCalculatedFoodUC.execute(new ResultSubscriber());
+        }
+
+        @Override
+        public void onError(Throwable e) {
+            Log.e("Error Result Vital", e.toString());
+        }
+    }
+
+    public void setSpinnerData(List<VitalCharacteristic> list) {
+        loadedVitalCharacteristicList.clear();
+        loadedVitalCharacteristicList.addAll(list);
+
+        if (!isViewAttach()) {
+            Log.e(TAG, "View is detach!");
+        }
+
+        getWeakReference().setVitalCharacteristic(list);
+    }
+
+    public void showLoadedData(List<Food> foodList) {
         loadedList.clear();
         loadedList.addAll(foodList);
-        if (!isViewAttach()){
+        if (!isViewAttach()) {
             Log.e(TAG, "View is detach!");
         }
 
         getWeakReference().showLoadedData(foodList);
     }
 
-    public void computeAllValues(VitalCharacteristic vitalCharacteristic) {
-        CalculatedFood calculatedFood = new CalculatedFood();
+    public void computeAllValues(int position) {
+
+        if (position == -1) {
+            position = 0;
+        }
+
+        VitalCharacteristic vitalCharacteristic = loadedVitalCharacteristicList.get(position);
+
         double sumYOnWeight = FoodCalculation.getSumYOnWeight(loadedList);
         double sumBOnWeight = FoodCalculation.getSumBOnWeight(loadedList);
         double sumJOnWeight = FoodCalculation.getSumJOnWeight(loadedList);
 
-        calculatedFood.setFoodList(loadedList);
-        calculatedFood.setSumWeight(FoodCalculation.sumWeight(loadedList));
-        calculatedFood.setSumYWeight(sumYOnWeight);
-        calculatedFood.setSumBWeight(sumBOnWeight);
-        calculatedFood.setSumJWeight(sumJOnWeight);
-        calculatedFood.setSumHe(sumYOnWeight / vitalCharacteristic.getHe());
-        calculatedFood.setSumInsulin(FoodCalculation.getInsuline(loadedList, vitalCharacteristic));
-        calculatedFood.setValueGi(vitalCharacteristic.getGi());
-        calculatedFood.setValueHe(vitalCharacteristic.getHe());
-        calculatedFood.setValueKone(vitalCharacteristic.getkOne());
-        calculatedFood.setValueKtwo(vitalCharacteristic.getkTwo());
+        currentCalculatedFood.setId((long) 1);
+        currentCalculatedFood.setFoodList(loadedList);
+        currentCalculatedFood.setSumWeight(FoodCalculation.sumWeight(loadedList));
+        currentCalculatedFood.setSumYWeight(sumYOnWeight);
+        currentCalculatedFood.setSumBWeight(sumBOnWeight);
+        currentCalculatedFood.setSumJWeight(sumJOnWeight);
+        currentCalculatedFood.setSumHe(sumYOnWeight / vitalCharacteristic.getHe());
+
+        currentCalculatedFood.setSumInsulin(FoodCalculation.getInsuline(loadedList, vitalCharacteristic));
+        currentCalculatedFood.setVitalCharacteristic(vitalCharacteristic);
 
         if (!isViewAttach()) {
             Log.e(TAG, "View is detach!");
         }
 
-        getWeakReference().showComputeResult(calculatedFood);
+        getWeakReference().showComputeResult(currentCalculatedFood);
+    }
+
+    public void unSubscribe() {
+        getVitalCharacteristicUC.unsubscribe();
+        getObservableCalculatedFoodUC.unsubscribe();
+    }
+
+    public void saveCalculation() {
+        getResultCalculationUC.addResultCalculatedFood(currentCalculatedFood);
+
+        if (!isViewAttach()) {
+            Log.e(TAG, "View is detach!");
+        }
+
+        getWeakReference().showSnackBar("Добавлено в историю!");
     }
 }

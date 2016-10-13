@@ -1,6 +1,5 @@
 package com.example.kolin.testapplication.presentation.calculator.calculation.list;
 
-import com.example.kolin.testapplication.domain.CalculatedFood;
 import com.example.kolin.testapplication.domain.Food;
 
 import java.util.List;
@@ -15,5 +14,4 @@ public interface ListCalculatorView {
 
     void showSnackBar(String title);
 
-    void showComputeResult(CalculatedFood calculatedFood);
 }

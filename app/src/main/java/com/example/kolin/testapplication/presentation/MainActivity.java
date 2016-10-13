@@ -129,7 +129,15 @@ public class MainActivity extends AppCompatActivity implements
 
     @Override
     public void onClickFab(View v) {
+        Intent intent = new Intent(getApplicationContext(), CatalogActivity.class);
+        intent.putExtra("NameCategory", 2);
+        startActivity(intent);
+    }
+
+    @Override
+    public void onClickReCalc(Long id) {
         Intent intent = new Intent(getApplicationContext(), CalculationActivity.class);
+        intent.putExtra("id", id);
         startActivity(intent);
     }
 

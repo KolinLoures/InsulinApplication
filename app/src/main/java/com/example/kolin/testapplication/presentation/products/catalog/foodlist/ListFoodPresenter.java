@@ -4,8 +4,8 @@ import android.util.Log;
 
 import com.example.kolin.testapplication.domain.Food;
 import com.example.kolin.testapplication.domain.FoodCategory;
-import com.example.kolin.testapplication.domain.interactor.AddFavoriteFoodUC;
 import com.example.kolin.testapplication.domain.interactor.DefaultSubscriber;
+import com.example.kolin.testapplication.domain.interactor.GetFavoriteFoodUC;
 import com.example.kolin.testapplication.domain.interactor.GetFoodUC;
 import com.example.kolin.testapplication.domain.interactor.GetObservableCalculatedFoodUC;
 import com.example.kolin.testapplication.presentation.common.AbstractPresenter;
@@ -23,7 +23,7 @@ public class ListFoodPresenter extends AbstractPresenter<ListFoodView> {
     private static final String TAG = ListFoodPresenter.class.getSimpleName();
 
     private GetFoodUC getFoodUC;
-    private AddFavoriteFoodUC addFavoriteFoodUC;
+    private GetFavoriteFoodUC getFavoriteFoodUC;
     private GetObservableCalculatedFoodUC getObservableCalculatedFoodUC;
 
     private String currentCallItemName;
@@ -32,7 +32,7 @@ public class ListFoodPresenter extends AbstractPresenter<ListFoodView> {
 
     public ListFoodPresenter() {
         getFoodUC = new GetFoodUC();
-        addFavoriteFoodUC = new AddFavoriteFoodUC();
+        getFavoriteFoodUC = new GetFavoriteFoodUC();
         getObservableCalculatedFoodUC = new GetObservableCalculatedFoodUC();
     }
 
@@ -66,7 +66,7 @@ public class ListFoodPresenter extends AbstractPresenter<ListFoodView> {
     }
 
     public void addToFavorite(Food food) {
-        addFavoriteFoodUC.execute(food);
+        getFavoriteFoodUC.addFavoriteFood(food);
 
         if (!isViewAttach()) {
             Log.e(TAG, "View was detach");

@@ -12,6 +12,7 @@ import com.example.kolin.testapplication.domain.VitalCharacteristic;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Created by kolin on 10.10.2016.
@@ -20,10 +21,11 @@ import java.util.List;
 public class IndexAdapter extends RecyclerView.Adapter<IndexAdapter.ViewHolder> {
 
     private List<VitalCharacteristic> vitalCharacteristicList = new ArrayList<>();
+    private Locale locale = Locale.ENGLISH;
 
     private OnClickIndexAdapterListener listener;
 
-    public interface OnClickIndexAdapterListener{
+    public interface OnClickIndexAdapterListener {
         void onClickBtnRemove(VitalCharacteristic vitalCharacteristic);
 
         void onClickBtnCreate(VitalCharacteristic vitalCharacteristic);
@@ -40,10 +42,10 @@ public class IndexAdapter extends RecyclerView.Adapter<IndexAdapter.ViewHolder> 
         VitalCharacteristic characteristic = vitalCharacteristicList.get(position);
 
         holder.textViewName.setText(characteristic.getName());
-        holder.textViewHe.setText(String.format("%.2f",characteristic.getHe()));
-        holder.textViewGi.setText(String.format("%.2f",characteristic.getGi()));
-        holder.textViewKOne.setText(String.format("%.2f",characteristic.getkOne()));
-        holder.textViewKTwo.setText(String.format("%.2f",characteristic.getkTwo()));
+        holder.textViewHe.setText(String.format(locale, "%.2f", characteristic.getHe()));
+        holder.textViewGi.setText(String.format(locale, "%.2f", characteristic.getGi()));
+        holder.textViewKOne.setText(String.format(locale, "%.2f", characteristic.getkOne()));
+        holder.textViewKTwo.setText(String.format(locale, "%.2f", characteristic.getkTwo()));
     }
 
     @Override
@@ -78,7 +80,7 @@ public class IndexAdapter extends RecyclerView.Adapter<IndexAdapter.ViewHolder> 
             imageButtonClear.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (listener != null){
+                    if (listener != null) {
                         listener.onClickBtnRemove(vitalCharacteristicList.get(getLayoutPosition()));
                     }
                 }
@@ -87,7 +89,7 @@ public class IndexAdapter extends RecyclerView.Adapter<IndexAdapter.ViewHolder> 
             imageButtonCreate.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (listener != null){
+                    if (listener != null) {
                         listener.onClickBtnCreate(vitalCharacteristicList.get(getLayoutPosition()));
                     }
                 }
@@ -96,13 +98,13 @@ public class IndexAdapter extends RecyclerView.Adapter<IndexAdapter.ViewHolder> 
         }
     }
 
-    public void addAll(List<VitalCharacteristic> list){
+    public void addAll(List<VitalCharacteristic> list) {
         vitalCharacteristicList.clear();
         vitalCharacteristicList.addAll(list);
         notifyDataSetChanged();
     }
 
-    public void clear(){
+    public void clear() {
         vitalCharacteristicList.clear();
         notifyDataSetChanged();
     }

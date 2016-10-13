@@ -1,5 +1,6 @@
 package com.example.kolin.testapplication.domain.repository;
 
+import com.example.kolin.testapplication.domain.CalculatedFood;
 import com.example.kolin.testapplication.domain.Food;
 import com.example.kolin.testapplication.domain.FoodCategory;
 import com.example.kolin.testapplication.domain.ItemOfGroup;
@@ -21,7 +22,11 @@ public interface Repository {
 
     Observable<List<ItemOfGroup>> getRestaurants(@Group.GroupAllFood String categoryName);
 
+    Observable<List<ItemOfGroup>> getAllItemsOfGroup();
+
     Observable<HashMap<FoodCategory, List<Food>>> getFood(String itemGroupName);
+
+
 
     void addFoodToFavorite(Food food);
 
@@ -44,4 +49,10 @@ public interface Repository {
     void addVitalCharacteristic(VitalCharacteristic vitalCharacteristic);
 
     void deleteVitalCharacteristic(VitalCharacteristic vitalCharacteristic);
+
+    void addResultCalculatedFood(CalculatedFood calculatedFood);
+
+    void deleteResultCalculatedFood(CalculatedFood calculatedFood);
+
+    Observable<List<CalculatedFood>> getResultCalculatedFood();
 }

@@ -8,6 +8,7 @@ import android.support.v7.widget.Toolbar;
 
 import com.example.kolin.testapplication.R;
 import com.example.kolin.testapplication.domain.Food;
+import com.example.kolin.testapplication.domain.interactor.GetObservableCalculatedFoodUC;
 import com.example.kolin.testapplication.presentation.calculator.calculation.list.ListCalculatorFragment;
 import com.example.kolin.testapplication.presentation.calculator.calculation.result.ResultFragment;
 import com.example.kolin.testapplication.presentation.common.weightdialog.WeightFragment;
@@ -21,10 +22,14 @@ public class CalculationActivity extends AppCompatActivity implements
     private CalcPagerAdapter pagerAdapter;
     private InkPageIndicator inkPageIndicator;
 
+    private GetObservableCalculatedFoodUC getObservableCalculatedFoodUC;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calculation);
+
+        getObservableCalculatedFoodUC = new GetObservableCalculatedFoodUC();
 
         toolbar = (Toolbar) findViewById(R.id.activity_calculation_toolbar);
         viewPager = (ViewPager) findViewById(R.id.activity_calculation_view_pager);
@@ -43,7 +48,7 @@ public class CalculationActivity extends AppCompatActivity implements
     }
 
     private void setupPagerAdapter() {
-        pagerAdapter.addFragment(ListCalculatorFragment.newInstance());
+        pagerAdapter.addFragment(ListCalculatorFragment.newInstance((Long) getIntent().getSerializableExtra("id")));
         pagerAdapter.addFragment(ResultFragment.newInstance());
         viewPager.setAdapter(pagerAdapter);
         inkPageIndicator.setViewPager(viewPager);
@@ -52,6 +57,7 @@ public class CalculationActivity extends AppCompatActivity implements
 
     @Override
     protected void onDestroy() {
+//        getObservableCalculatedFoodUC.clearCalculationFood();
         super.onDestroy();
     }
 

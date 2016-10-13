@@ -15,19 +15,22 @@ public class GroupName {
     @Retention(RetentionPolicy.RUNTIME)
     @StringDef({
             FOOD_NAME,
-            RESTAURANT_NAME
+            RESTAURANT_NAME,
+            ALL_NAME
     })
 
     public @interface GroupFoodName {}
 
     public static final String FOOD_NAME = "Еда";
     public static final String RESTAURANT_NAME = "Рестораны";
+    public static final String ALL_NAME = "Все категории";
 
     private static List<String> list = new ArrayList<>();
 
     static {
         list.add(FOOD_NAME);
         list.add(RESTAURANT_NAME);
+        list.add(ALL_NAME);
     }
 
 
@@ -36,5 +39,9 @@ public class GroupName {
             return null;
         }
         return list.get(idCategory);
+    }
+
+    public static List<String> getList() {
+        return list;
     }
 }

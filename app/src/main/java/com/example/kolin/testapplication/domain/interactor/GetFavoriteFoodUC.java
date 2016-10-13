@@ -1,6 +1,7 @@
 package com.example.kolin.testapplication.domain.interactor;
 
 import com.example.kolin.testapplication.data.repository.RepositoryImpl;
+import com.example.kolin.testapplication.domain.Food;
 import com.example.kolin.testapplication.domain.repository.Repository;
 import com.example.kolin.testapplication.domain.usecases.ObservableRealmDataUseCase;
 
@@ -21,5 +22,13 @@ public class GetFavoriteFoodUC extends ObservableRealmDataUseCase {
     @Override
     public Observable buildObservable() {
         return repository.getFavoriteFood();
+    }
+
+    public void addFavoriteFood(Food food){
+        repository.addFoodToFavorite(food);
+    }
+
+    public void deleteFavoriteFood(Food food){
+        repository.deleteFavoriteFood(food);
     }
 }

@@ -43,8 +43,10 @@
     <string name="index">Настройки</string>
     <string name="indexes">Показатели</string>
     <string name="cancel">отмена</string>
+    <string name="favorite">избранное</string>
 
     <string name="preferences_count_key" translatable="false">count_key</string>
     <string name="preferences_characteristic_key" translatable="false">characteristic_key</string>
+    <string name="categories">Категории</string>
 
 </resources>

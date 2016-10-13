@@ -23,7 +23,10 @@ public class GetItemsOfGroupUC extends CloudUseCase {
 
     @Override
     protected Observable buildUseCaseObservable() {
-        return repository.getRestaurants(this.groupName);
+        if (!groupName.equals(Group.ALL)) {
+            return repository.getRestaurants(this.groupName);
+        }
+        return repository.getAllItemsOfGroup();
     }
 
     public void setParameterCategoryName(@Group.GroupAllFood String groupName){
