@@ -12,6 +12,10 @@
     </style>
 
     <style name="AppTheme" parent="AppTheme.Base" />
+    
+    <style name="SplashScreenStyle" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowBackground">@drawable/splash_layer</item>
+    </style>
 
 
     <style name="textViewEmail">
