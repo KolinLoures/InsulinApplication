@@ -1,7 +1,5 @@
 package com.example.kolin.testapplication.presentation.products.catalog;
 
-import android.app.SearchManager;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
@@ -85,9 +83,9 @@ public class CatalogActivity extends AppCompatActivity implements
     public void setupAdapter() {
         pagerAdapter = new PagerAdapter(getSupportFragmentManager());
         pagerAdapter.addFragment(FavoriteFragment.newInstance(),
-                getResources().getString(R.string.favorite).toUpperCase(), 0);
+                getString(R.string.favorite).toUpperCase(), 0);
         pagerAdapter.addFragment(SelectionFragment.newInstance(extra),
-                getResources().getString(R.string.categories).toUpperCase(), 1);
+                getString(R.string.categories).toUpperCase(), 1);
         viewPager.setAdapter(pagerAdapter);
         viewPager.setCurrentItem(pagerAdapter.getCount() - 1);
     }
@@ -102,12 +100,12 @@ public class CatalogActivity extends AppCompatActivity implements
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_catalog, menu);
 
-        searchItem = menu.findItem(R.id.item_search_catalog);
-        SearchManager searchManager =
-                (SearchManager) CatalogActivity.this.getSystemService(Context.SEARCH_SERVICE);
-
-        searchView = (SearchView) searchItem.getActionView();
-        searchView.setSearchableInfo(searchManager.getSearchableInfo(CatalogActivity.this.getComponentName()));
+//        searchItem = menu.findItem(R.id.item_search_catalog);
+//        SearchManager searchManager =
+//                (SearchManager) CatalogActivity.this.getSystemService(Context.SEARCH_SERVICE);
+//
+//        searchView = (SearchView) searchItem.getActionView();
+//        searchView.setSearchableInfo(searchManager.getSearchableInfo(CatalogActivity.this.getComponentName()));
         return true;
     }
 
@@ -116,6 +114,9 @@ public class CatalogActivity extends AppCompatActivity implements
         switch (item.getItemId()) {
             case R.id.item_catalog_added_products:
                 showDialog();
+                break;
+            case android.R.id.home:
+                finish();
                 break;
         }
 

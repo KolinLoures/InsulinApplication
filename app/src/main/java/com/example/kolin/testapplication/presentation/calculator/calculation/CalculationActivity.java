@@ -5,6 +5,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 
 import com.example.kolin.testapplication.R;
 import com.example.kolin.testapplication.domain.Food;
@@ -47,6 +48,8 @@ public class CalculationActivity extends AppCompatActivity implements
         setupPagerAdapter();
     }
 
+
+
     private void setupPagerAdapter() {
         pagerAdapter.addFragment(ListCalculatorFragment.newInstance());
         pagerAdapter.addFragment(ResultFragment.newInstance((Long) getIntent().getSerializableExtra("id")));
@@ -54,6 +57,15 @@ public class CalculationActivity extends AppCompatActivity implements
         inkPageIndicator.setViewPager(viewPager);
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case android.R.id.home:
+                finish();
+                break;
+        }
+        return true;
+    }
 
     @Override
     protected void onDestroy() {

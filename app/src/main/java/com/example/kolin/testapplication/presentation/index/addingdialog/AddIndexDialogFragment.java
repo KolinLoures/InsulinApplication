@@ -66,11 +66,7 @@ public class AddIndexDialogFragment extends AppCompatDialogFragment implements A
 
 
         List<String> stringList = new ArrayList<>();
-        stringList.add(DayGroup.MORNING);
-        stringList.add(DayGroup.DAY);
-        stringList.add(DayGroup.EVENING);
-        stringList.add(DayGroup.NIGHT);
-        stringList.add(DayGroup.OTHER);
+        stringList.addAll(DayGroup.getList());
 
         adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, stringList);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);

@@ -7,8 +7,6 @@ import java.lang.annotation.RetentionPolicy;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.example.kolin.testapplication.domain.groups.Group.FOOD;
-
 /**
  * Created by kolin on 10.10.2016.
  */
@@ -17,6 +15,7 @@ public class DayGroup {
 
     @Retention(RetentionPolicy.RUNTIME)
     @StringDef({
+            MAIN,
             MORNING,
             DAY,
             EVENING,
@@ -26,6 +25,7 @@ public class DayGroup {
 
     public @interface PathDayGroup {}
 
+    public static final String MAIN = "Основной";
     public static final String MORNING = "Утро";
     public static final String DAY = "День";
     public static final String EVENING = "Вечер";
@@ -35,7 +35,8 @@ public class DayGroup {
     private static List<String> list = new ArrayList<>();
 
     static {
-        list.add(FOOD);
+        list.add(MAIN);
+        list.add(MORNING);
         list.add(DAY);
         list.add(EVENING);
         list.add(NIGHT);

@@ -44,11 +44,13 @@
     <string name="indexes">Показатели</string>
     <string name="cancel">отмена</string>
     <string name="favorite">избранное</string>
+    <string name="main_indexes">Основные показатели</string>
+    <string name="categories">Категории</string>
+    <string name="g_index">Гликемический индекс</string>
 
     <string name="preferences_count_key" translatable="false">count_key</string>
     <string name="preferences_count_value" translatable="false">count_value</string>
-    <string name="preferences_first_start" translatable="false">first_key</string>
-    <string name="preferences_first_value" translatable="false">first_value</string>
-    <string name="categories">Категории</string>
+    <string name="preferences_first_key" translatable="false">first_start_key</string>
+    <string name="preferences_first_value" translatable="false">first_start_value</string>
 
 </resources>

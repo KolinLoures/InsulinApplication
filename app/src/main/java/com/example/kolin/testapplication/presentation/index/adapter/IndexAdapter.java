@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.example.kolin.testapplication.R;
 import com.example.kolin.testapplication.domain.VitalCharacteristic;
+import com.example.kolin.testapplication.domain.groups.DayGroup;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,6 +47,10 @@ public class IndexAdapter extends RecyclerView.Adapter<IndexAdapter.ViewHolder> 
         holder.textViewGi.setText(String.format(locale, "%.2f", characteristic.getGi()));
         holder.textViewKOne.setText(String.format(locale, "%.2f", characteristic.getkOne()));
         holder.textViewKTwo.setText(String.format(locale, "%.2f", characteristic.getkTwo()));
+
+        if (characteristic.getName().equals(DayGroup.MAIN)){
+            holder.imageButtonClear.setVisibility(View.GONE);
+        }
     }
 
     @Override

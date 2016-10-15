@@ -38,6 +38,7 @@ dependencies {
 
 
     compile 'com.pacioianu.david:ink-page-indicator:1.2.0'
+    compile 'me.drozdzynski.library.steppers:steppers:0.3.3-SNAPSHOT'
     compile 'com.pacioianu.david:ink-page-indicator:1.2.0'
     compile 'de.hdodenhof:circleimageview:2.1.0'
     compile 'com.google.code.gson:gson:2.6.2'
