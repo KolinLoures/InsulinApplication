@@ -21,11 +21,14 @@ import com.example.kolin.testapplication.domain.groups.GroupName;
 import com.example.kolin.testapplication.presentation.common.SimpleDividerItemDecoration;
 import com.example.kolin.testapplication.presentation.products.catalog.adapters.SelectionAdapter;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 public class SelectionFragment extends Fragment implements SelectionContractView {
 
+
+    private static final String ARG_STATE = "state_list";
 
     private SelectionPresenter presenter;
     private SelectionAdapter selectionAdapter;
@@ -83,7 +86,6 @@ public class SelectionFragment extends Fragment implements SelectionContractView
             }
         });
 
-        setupArrayAdapter();
     }
 
     @Override
@@ -95,6 +97,9 @@ public class SelectionFragment extends Fragment implements SelectionContractView
         progressBar = (ProgressBar) root.findViewById(R.id.progress_bar_selection_fragment);
         recyclerView = (RecyclerView) root.findViewById(R.id.recycler_view_selection);
         spinner = (Spinner) root.findViewById(R.id.selection_fragment_spinner);
+
+
+        setupArrayAdapter();
         spinner.setAdapter(adapter);
 
         setupSpinnerListener();
@@ -107,9 +112,14 @@ public class SelectionFragment extends Fragment implements SelectionContractView
     }
 
 
+    @SuppressWarnings("unchecked")
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        spinner.setSelection(currentGroup);
+        if (savedInstanceState != null){
+            selectionAdapter.addAll((List<ItemOfGroup>) savedInstanceState.getSerializable(ARG_STATE));
+        } else {
+            spinner.setSelection(currentGroup);
+        }
     }
 
     private void setupSpinnerListener(){
@@ -168,5 +178,10 @@ public class SelectionFragment extends Fragment implements SelectionContractView
         stringList.addAll(GroupName.getList());
         adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, stringList);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        outState.putSerializable(ARG_STATE, (Serializable) presenter.getLoadedData());
     }
 }

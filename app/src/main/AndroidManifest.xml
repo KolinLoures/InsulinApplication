@@ -11,8 +11,12 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".presentation.MainActivity" />
-        <activity android:name=".presentation.products.catalog.CatalogActivity">
+        <activity
+            android:name=".presentation.MainActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".presentation.products.catalog.CatalogActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH" />
                 <action android:name="android.intent.action.VIEW" />
@@ -22,9 +26,12 @@
                 android:name="android.app.searchable"
                 android:resource="@xml/searchable" />
         </activity>
-        <activity android:name=".presentation.calculator.calculation.CalculationActivity" />
+        <activity
+            android:name=".presentation.calculator.calculation.CalculationActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".presentation.splash.SplashActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/SplashScreenStyle">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -32,7 +39,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".presentation.firststar.FirstStartActivity"></activity>
+        <activity
+            android:name=".presentation.firststar.FirstStartActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

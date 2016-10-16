@@ -47,6 +47,7 @@
     <string name="main_indexes">Основные показатели</string>
     <string name="categories">Категории</string>
     <string name="g_index">Гликемический индекс</string>
+    <string name="insulin_app">Insulin App</string>
 
     <string name="preferences_count_key" translatable="false">count_key</string>
     <string name="preferences_count_value" translatable="false">count_value</string>
@@ -66,5 +67,11 @@
     </string>
     <string name="not_show_again">Больше не показывать</string>
     <string name="ok">ok</string>
+    <string name="info_system">Общая информация о системе</string>
+    <string name="app_for_text">Приложение расчета единиц инсулина для больных диабетом II типа</string>
+    <string name="version_app">Версия приложения</string>
+    <string name="insulin_app_version">Версия Insulin App:</string>
+    <string name="contacts">Контакты</string>
+    <string name="kolinloures_gmail_com">kolinloures@gmail.com</string>
 
 </resources>

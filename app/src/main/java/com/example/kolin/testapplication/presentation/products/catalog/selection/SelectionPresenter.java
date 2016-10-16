@@ -7,6 +7,7 @@ import com.example.kolin.testapplication.domain.interactor.DefaultSubscriber;
 import com.example.kolin.testapplication.domain.interactor.GetItemsOfGroupUC;
 import com.example.kolin.testapplication.presentation.common.AbstractPresenter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -19,12 +20,17 @@ public class SelectionPresenter extends AbstractPresenter<SelectionContractView>
 
     private GetItemsOfGroupUC getItemsOfGroupUC;
 
+    private List<ItemOfGroup> loadedData = new ArrayList<>();
+
     public SelectionPresenter() {
         getItemsOfGroupUC = new GetItemsOfGroupUC();
     }
 
 
     public void showLoadedData(List<ItemOfGroup> itemCategories) {
+        loadedData.clear();
+        loadedData.addAll(itemCategories);
+
         if (!isViewAttach()) {
             Log.e(TAG, "View was detach!");
             return;
@@ -68,4 +74,7 @@ public class SelectionPresenter extends AbstractPresenter<SelectionContractView>
         getItemsOfGroupUC.unsubscribe();
     }
 
+    public List<ItemOfGroup> getLoadedData() {
+        return loadedData;
+    }
 }

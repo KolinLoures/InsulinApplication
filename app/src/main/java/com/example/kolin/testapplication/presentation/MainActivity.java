@@ -14,10 +14,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
 import com.example.kolin.testapplication.R;
 import com.example.kolin.testapplication.domain.VitalCharacteristic;
+import com.example.kolin.testapplication.presentation.about.AboutFragment;
 import com.example.kolin.testapplication.presentation.calculator.CalculatorFragment;
 import com.example.kolin.testapplication.presentation.calculator.calculation.CalculationActivity;
 import com.example.kolin.testapplication.presentation.common.attention.AttentionFragment;
@@ -115,8 +115,8 @@ public class MainActivity extends AppCompatActivity implements
                 fragment = new IndexFragment();
                 break;
             case R.id.about_system_item:
-                Toast.makeText(this, "В разработке", Toast.LENGTH_LONG).show();
-                return;
+                fragment = new AboutFragment();
+                break;
         }
 
         if (fragment != null) {

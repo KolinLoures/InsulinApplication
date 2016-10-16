@@ -1,10 +1,12 @@
 package com.example.kolin.testapplication.domain;
 
+import java.io.Serializable;
+
 /**
  * Created by kolin on 06.09.2016.
  */
 
-public class ItemOfGroup {
+public class ItemOfGroup implements Serializable {
 
     private int category;
     private String description;
