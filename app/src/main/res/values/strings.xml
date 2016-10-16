@@ -4,7 +4,7 @@
     <string name="Roboto_Medium" translatable="false">sans-serif-medium</string>
     <string name="Roboto_Regular" translatable="false">sans-serif</string>
 
-    <string name="app_name">TestApplication2</string>
+    <string name="app_name">Insulin App</string>
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="calculator">Калькулятор</string>
@@ -68,7 +68,7 @@
     <string name="not_show_again">Больше не показывать</string>
     <string name="ok">ok</string>
     <string name="info_system">Общая информация о системе</string>
-    <string name="app_for_text">Приложение расчета единиц инсулина для больных диабетом II типа</string>
+    <string name="app_for_text">Приложение расчета единиц инсулина для больных диабетом I типа</string>
     <string name="version_app">Версия приложения</string>
     <string name="insulin_app_version">Версия Insulin App:</string>
     <string name="contacts">Контакты</string>
