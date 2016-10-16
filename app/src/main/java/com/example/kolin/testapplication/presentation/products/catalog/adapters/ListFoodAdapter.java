@@ -130,8 +130,8 @@ public class ListFoodAdapter extends RecyclerView.Adapter<ListFoodAdapter.ListFo
         if (checkedFood.isEmpty()) {
             for (Food food : list) {
                 food.setChecked(false);
-                notifyItemChanged(list.indexOf(food));
             }
+            notifyDataSetChanged();
         } else {
             for (Food f : list) {
                 if (checkedFood.contains(f)) {

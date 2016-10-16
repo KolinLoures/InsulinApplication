@@ -20,6 +20,7 @@ import com.example.kolin.testapplication.R;
 import com.example.kolin.testapplication.domain.VitalCharacteristic;
 import com.example.kolin.testapplication.presentation.calculator.CalculatorFragment;
 import com.example.kolin.testapplication.presentation.calculator.calculation.CalculationActivity;
+import com.example.kolin.testapplication.presentation.common.attention.AttentionFragment;
 import com.example.kolin.testapplication.presentation.index.IndexFragment;
 import com.example.kolin.testapplication.presentation.index.addingdialog.AddIndexDialogFragment;
 import com.example.kolin.testapplication.presentation.products.ProductsFragment;
@@ -53,16 +54,27 @@ public class MainActivity extends AppCompatActivity implements
         fragmentManager.beginTransaction().replace(
                 R.id.fragment_container, CalculatorFragment.newInstance()).commit();
 
-        checkSharedPreferences();
+        checkAttentionSharedPreferences();
+        checkCountSharedPreferences();
+    }
+
+    private void checkAttentionSharedPreferences() {
+        SharedPreferences sharedPreferences = getSharedPreferences(
+                getString(R.string.preferences_attention_key), MODE_PRIVATE);
+        boolean check = sharedPreferences.getBoolean(
+                getString(R.string.preferences_attention_value), false);
+        if (!check) {
+            AttentionFragment attentionFragment = AttentionFragment.newInstance();
+            attentionFragment.show(getSupportFragmentManager(), AttentionFragment.class.getSimpleName());
+        }
     }
 
 
-
-    private void checkSharedPreferences() {
+    private void checkCountSharedPreferences() {
         SharedPreferences sharedPreferences = getSharedPreferences(
                 getString(R.string.preferences_count_key), MODE_PRIVATE);
         int count = sharedPreferences.getInt(getString(R.string.preferences_count_value), -1);
-        if (count == -1){
+        if (count == -1) {
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putInt(getString(R.string.preferences_count_value), 1);
             editor.apply();

@@ -50,7 +50,21 @@
 
     <string name="preferences_count_key" translatable="false">count_key</string>
     <string name="preferences_count_value" translatable="false">count_value</string>
+
     <string name="preferences_first_key" translatable="false">first_start_key</string>
     <string name="preferences_first_value" translatable="false">first_start_value</string>
+
+    <string name="preferences_attention_key" translatable="false">attention_key</string>
+    <string name="preferences_attention_value" translatable="false">attention_value</string>
+    <string name="warning">Предупреждение</string>
+    <string name="warning_text">
+        Программа для подсчета инсулина создана исключительно
+        в личных целях. Не несет рекомендательного характера для
+        лечения сахарного диабета. Настоятельно рекомендуется
+        проверять расчеты самостоятельно. Разработчики данной программы
+        не несут ответственности за Ваше здоровье.
+    </string>
+    <string name="not_show_again">Больше не показывать</string>
+    <string name="ok">ok</string>
 
 </resources>

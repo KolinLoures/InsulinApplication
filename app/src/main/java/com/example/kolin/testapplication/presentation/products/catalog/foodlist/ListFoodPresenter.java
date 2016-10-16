@@ -100,6 +100,11 @@ public class ListFoodPresenter extends AbstractPresenter<ListFoodView> {
         public void onNext(List<Food> foodList) {
             setCalculatedFood(foodList);
         }
+
+        @Override
+        public void onError(Throwable e) {
+            Log.e("ERROR", e.toString());
+        }
     }
 
     public void unSubscribe() {
