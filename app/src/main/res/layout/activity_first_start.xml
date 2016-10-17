@@ -23,171 +23,183 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <LinearLayout
+
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:paddingEnd="16dp"
-        android:paddingStart="16dp"
-        android:paddingTop="16dp"
-        android:paddingBottom="8dp">
+        android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/textView2"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/bread_items"
-            android:textColor="@color/black"
-            android:textSize="16sp" />
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingBottom="8dp"
+                android:paddingEnd="16dp"
+                android:paddingStart="16dp"
+                android:paddingTop="16dp">
+
+                <TextView
+                    android:id="@+id/textView2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/bread_items"
+                    android:textColor="@color/black"
+                    android:textSize="16sp" />
 
 
-        <EditText
-            android:id="@+id/first_start_edit_he"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="numberDecimal"
-            android:textAlignment="textEnd" />
+                <EditText
+                    android:id="@+id/first_start_edit_he"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:inputType="numberDecimal"
+                    android:textAlignment="textEnd" />
 
-        <TextView
-            android:id="@+id/first_start_he_error"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/null_value"
-            android:textAlignment="textEnd"
-            android:textColor="@color/red"
-            android:textSize="12sp" />
-
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/border"
-        android:orientation="vertical"
-        android:paddingEnd="16dp"
-        android:paddingStart="16dp"
-        android:paddingTop="8dp"
-        android:paddingBottom="8dp">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/g_index"
-            android:textColor="@color/black"
-            android:textSize="16sp" />
+                <TextView
+                    android:id="@+id/first_start_he_error"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/null_value"
+                    android:textAlignment="textEnd"
+                    android:textColor="@color/red"
+                    android:textSize="12sp" />
 
 
-        <EditText
-            android:id="@+id/first_start_edit_gi"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="numberDecimal"
-            android:textAlignment="textEnd" />
+            </LinearLayout>
 
-        <TextView
-            android:id="@+id/first_start_gi_error"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/null_value"
-            android:textAlignment="textEnd"
-            android:textColor="@color/red"
-            android:textSize="12sp" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/border"
+                android:orientation="vertical"
+                android:paddingBottom="8dp"
+                android:paddingEnd="16dp"
+                android:paddingStart="16dp"
+                android:paddingTop="8dp">
 
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:paddingEnd="16dp"
-        android:paddingStart="16dp"
-        android:paddingTop="8dp"
-        android:paddingBottom="8dp">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/k_one"
-            android:textColor="@color/black"
-            android:textSize="16sp" />
-
-        <EditText
-            android:id="@+id/first_start_edit_k_one"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="numberDecimal"
-            android:textAlignment="textEnd" />
-
-        <TextView
-            android:id="@+id/first_start_k_one_error"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/null_value"
-            android:textAlignment="textEnd"
-            android:textColor="@color/red"
-            android:textSize="12sp" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/g_index"
+                    android:textColor="@color/black"
+                    android:textSize="16sp" />
 
 
-    </LinearLayout>
+                <EditText
+                    android:id="@+id/first_start_edit_gi"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:inputType="numberDecimal"
+                    android:textAlignment="textEnd" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/border"
-        android:orientation="vertical"
-        android:paddingEnd="16dp"
-        android:paddingStart="16dp"
-        android:paddingTop="8dp"
-        android:paddingBottom="8dp">
+                <TextView
+                    android:id="@+id/first_start_gi_error"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/null_value"
+                    android:textAlignment="textEnd"
+                    android:textColor="@color/red"
+                    android:textSize="12sp" />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/k_two"
-            android:textColor="@color/black"
-            android:textSize="16sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingBottom="8dp"
+                android:paddingEnd="16dp"
+                android:paddingStart="16dp"
+                android:paddingTop="8dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/k_one"
+                    android:textColor="@color/black"
+                    android:textSize="16sp" />
+
+                <EditText
+                    android:id="@+id/first_start_edit_k_one"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:inputType="numberDecimal"
+                    android:textAlignment="textEnd" />
+
+                <TextView
+                    android:id="@+id/first_start_k_one_error"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/null_value"
+                    android:textAlignment="textEnd"
+                    android:textColor="@color/red"
+                    android:textSize="12sp" />
 
 
-        <EditText
-            android:id="@+id/first_start_edit_k_two"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="numberDecimal"
-            android:textAlignment="textEnd" />
+            </LinearLayout>
 
-        <TextView
-            android:id="@+id/first_start_k_two_error"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/null_value"
-            android:textAlignment="textEnd"
-            android:textColor="@color/red"
-            android:textSize="12sp" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/border"
+                android:orientation="vertical"
+                android:paddingBottom="8dp"
+                android:paddingEnd="16dp"
+                android:paddingStart="16dp"
+                android:paddingTop="8dp">
 
-    </LinearLayout>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/k_two"
+                    android:textColor="@color/black"
+                    android:textSize="16sp" />
 
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginBottom="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginStart="16dp">
 
-        <Button
-            android:id="@+id/first_start_btn_save"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end|bottom"
-            android:paddingEnd="16dp"
-            android:paddingStart="16dp"
-            android:text="@string/save"
-            android:textColor="@color/colorPrimaryDark" />
+                <EditText
+                    android:id="@+id/first_start_edit_k_two"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:inputType="numberDecimal"
+                    android:textAlignment="textEnd" />
 
-    </FrameLayout>
+                <TextView
+                    android:id="@+id/first_start_k_two_error"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/null_value"
+                    android:textAlignment="textEnd"
+                    android:textColor="@color/red"
+                    android:textSize="12sp" />
+
+            </LinearLayout>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginStart="16dp">
+
+                <Button
+                    android:id="@+id/first_start_btn_save"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end|bottom"
+                    android:paddingEnd="16dp"
+                    android:paddingStart="16dp"
+                    android:text="@string/save"
+                    android:textColor="@color/colorPrimaryDark" />
+
+            </FrameLayout>
+        </LinearLayout>
+    </ScrollView>
 
 </LinearLayout>

@@ -55,13 +55,13 @@ public class CalculatorHistoryAdapter extends RecyclerView.Adapter<CalculatorHis
 
         VitalCharacteristic vitalCharacteristic = calculatedFood.getVitalCharacteristic();
 
-        holder.textViewValueHe.setText(String.format(locale, "%.2f", vitalCharacteristic.getHe()));
-        holder.textViewValueKone.setText(String.format(locale, "%.2f", vitalCharacteristic.getkOne()));
-        holder.textViewValueKtwo.setText(String.format(locale, "%.2f", vitalCharacteristic.getkTwo()));
-        holder.textViewValueGi.setText(String.format(locale, "%.2f", vitalCharacteristic.getGi()));
+        holder.textViewValueHe.setText(String.format(locale, "%.1f", vitalCharacteristic.getHe()));
+        holder.textViewValueKone.setText(String.format(locale, "%.1f", vitalCharacteristic.getkOne()));
+        holder.textViewValueKtwo.setText(String.format(locale, "%.1f", vitalCharacteristic.getkTwo()));
+        holder.textViewValueGi.setText(String.format(locale, "%.1f", vitalCharacteristic.getGi()));
         holder.textViewProducts.setText(textProducts);
-        holder.textViewHE.setText(String.format(locale, "%.2f", calculatedFood.getSumHe()));
-        holder.textViewInsulin.setText(String.format(locale, "%.2f", calculatedFood.getSumInsulin()));
+        holder.textViewHE.setText(String.format(locale, "%.1f", calculatedFood.getSumHe()));
+        holder.textViewInsulin.setText(String.format(locale, "%.1f", calculatedFood.getSumInsulin()));
         holder.textViewNum.setText(String.valueOf(calculatedFood.getId()));
         holder.textViewPartOfDay.setText(vitalCharacteristic.getName());
     }
