@@ -23,12 +23,12 @@
     <string name="back">Назад</string>
     <string name="compute">Расчитать</string>
     <string name="result">Итого</string>
-    <string name="b_j_y">Б/Ж/У</string>
+    <string name="b_j_y">Б/Ж/У (г)</string>
     <string name="kcal">Ккал</string>
     <string name="common_weight">Общий вес (г)</string>
-    <string name="sumInsulin">Инсулин</string>
+    <string name="sumInsulin">Инсулин (мг)</string>
     <string name="save">Сохранить</string>
-    <string name="bread_items">Хлебные единицы</string>
+    <string name="bread_items">Хлебные единицы (хе)</string>
     <string name="set_weight">Установите вес</string>
     <string name="add">добавить</string>
     <string name="amount">Кол-во</string>

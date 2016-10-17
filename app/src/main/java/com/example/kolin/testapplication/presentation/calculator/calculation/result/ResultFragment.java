@@ -179,7 +179,7 @@ public class ResultFragment extends Fragment implements ResultView {
         String textWeight = String.format(locale, "%.1f", calculatedFood.getSumWeight());
         String textInsulin = String.format(locale, "%.2f", calculatedFood.getSumInsulin());
 
-        textViewBJY.setText(sumBWeight + "/" + sumJWeight + "/" + sumYWeight + " г");
+        textViewBJY.setText(sumBWeight + "/" + sumJWeight + "/" + sumYWeight);
         textViewHE.setText(textHe);
         textViewWeight.setText(textWeight);
         textViewInsulin.setText(textInsulin);

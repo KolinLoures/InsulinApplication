@@ -51,8 +51,8 @@ public class CalculationActivity extends AppCompatActivity implements
 
 
     private void setupPagerAdapter() {
-        pagerAdapter.addFragment(ListCalculatorFragment.newInstance());
         pagerAdapter.addFragment(ResultFragment.newInstance((Long) getIntent().getSerializableExtra("id")));
+        pagerAdapter.addFragment(ListCalculatorFragment.newInstance());
         viewPager.setAdapter(pagerAdapter);
         inkPageIndicator.setViewPager(viewPager);
     }

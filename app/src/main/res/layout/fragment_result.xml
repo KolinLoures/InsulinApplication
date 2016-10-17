@@ -106,7 +106,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
-                android:text="0/0/0 г" />
+                android:text="0/0/0" />
         </FrameLayout>
 
         <FrameLayout
@@ -127,7 +127,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
-                android:text="200 г" />
+                android:text="200" />
         </FrameLayout>
 
         <FrameLayout
@@ -148,7 +148,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
-                android:text="200 г" />
+                android:text="200" />
         </FrameLayout>
 
         <FrameLayout
@@ -163,7 +163,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
-                android:text="200 г"
+                android:text="200"
                 android:textColor="@color/red" />
 
             <TextView
