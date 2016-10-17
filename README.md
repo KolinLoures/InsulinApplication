@@ -11,7 +11,7 @@
 3. Внесение расчетных показателей (ХЕ, K1, K2, ГИ);
 
 
-## ScreenShot
+## ScreenShots
 
 ![](https://github.com/KolinLoures/InsulinApplication/blob/master/screenshots/Screenshot_1476722360.png?raw=true)
 ![](https://github.com/KolinLoures/InsulinApplication/blob/master/screenshots/Screenshot_1476722410.png?raw=true)
