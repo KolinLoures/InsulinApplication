@@ -73,5 +73,6 @@
     <string name="insulin_app_version">Версия Insulin App:</string>
     <string name="contacts">Контакты</string>
     <string name="kolinloures_gmail_com">kolinloures@gmail.com</string>
+    <string name="diary">Дневник</string>
 
 </resources>

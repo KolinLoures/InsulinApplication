@@ -5,7 +5,7 @@
             android:id="@+id/calculator_item"
             android:checked="true"
             android:icon="@drawable/ic_local_hospital_black_24dp"
-            android:title="@string/calculator" />
+            android:title="@string/diary" />
         <item
             android:id="@+id/product_item"
             android:icon="@drawable/ic_view_headline_black_24dp"

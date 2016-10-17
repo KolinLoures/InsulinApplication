@@ -130,7 +130,7 @@ public class MainActivity extends AppCompatActivity implements
 
     private void setActionBar() {
         setSupportActionBar(toolbar);
-        setTitle(R.string.calculator);
+        setTitle(R.string.diary);
 
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
